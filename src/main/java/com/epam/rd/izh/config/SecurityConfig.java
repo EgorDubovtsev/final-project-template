@@ -43,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          * /webapp/images
          * /webapp/fonts
          */
-        .antMatchers("/css/**").permitAll()
+        .antMatchers("/src/css/**").permitAll()
         .antMatchers("/js/**").permitAll()
-        .antMatchers("/images/**").permitAll()
+        .antMatchers("/img/**").permitAll()
         .antMatchers("/fonts/**").permitAll()
 
         /**

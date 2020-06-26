@@ -8,7 +8,7 @@ package com.epam.rd.izh.util;
  */
 public class StringConstants {
 
-  public static final String RUS_GREETING = "Привет, ";
-  public static final String ENG_GREETING = "Hello, ";
+  public static final String RUS_GREETING = "Пользователь ";
+  public static final String ENG_GREETING = "USER: ";
 
 }

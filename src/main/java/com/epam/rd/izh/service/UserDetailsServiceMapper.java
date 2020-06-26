@@ -39,7 +39,7 @@ public class UserDetailsServiceMapper implements UserDetailsService {
 
     AuthorizedUser authorizedUserDto = userRepository.getAuthorizedUserByLogin(login);
     Set<GrantedAuthority> roles = new HashSet<>();
-    roles.add(new SimpleGrantedAuthority(authorizedUserDto.getRole()));
+    roles.add(new SimpleGrantedAuthority((authorizedUserDto.getRole()).toString()));
 
     return new User(
         authorizedUserDto.getLogin(),

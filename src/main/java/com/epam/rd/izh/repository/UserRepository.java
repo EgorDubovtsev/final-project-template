@@ -1,11 +1,15 @@
 package com.epam.rd.izh.repository;
 
+import com.epam.rd.izh.entity.Administrator;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.epam.rd.izh.entity.Role;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,7 +23,8 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class UserRepository {
+public class UserRepository {//pass :1
+  private final AuthorizedUser ADMIN = new AuthorizedUser("admin","$2a$10$n.QaCWAS19vlVzA4ylby0ebvQEUKPVysfkU2DEKakcqaVOoVTOzZW", Role.USER);
   private final List<AuthorizedUser> users = new ArrayList<>();
 
   /**
@@ -35,6 +40,10 @@ public class UserRepository {
 
   @Nullable
   public AuthorizedUser getAuthorizedUserByLogin(@Nonnull String login) {
+    System.out.println("TEST"+ ADMIN.toString());
+  /** password must be encrypted*/
+    users.add(ADMIN);// get out of here
+    System.out.println(users);
     return users.stream()
         .filter(value -> value.getLogin().equals(login))
         .findFirst().orElse(null);
@@ -42,6 +51,7 @@ public class UserRepository {
 
   public boolean addAuthorizedUser(@Nullable AuthorizedUser user) {
     if (user != null) {
+      System.out.println(user);
       users.add(user);
       return true;
     }

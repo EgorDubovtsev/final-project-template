@@ -1,6 +1,5 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.entity.Administrator;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.entity.Role;
 import com.epam.rd.izh.repository.UserRepository;
@@ -85,16 +84,16 @@ public class AuthenticationController {
         return "cart";
 
     }
-//
-//    @GetMapping("/createBook")
-//    public String viewCreateBook(Model model) {//todo: make only for admin
+
+    @GetMapping("/createBook")
+    public String viewCreateBook(Model model) {//todo: make only for admin
 //        if (model.containsAttribute("administrator")) {
-//            return "createBook";
-////      model.addAttribute("administrator", new Administrator());
+            return "createBook";
+
 //        }
 //        return "/";
-//
-//    }
+
+    }
 
 
     /**

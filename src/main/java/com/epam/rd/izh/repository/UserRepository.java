@@ -1,13 +1,13 @@
 package com.epam.rd.izh.repository;
 
-import com.epam.rd.izh.entity.Administrator;
+import com.epam.rd.izh.dao.AuthorizedUserDao;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.PostConstruct;
 
 import com.epam.rd.izh.entity.Role;
 import org.springframework.stereotype.Repository;
@@ -24,8 +24,20 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepository {//pass :1
-  private final AuthorizedUser ADMIN = new AuthorizedUser("admin","$2a$10$n.QaCWAS19vlVzA4ylby0ebvQEUKPVysfkU2DEKakcqaVOoVTOzZW", Role.USER);
-  private final List<AuthorizedUser> users = new ArrayList<>();
+//  private final AuthorizedUser ADMIN = new AuthorizedUser("admin","$2a$10$n.QaCWAS19vlVzA4ylby0ebvQEUKPVysfkU2DEKakcqaVOoVTOzZW", Role.USER);
+  private AuthorizedUserDao authorizedUserDao;
+  private  List<AuthorizedUser> users;
+
+  @PostConstruct
+  public void init(){
+    System.out.println("POST CONSTRUCT");
+    users = authorizedUserDao.getUsersList();
+    System.out.println(users);
+  }
+
+  public UserRepository(AuthorizedUserDao authorizedUserDao) {
+    this.authorizedUserDao = authorizedUserDao;
+  }
 
   /**
    * В данном методе использована библиотека Stream API:
@@ -40,10 +52,10 @@ public class UserRepository {//pass :1
 
   @Nullable
   public AuthorizedUser getAuthorizedUserByLogin(@Nonnull String login) {
-    System.out.println("TEST"+ ADMIN.toString());
+//    System.out.println("TEST"+ ADMIN.toString());
   /** password must be encrypted*/
-    users.add(ADMIN);// get out of here
-    System.out.println(users);
+//    users.add(ADMIN);// get out of here
+    System.out.println("1 "+users);
     return users.stream()
         .filter(value -> value.getLogin().equals(login))
         .findFirst().orElse(null);

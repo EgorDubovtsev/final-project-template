@@ -19,21 +19,25 @@
 	<div class="wallpaper"></div>
 	<div class="userMenu">
 		<span class="name">
-		<c:if test="${admin}">
-            <span>admin</span>
-		  </c:if>
+		<c:if test="${admin != null}">
+            <form action="/createBook" method="get">
+                <button>Создать книгу</button>
+            </form>
+		</c:if>
       ${message}
 		</span>
 		<form action="/logout" method="post" class="exit">
 			<button>Log Out</button>
 		</form>
 	</div>
-	<a href="cart.html">
-		<div class="cart">
-			<span class="itemCouter">0</span>
-			<span class="icon-cart"></span>
-		</div>
-	</a>
+	<span>
+		<form action="/cart" class="cart">
+            <button class="link">
+                <span class="itemCouter">0</span>
+                <span class="icon-cart"></span>
+            </button>
+		</form>
+	</span>
 	<div class="mainName">Book Shop</div>
 	<form class="search">
 		<input type="text" placeholder="Название книги" name="search" id="searchLine">
@@ -60,7 +64,7 @@
 	</div>
 
 	<div id="windowBack" class="windowBack"></div>
-	<div id="window" class="window">
+	<form  method="get" id="window" class="window"><%--action="/?addToCart=true"--%>
 		<div id="closeWindow" class="closeWindow">
 			<a onclick="closeWindow()" href="#">X</a>
 		</div>
@@ -75,9 +79,9 @@
 			<div class="price">
 				<span>1000</span>руб.
 			</div>
-			<a class="btn">Добавить в корзину</a>
+			<button class="btn">Добавить в корзину</button>
 		</div>
-	</div>
+	</form>
 	<div class="allBooks">
 		<div class="space"></div>
 		<div class="booksList">

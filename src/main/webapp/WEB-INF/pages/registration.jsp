@@ -21,8 +21,11 @@
 			 <form:input path="login" id="check_login" class="filterField regImpt" placeholder="Логин" title="Login" />
 			<form:input path="password" id="check_password" class="filterField regImpt" placeholder="Пароль"  type="password" title="Password" />
 			<button class="btn regBtn">Зарегестрироваться</button>
-			<a href="login.html" class="haveAcc"> Уже есть аккаунт?</a>
+
 		</form:form>
+		<form:form action="/login" method="get">
+        	<button> Уже есть аккаунт?</button>
+        </form:form>
 	</div>
 </div>
 </body>

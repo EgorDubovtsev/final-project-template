@@ -22,11 +22,13 @@
 			<a href="#">Log Out</a>
 		</div>
 	</div>
-	<a href="index.html">
-		<div class="toShop">
-			<span class="icon-home"></span>
-		</div>
-	</a>
+	<form action="/" method="get">
+
+            <button class="link toShop">
+                <span class="icon-home"></span>
+            </button>
+
+	</form>
 	<div class="cartName">Добавить новую книгу</div>
 	<div class="cartListOuter">
 		<form class="cartListInner">

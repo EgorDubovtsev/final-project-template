@@ -1,5 +1,7 @@
 package com.epam.rd.izh.entity;
 
+import java.util.Date;
+
 /**
  * Сущность пользователя, содержит данные(credentials), необходимые для авторизации в Spring Web приложении; Может
  * быть использована как часть бизнес логики приложеняи, например сотрудник больницы, где role определяет его
@@ -14,15 +16,9 @@ public class AuthorizedUser {
 
     private String login;
     private String password;
-
-    /**
-     * Определяет GrantedAuthority пользователя. Может быть колелкцией, например Set<Strings> если логика приложения
-     * подразумевает множество ролей и их комбинацию в пределах одного пользователя.
-     * Хорошим решением будет хранить роль в таблице БД, также допускается использовать ENUM класс в пакете utils.
-     * Если роль для бизнес-логики не важна, можно задать для всех объектов 'private String role = "User"'.
-     */
-
+    private String name;
     private Role role;
+    private Date birthdate;
 
     public String getLogin() {
         return login;
@@ -40,6 +36,14 @@ public class AuthorizedUser {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -48,15 +52,21 @@ public class AuthorizedUser {
         this.role = role;
     }
 
-
-    public AuthorizedUser(String login, String password, Role role) {
-        this.login = login;
-        this.password = password;
-        this.role = role;
+    public Date getBirthdate() {
+        return birthdate;
     }
 
-    public AuthorizedUser() {
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
+
+    /**
+     * Определяет GrantedAuthority пользователя. Может быть колелкцией, например Set<Strings> если логика приложения
+     * подразумевает множество ролей и их комбинацию в пределах одного пользователя.
+     * Хорошим решением будет хранить роль в таблице БД, также допускается использовать ENUM класс в пакете utils.
+     * Если роль для бизнес-логики не важна, можно задать для всех объектов 'private String role = "User"'.
+     */
+
 
     /**
      * Ниже представлена простая реализация паттерна builder;

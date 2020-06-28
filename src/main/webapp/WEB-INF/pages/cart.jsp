@@ -18,11 +18,11 @@
 		<div class="name"><a href="#">User 1</a></div>
 		<div class="exit"><a href="#">Log Out</a></div>
 	</div>
-	<a href="index.html">
-		<div class="toShop">
+	<form action="/" method="get">
+		<button class="link toShop">
 			<span class="icon-home"></span>
-		</div>
-	</a>
+		</button>
+	</form>
 	<div class="cartName">Корзина</div>
 	<div id="windowBack" class="windowBack"></div>
 	<div id="window" class="window">

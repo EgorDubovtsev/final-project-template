@@ -21,7 +21,7 @@
 			<input type="submit" href="#" class="btn regBtn" value="Войти" />
 		</form>
 		<form action="registration" method="get">
-        	<input type="submit" href="registration.html" class="haveAcc" value="Еще нет аккаунта?">
+        	<input type="submit" href="registration.html" class="link haveAcc" value="Еще нет аккаунта?">
         </form>
 	</div>
 </div>

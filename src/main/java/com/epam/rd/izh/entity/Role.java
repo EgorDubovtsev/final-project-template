@@ -2,7 +2,7 @@ package com.epam.rd.izh.entity;
 
 public enum Role {
     USER,
-    ADMIN;
+    MANAGER;
 
 
     public String toString(Role role) {

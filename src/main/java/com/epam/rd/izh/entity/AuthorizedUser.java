@@ -1,5 +1,6 @@
 package com.epam.rd.izh.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -12,51 +13,61 @@ import java.util.Date;
  * наличие совпадений с уже существующими.
  */
 
-public class AuthorizedUser {
+public class AuthorizedUser implements User {
 
     private String login;
     private String password;
     private String name;
     private Role role;
-    private Date birthdate;
+    private LocalDate birthdate;
 
+    @Override
     public String getLogin() {
         return login;
     }
 
+    @Override
     public void setLogin(String login) {
         this.login = login;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
 
+    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public Role getRole() {
         return role;
     }
 
+    @Override
     public void setRole(Role role) {
         this.role = role;
     }
 
-    public Date getBirthdate() {
+    @Override
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    @Override
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -73,17 +84,17 @@ public class AuthorizedUser {
      * Паттерн builder рекомендуется использовать в DTO или часто создаваемых Entity объектах для лаконичности кода;
      * Реализация паттерна builder может быть легко добавлена при помощи библиотеки Lombok.
      */
-
+    @Override
     public AuthorizedUser login(String login) {
         this.setLogin(login);
         return this;
     }
-
+    @Override
     public AuthorizedUser password(String password) {
         this.setPassword(password);
         return this;
     }
-
+    @Override
     public AuthorizedUser role(Role role) {
         this.setRole(role);
         return this;
@@ -94,7 +105,9 @@ public class AuthorizedUser {
         return "AuthorizedUser{" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
                 ", role=" + role +
+                ", birthdate=" + birthdate +
                 '}';
     }
 }

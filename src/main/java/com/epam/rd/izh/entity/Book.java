@@ -1,4 +1,4 @@
-package com.epam.rd.izh.dto;
+package com.epam.rd.izh.entity;
 
 public class Book {
     private long id;
@@ -57,8 +57,8 @@ public class Book {
     }
 
     public Book(long id, String name,
-                String author, int publishYear,
-                double price, String description) {
+                   String author, int publishYear,
+                   double price, String description) {
 
         this.id = id;
         this.name = name;

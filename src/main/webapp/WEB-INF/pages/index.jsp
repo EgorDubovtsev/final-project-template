@@ -24,7 +24,7 @@
                 <button>Создать книгу</button>
             </form>
 		</c:if>
-      ${message}
+      ${name}
 		</span>
 		<form action="/logout" method="post" class="exit">
 			<button>Log Out</button>

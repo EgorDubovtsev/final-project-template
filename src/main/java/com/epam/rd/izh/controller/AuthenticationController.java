@@ -1,7 +1,8 @@
 package com.epam.rd.izh.controller;
 
+import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
-import com.epam.rd.izh.entity.Role;
+import com.epam.rd.izh.mappers.AuthorizedUserMapper;
 import com.epam.rd.izh.repository.UserRepository;
 
 import javax.validation.Valid;
@@ -28,7 +29,8 @@ public class AuthenticationController {
 
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    AuthorizedUserMapper authorizedUserMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -100,9 +102,8 @@ public class AuthenticationController {
      * Метод, отвечающий за подтверждение регистрации пользователя и сохранение данных в репозиторий или DAO.
      */
     @PostMapping("/registration/proceed")
-    public String processRegistration(@Valid @ModelAttribute("registrationForm") AuthorizedUser registeredUser,
+    public String processRegistration(@Valid @ModelAttribute("registrationForm") RegistredUserDTO registeredUser,
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
         /**
          * Здесь по желанию можно добавить валидацию введенных данных на back-end слое.
          * Для этого необходимо написать реализацию Validator.
@@ -122,14 +123,18 @@ public class AuthenticationController {
          * registeredUser может быть DTO объектом, преобразуемым в AuthorizedUser сущность в сервисе-маппере
          * (эот сервис нужно написать самим), вместе с присвоением роли и шифрованием пароля.
          */
-        registeredUser.setRole(Role.USER);
-        registeredUser.setPassword(passwordEncoder.encode(registeredUser.getPassword()));
+        if(userRepository.getAuthorizedUserByLogin(registeredUser.getName())!=null){
+//            return null;
+            //TODO:SHOW ERROR MESSAGE
+        }
+        AuthorizedUser authorizedUser= authorizedUserMapper.mapFromDto(registeredUser);
+        authorizedUser.setPassword(passwordEncoder.encode(registeredUser.getPassword()));
 
         /**
          * Добавление пользователя в репозиторий или в базу данных через CRUD операции DAO.
          * Рекомендуется вынести эту логику на сервисный слой.
          */
-        userRepository.addAuthorizedUser(registeredUser);
+        userRepository.addAuthorizedUser(authorizedUser);
         /**
          * В случае успешной регистрации редирект можно настроить на другой энд пойнт.
          */

@@ -26,10 +26,13 @@ public class BooksDao implements Dao {
                 +bookDTO.getDescription()+"','"
                 +bookDTO.getPrice()
                 +"','"+bookDTO.getAuthor()+"');";
-        String addBookGenre= "INSERT INTO books_genres VALUES('"
+
+        String sqlAddBookGenre= "INSERT INTO books_genres VALUES('"
                 +bookDTO.getName()+"','"
                 +bookDTO.getGenre()+"');";
-        return jdbcTemplate.update(sqlAddBook+addBookGenre);
+        System.out.println(sqlAddBook+"  "+ sqlAddBookGenre);
+        jdbcTemplate.update(sqlAddBook);
+        return jdbcTemplate.update(sqlAddBookGenre);
     }
 
     public BookDTO getBookByName(String name){

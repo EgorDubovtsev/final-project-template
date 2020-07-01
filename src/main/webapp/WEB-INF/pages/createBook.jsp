@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
 	<title>Book Shop</title>
@@ -31,35 +32,46 @@
 	</form>
 	<div class="cartName">Добавить новую книгу</div>
 	<div class="cartListOuter">
-		<form class="cartListInner">
+		<form:form class="cartListInner" action="/createBook/proceed" method="post" modelAttribute="createBookForm" >
 			<div class="paramBook">
 				<label>Название: </label>
-				<input type="text" maxlength="50" class="filterField" name="bookNameCreate">
+				<form:input type="text" maxlength="50" class="filterField" path="name"/>
 			</div>
 			<div class="paramBook">
 				<label>Автор: </label>
-				<input type="text" maxlength="30"class="filterField" name="bookAuthorCreate">
+				<form:input type="text" maxlength="30" class="filterField" path="author"/>
 			</div>
 			<div class="paramBook">
+				<label>Жанр: </label>
+				<form:select class="select" path="genre">
+					<option value="null" selected>Выберите жанр</option>
+					<option value="Детектив">Детектив</option>
+					<option value="Роман">Роман</option>
+					<option value="Драмма">Драмма</option>
+					<option value="Научная фантастика">Научная фантастика</option>
+				</form:select>
+			</div>			
+				
+			<div class="paramBook">
 				<label>Год Издания: </label>
-				<input type="number" class="filterField" name="bookYearCreate">
+				<form:input type="number" class="filterField" path="publishYear"/>
 			</div>
 			<div class="paramBook">
 				<label>Цена: </label>
-				<input type="number" class="filterField" name="priceCreate">
+				<form:input type="number" class="filterField" path="price"/>
 			</div>
 			<div class="paramBook">
 				<label>Описание: </label>
-				<textarea name="description" maxlength="200" class="descCreate"></textarea>
+				<form:textarea path="description" maxlength="200" class="bookDescription" ></form:textarea>
 			</div>
-			<div class="paramBook">
+			<%--<div class="paramBook">
 				<label>Изображение </label>
-				<input type="file" class=" fileInput" name="priceCreate">
-			</div>
+				<input type="file" class=" fileInput" title="bookImage">
+			</div>--%>
 			<div class="saveWrapper">
-				<a href="#" class="btn saveBtn">Сохранить</a>
+				<button class="btn saveBtn">Сохранить</button>
 			</div>
-		</form>
+		</form:form>
 	</div>
 </body>
 </html>

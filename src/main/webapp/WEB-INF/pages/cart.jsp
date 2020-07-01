@@ -34,7 +34,7 @@
 		</button>
 	</form>
 	<div class="cartName">Корзина</div>
-	<%-- TODO: here popup--%>
+	<%-- TODO: here popup(disabled add to cart button)--%>
 	<div class="cartListOuter">
 		<div class="cartListInner">
 		<c:forEach items="${booksInTheCart}" var="book">

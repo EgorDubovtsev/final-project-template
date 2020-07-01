@@ -48,6 +48,10 @@ input:focus, select:focus{
 	width: 100%;
 	height: 100px;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 @font-face {
   font-family: 'icomoon';
   src:  url('../icon/icomoon.eot?y7fg4i');
@@ -232,6 +236,10 @@ input::-webkit-inner-spin-button {
 .filterField{
 	font-size: 20px;
 	width: 200px;
+}
+.select{
+	font-size: 20px;
+	width: 210px;
 }
 .searchResults{
 	display: none;

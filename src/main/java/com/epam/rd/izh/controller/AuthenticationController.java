@@ -3,6 +3,7 @@ package com.epam.rd.izh.controller;
 import com.epam.rd.izh.dao.CartDao;
 import com.epam.rd.izh.dto.BookDTO;
 import com.epam.rd.izh.dto.BookInCart;
+import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
@@ -112,6 +113,9 @@ public class AuthenticationController {
 
     @GetMapping("/createBook")
     public String viewCreateBook(Model model) {
+        if (!model.containsAttribute("createBookForm")) {
+            model.addAttribute("createBookForm", new CreatedBookImpl());
+        }
         String role = userPriority.checkPriority();
         return role.equals("MANAGER") ? "createBook" : "/";
 

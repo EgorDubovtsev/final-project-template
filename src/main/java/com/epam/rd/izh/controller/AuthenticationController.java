@@ -1,12 +1,19 @@
 package com.epam.rd.izh.controller;
 
+import com.epam.rd.izh.dao.CartDao;
+import com.epam.rd.izh.dto.BookDTO;
+import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
+import com.epam.rd.izh.mappers.BookMapper;
 import com.epam.rd.izh.repository.UserRepository;
 
 import javax.validation.Valid;
 
+import com.epam.rd.izh.service.Converter;
+import com.epam.rd.izh.service.UserPriority;
+import com.epam.rd.izh.service.UserPriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +24,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * В аргументы контроллеров, которые обрабатывают запросы, можно указать дополнительные входные параметры: Например:
@@ -33,6 +43,14 @@ public class AuthenticationController {
     AuthorizedUserMapper authorizedUserMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    UserPriority userPriority;
+    @Autowired
+    BookMapper bookMapper;
+    @Autowired
+    CartDao cartDao;
+    @Autowired
+    Converter converter;
 
     /**
      * Метод, отвечающий за логику авторизации пользователя.
@@ -70,32 +88,39 @@ public class AuthenticationController {
         }
         return "registration";
     }
+
     @GetMapping("/logout")
     public String viewLogout(Model model) {
 
-            model.addAttribute("registrationForm", null);
+        model.addAttribute("registrationForm", null);
 
         return "login";
     }
 
     @GetMapping("/cart")
-    public String viewCart(Model model) {
-        if (!model.containsAttribute("registrationForm")) {
+    public String viewCart(Model model, String login) {
+        if (!model.containsAttribute("registrationForm")) {//TODO:Check, is that necessary or not
             model.addAttribute("registrationForm", new AuthorizedUser());
         }
+        model.addAttribute("name",login);
+        List<BookDTO> booksInTheCart =  cartDao.getCartByLogin(login).stream().map(bookInCart ->converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
+        model.addAttribute("booksInTheCart",booksInTheCart);
+        System.out.println(booksInTheCart);
         return "cart";
 
     }
 
     @GetMapping("/createBook")
-    public String viewCreateBook(Model model) {//todo: make only for admin
-//        if (model.containsAttribute("administrator")) {
-            return "createBook";
-
-//        }
-//        return "/";
+    public String viewCreateBook(Model model) {
+        String role = userPriority.checkPriority();
+        return role.equals("MANAGER") ? "createBook" : "/";
 
     }
+
+//    @GetMapping("/error")
+//    public String viewError(Model model) {
+//        return "error";
+//    }
 
 
     /**
@@ -123,11 +148,11 @@ public class AuthenticationController {
          * registeredUser может быть DTO объектом, преобразуемым в AuthorizedUser сущность в сервисе-маппере
          * (эот сервис нужно написать самим), вместе с присвоением роли и шифрованием пароля.
          */
-        if(userRepository.getAuthorizedUserByLogin(registeredUser.getName())!=null){
+        if (userRepository.getAuthorizedUserByLogin(registeredUser.getName()) != null) {
 //            return null;
             //TODO:SHOW ERROR MESSAGE
         }
-        AuthorizedUser authorizedUser= authorizedUserMapper.mapFromDto(registeredUser);
+        AuthorizedUser authorizedUser = authorizedUserMapper.mapFromDto(registeredUser);
         authorizedUser.setPassword(passwordEncoder.encode(registeredUser.getPassword()));
 
         /**
@@ -135,6 +160,7 @@ public class AuthenticationController {
          * Рекомендуется вынести эту логику на сервисный слой.
          */
         userRepository.addAuthorizedUser(authorizedUser);
+        System.out.println("REGIST");
         /**
          * В случае успешной регистрации редирект можно настроить на другой энд пойнт.
          */

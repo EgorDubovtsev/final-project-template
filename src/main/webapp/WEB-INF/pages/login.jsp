@@ -15,7 +15,7 @@
 	<div class="logWindow">
 		<form class="regFields" action="login/process" method="post">
 			<h3>Укажите данные для входа</h3>
-			<input class="filterField regImpt" placeholder="Логин" type="text" name="login">
+			<input class="filterField regImpt" placeholder="Логин" authentication-success-handler-ref="fullyAccessHandlerService" type="text" name="login">
 			<input class="filterField regImpt" placeholder="Пароль" type="password" name="password">
 			<div class="error">${error_login_placeholder}</div>
 			<input type="submit" href="#" class="btn regBtn" value="Войти" />

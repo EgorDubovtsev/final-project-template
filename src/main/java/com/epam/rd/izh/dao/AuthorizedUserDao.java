@@ -20,26 +20,23 @@ public class AuthorizedUserDao implements Dao {
      * TODO: add more methods
      */
 
-    public AuthorizedUser getUserByLogin(String login) {
-        //TODO: TEST ME
-        String sql = "SElECT * FROM users WHERE LOGIN=?";
-        return jdbcTemplate.queryForObject(sql, authorizedUserMapper);
-    }
 
     @Override
     public List<AuthorizedUser> getList() {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users full join authorized_data on users.login=authorized_data.login";
         return jdbcTemplate.query(sql, authorizedUserMapper);
     }
 
     public int registrateUser(AuthorizedUser authorizedUser) {
-        String sql = "INSERT INTO USERS (name, birthdate, login, password, role) VALUES ('"
+        String sqlInsertIntoUsers = "INSERT INTO USERS (user_name,login, birthdate, role) VALUES ('"
+                + authorizedUser.getLogin() + "','"
                 + authorizedUser.getName() + "','"
                 + authorizedUser.getBirthdate() + "','"
-                + authorizedUser.getLogin() + "','"
-                + authorizedUser.getPassword() + "','"
                 + authorizedUser.getRole() + "');";
-        return jdbcTemplate.update(sql);
+        String sqlInsertIntoAuthorizedData = "INSERT INTO authorized_data values('"
+                +authorizedUser.getLogin()+"','"+authorizedUser.getPassword()+"');";
+        jdbcTemplate.update(sqlInsertIntoUsers);
+        return jdbcTemplate.update(sqlInsertIntoAuthorizedData);
     }
 
 }

@@ -16,17 +16,12 @@ public interface User {
 
     public void setName(String name);
 
-    public Role getRole();
+    public String getRole();
 
-    public void setRole(Role role);
+    public void setRole(String role);
 
     public LocalDate getBirthdate();
 
     public void setBirthdate(LocalDate birthdate);
 
-    public AuthorizedUser login(String login);
-
-    public AuthorizedUser password(String password);
-
-    public AuthorizedUser role(Role role);
 }

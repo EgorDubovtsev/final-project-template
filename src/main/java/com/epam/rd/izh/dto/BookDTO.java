@@ -1,20 +1,12 @@
 package com.epam.rd.izh.dto;
 
 public class BookDTO {
-    private long id;
     private String name;
     private String author;
     private int publishYear;
     private double price;
     private String description;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    private String genre;
 
     public String getName() {
         return name;
@@ -56,16 +48,12 @@ public class BookDTO {
         this.description = description;
     }
 
-    public BookDTO(long id, String name,
-                   String author, int publishYear,
-                   double price, String description) {
+    public String getGenre() {
+        return genre;
+    }
 
-        this.id = id;
-        this.name = name;
-        this.author = author;
-        this.publishYear = publishYear;
-        this.price = price;
-        this.description = description;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public BookDTO() {

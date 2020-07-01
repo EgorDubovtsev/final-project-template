@@ -14,11 +14,10 @@ import java.util.Date;
  */
 
 public class AuthorizedUser implements User {
-
     private String login;
     private String password;
     private String name;
-    private Role role;
+    private String role;
     private LocalDate birthdate;
 
     @Override
@@ -52,12 +51,12 @@ public class AuthorizedUser implements User {
     }
 
     @Override
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
     @Override
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -84,21 +83,7 @@ public class AuthorizedUser implements User {
      * Паттерн builder рекомендуется использовать в DTO или часто создаваемых Entity объектах для лаконичности кода;
      * Реализация паттерна builder может быть легко добавлена при помощи библиотеки Lombok.
      */
-    @Override
-    public AuthorizedUser login(String login) {
-        this.setLogin(login);
-        return this;
-    }
-    @Override
-    public AuthorizedUser password(String password) {
-        this.setPassword(password);
-        return this;
-    }
-    @Override
-    public AuthorizedUser role(Role role) {
-        this.setRole(role);
-        return this;
-    }
+
 
     @Override
     public String toString() {
@@ -106,7 +91,7 @@ public class AuthorizedUser implements User {
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-                ", role=" + role +
+                ", role='" + role + '\'' +
                 ", birthdate=" + birthdate +
                 '}';
     }

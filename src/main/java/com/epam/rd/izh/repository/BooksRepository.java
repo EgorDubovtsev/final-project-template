@@ -1,20 +1,32 @@
 package com.epam.rd.izh.repository;
 
-import com.epam.rd.izh.entity.Book;
+import com.epam.rd.izh.dao.BooksDao;
+import com.epam.rd.izh.dto.BookDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
+import javax.annotation.Nullable;
 import java.util.List;
 
 @Component
 public class BooksRepository implements IBooksRepository {
-    private  List<Book> bookList = new ArrayList<>();
+    @Autowired
+    BooksDao booksDao;
 
-    public List<Book> getBooksList(){
-        bookList.add(new Book(1212312,"TEST","Bob ralph",1999,1200.0,"dsdf"));
-        return bookList;
+    public List<BookDTO> getBooksList() {
+        return booksDao.getList();
     }
-    public void addBook(Book book){
-        bookList.add(book);
+
+    public boolean addBook(@Nullable BookDTO book) {
+        if (book != null) {
+            booksDao.addBook(book);
+            return true;
+        }
+        return false;
+    }
+
+    public BookDTO findByName(String name) {
+        return getBooksList().stream().filter(bookName -> bookName.getName().equals(name))
+                .findFirst().orElse(null);
     }
 }

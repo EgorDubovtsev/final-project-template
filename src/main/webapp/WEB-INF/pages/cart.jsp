@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <html>
@@ -14,9 +15,18 @@
 </head>
 <body>
 <div class="wallpaper"></div>
-	<div class="userMenu">
-		<div class="name"><a href="#">User 1</a></div>
-		<div class="exit"><a href="#">Log Out</a></div>
+		<div class="userMenu">
+		<span class="name">
+		<c:if test="${admin != null}">
+            <form action="/createBook" method="get">
+                <button>Создать книгу</button>
+            </form>
+		</c:if>
+      ${name}
+		</span>
+		<form action="/logout" method="post" class="exit">
+			<button>Log Out</button>
+		</form>
 	</div>
 	<form action="/" method="get">
 		<button class="link toShop">
@@ -24,76 +34,32 @@
 		</button>
 	</form>
 	<div class="cartName">Корзина</div>
-	<div id="windowBack" class="windowBack"></div>
-	<div id="window" class="window">
-		<div id="closeWindow" class="closeWindow"><a onclick="closeWindow()" href="#">X</a></div>
-		<div class="bookPictureInWindow">
-			<img src="img/book.jpg" class="bookPicture" />
-		</div>
-		<div class="bookDescription">
-			<h3 class="bookName">Название книги</h3>
-			<p class="descElement">Автор: <span>Аристотель</span></p>
-			<p class="descElement">Год издания: <span>1999</span></p>
-			<p class="descElement sml">Не следует, однако забывать, что начало повседневной работы по формированию позиции позволяет выполнять важные задания по разработке позиций, занимаемых участниками в отношении поставленных задач. Равным образом дальнейшее развитие различных форм деятельности играет важную роль в формировании модели развития. Не следует, однако забывать, что укрепление и развитие структуры позволяет оценить значение модели развития.</p>
-			<div class="price">
-				<span>1000</span>руб.
-			</div>
-			<a class="btn">Добавить в корзину</a>
-		</div>
-	</div>
+	<%-- TODO: here popup--%>
 	<div class="cartListOuter">
 		<div class="cartListInner">
-			<div class="bookInCart">
-				<div class="picBookInCart">
-					<img class="bookPicture" src="img/book.jpg"/>
-				</div>
-				<div class="bookNameInCart">Nicomachean Ethics – Aristotle</div>
-				<a class="delFromCart" href="#">X</a>
-				<div class="priceWrapper">
-					<div class="priceInCart">
-						<span>1999</span>руб.
-					</div>
-				</div>
-			</div>
-			<div class="bookInCart">
-				<div class="picBookInCart">
-					<img class="bookPicture" src="img/book.jpg"/>
-				</div>
-				<div class="bookNameInCart">Nicomachean Ethics – Aristotle</div>
-				<a class="delFromCart" href="#">X</a>
-				<div class="priceWrapper">
-					<div class="priceInCart">
-						<span>1999</span>руб.
-					</div>
-				</div>
-			</div>
-			<div class="bookInCart">
-				<div class="picBookInCart">
-					<img class="bookPicture" src="img/book.jpg"/>
-				</div>
-				<div class="bookNameInCart">Nicomachean Ethics – Aristotle</div>
-				<a class="delFromCart" href="#">X</a>
-				<div class="priceWrapper">
-					<div class="priceInCart">
-						<span>1999</span>руб.
-					</div>
-				</div>
-			</div>
-			<div class="bookInCart">
-				<div class="picBookInCart">
-					<img class="bookPicture" src="img/book.jpg"/>
-				</div>
-				<div class="bookNameInCart">Nicomachean Ethics – Aristotle</div>
-				<a class="delFromCart" href="#">X</a>
-				<div class="priceWrapper">
-					<div class="priceInCart">
-						<span>1999</span>руб.
-					</div>
-				</div>
-			</div>
+		<c:forEach items="${booksInTheCart}" var="book">
+			<form>
+				<button class="link bookInCart" name="open" value="${book.getName()}">
+				
+						<div class="picBookInCart">
+							<img class="bookPicture" src="img/book.jpg"/>
+						</div>
+						<div class="bookNameInCart">${book.getName()}</div>
+						<a class="delFromCart" href="#">X</a>
+						<div class="priceWrapper">
+							<div class="priceInCart">
+								<span>${book.getPrice()}</span>руб.
+							</div>
+						</div>
+					
+				</button>
+			</form>
+		</c:forEach>
+			
+			
 		<div class="resultPriceWrapper">
 			<div class="resultPrice">
-				Стоимость составит: <span>2000</span>руб.
+				Стоимость составит: <span>${amount}</span>руб.
 			</div>
 			<a class="btn buyBtn" href="#">Купить</a>
 		</div>

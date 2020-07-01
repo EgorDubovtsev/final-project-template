@@ -3,14 +3,13 @@ package com.epam.rd.izh.repository;
 import com.epam.rd.izh.dao.AuthorizedUserDao;
 import com.epam.rd.izh.entity.AuthorizedUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 
-import com.epam.rd.izh.entity.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -26,14 +25,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserRepository implements IUserRepository {//pass :1
     //  private final AuthorizedUser ADMIN = new AuthorizedUser("admin","$2a$10$n.QaCWAS19vlVzA4ylby0ebvQEUKPVysfkU2DEKakcqaVOoVTOzZW", Role.USER);
+    @Autowired
     private AuthorizedUserDao authorizedUserDao;
-    private List<AuthorizedUser> users;
 
     @PostConstruct
     public void init() {
         System.out.println("POST CONSTRUCT");
-        users = authorizedUserDao.getList();
-        System.out.println(users);
     }
 
     public UserRepository(AuthorizedUserDao authorizedUserDao) {
@@ -53,7 +50,7 @@ public class UserRepository implements IUserRepository {//pass :1
     @Override
     @Nullable
     public AuthorizedUser getAuthorizedUserByLogin(@Nonnull String login) {
-        return users.stream()
+        return authorizedUserDao.getList().stream()
                 .filter(value -> value.getLogin().equals(login))
                 .findFirst().orElse(null);
     }
@@ -62,7 +59,6 @@ public class UserRepository implements IUserRepository {//pass :1
     public boolean addAuthorizedUser(@Nullable AuthorizedUser user) {
         if (user != null) {
             authorizedUserDao.registrateUser(user);
-            users.add(user);
             return true;
         }
         return false;
@@ -70,8 +66,8 @@ public class UserRepository implements IUserRepository {//pass :1
 
     @Override
     public boolean isManager(String login) {
-        Role role = getAuthorizedUserByLogin(login).getRole();
-        return role == Role.MANAGER;
+        String role = getAuthorizedUserByLogin(login).getRole();
+        return role.equals("MANAGER");
     }
 
 }

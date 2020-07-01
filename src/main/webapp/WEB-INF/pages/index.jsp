@@ -32,7 +32,7 @@
 	</div>
 	<span>
 		<form action="/cart" class="cart">
-            <button class="link">
+            <button class="link" name="login" value="${name}">
                 <span class="itemCouter">0</span>
                 <span class="icon-cart"></span>
             </button>
@@ -62,36 +62,42 @@
 			<label>Цена до: <input type="number" name="price" class="filterField"></label>
 		</div>
 	</div>
-
-	<div id="windowBack" class="windowBack"></div>
-	<form  method="get" id="window" class="window"><%--action="/?addToCart=true"--%>
-		<div id="closeWindow" class="closeWindow">
-			<a onclick="closeWindow()" href="#">X</a>
-		</div>
-		<img class="bookPictureInWindow" src="img/book.jpg">
-		<div class="bookDescription">
-			<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			<p class="descElement">Автор: <span>Аристотель</span></p>
-			<p class="descElement">Год издания: <span>1999</span></p>
-			<p class="descElement sml">
-				Не следует, однако забывать, что начало повседневной работы по формированию позиции позволяет выполнять важные задания по разработке позиций, занимаемых участниками в отношении поставленных задач. Равным образом дальнейшее развитие различных форм деятельности играет важную роль в формировании модели развития. Не следует, однако забывать, что укрепление и развитие структуры позволяет оценить значение модели развития.
-			</p>
-			<div class="price">
-				<span>1000</span>руб.
+	<c:if test="${open!=null}">
+		<div id="windowBack" class="windowBack"></div>
+		<form  method="get" id="window" class="window"><%--action="/?addToCart=true"--%>
+			<div id="closeWindow" class="closeWindow">
+				<button class="link bigFont" value="/">X</button> 
 			</div>
-			<button class="btn">Добавить в корзину</button>
-		</div>
-	</form>
+			<img class="bookPictureInWindow" src="img/book.jpg">
+			<div class="bookDescription">
+				<h3 class="bookName">${openedBook.getName()}</h3>
+				<p class="descElement">Автор: <span>${openedBook.getAuthor()}</span></p>
+				<p class="descElement">Год издания: <span>${openedBook.getPublishYear()}</span></p>
+				<p class="descElement sml">
+					${openedBook.getDescription()}
+				</p>
+				<div class="price">
+					<span>${openedBook.getPrice()}</span>руб.
+				</div>
+				<button name="toCart" value='${openedBook.getName()}' class="btn addButton">Добавить в корзину</button>
+			</div>
+		</form>
+	</c:if>
+	
 	<div class="allBooks">
 		<div class="space"></div>
 		<div class="booksList">
 			 <c:forEach items="${booksList}" var="book">
-                <div class="book">
-                <div class="bookPictureWrapper">
-                     <img class="bookPicture" src="img/book.jpg">
-                 </div>
-                <h3 class="bookName">${book.getName()}</h3>
-                 </div>
+                <form>
+                	<button class="link" name='open' value='${book.getName()}'>
+	                	<div class="book">
+			                <div class="bookPictureWrapper">
+			                     <img class="bookPicture" src="img/book.jpg">
+			                 </div>
+			                 <h3 class="bookName">${book.getName()}</h3>
+		                 </div>
+	                 </button>
+                 </form>
 			 </c:forEach>
 		</div>
 	</div>

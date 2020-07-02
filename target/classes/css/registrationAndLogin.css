@@ -17,6 +17,11 @@
 	height: 500px;
 	width: 100%;	
 }
+.errorWrapperLogin{
+	min-height: 20px;
+	display: flex;
+	justify-content: center;
+}
 .logWindow{
 	display: flex;
 	justify-content: center;
@@ -32,6 +37,7 @@
 }
 .regImpt{
 	margin: auto;
+	margin-bottom: 20px;
 }
 
 .regBtn{
@@ -43,4 +49,9 @@
 .haveAcc{
 	font-size: 15px;
 	margin: auto;
+}
+.redirectButtonWrapper{
+	display: flex;
+	justify-content: center;
+
 }

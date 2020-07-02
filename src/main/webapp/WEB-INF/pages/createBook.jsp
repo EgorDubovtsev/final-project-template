@@ -4,17 +4,18 @@
 <html>
 <head>
 	<title>Book Shop</title>
+	<c:set var="staticRoot" value="${pageContext.request.contextPath}/resources"/>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript" src="../../js/script.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/script.js"></script>
 	<style>
-       <%@include file='../../css/main.css' %>
-        <%@include file='../../css/createBook.css' %>
-        <%@include file='../../css/cart.css' %>
+       <%@include file='../../resources/css/main.css' %>
+        <%@include file='../../resources/css/createBook.css' %>
+        <%@include file='../../resources/css/cart.css' %>
     </style>
 </head>
 <body>
-	<div class="wallpaper"></div>
+<div class="wallpaper" style="background:url('${staticRoot}/resources/img/fom1.jpg')"></div>
 	<div class="userMenu">
 		<div class="name">
 			<a href="#">User 1</a>
@@ -68,7 +69,11 @@
 				<label>Изображение </label>
 				<input type="file" class=" fileInput" title="bookImage">
 			</div>--%>
+
 			<div class="saveWrapper">
+				<div class="errorWrapperLogin">
+					<span class="errorMessage">${errorMessage}</span>
+				</div>
 				<button class="btn saveBtn">Сохранить</button>
 			</div>
 		</form:form>

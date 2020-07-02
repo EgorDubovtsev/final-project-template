@@ -10,10 +10,7 @@ import com.epam.rd.izh.mappers.AuthorizedUserMapper;
 import com.epam.rd.izh.mappers.BookMapper;
 import com.epam.rd.izh.mappers.CartMapper;
 import com.epam.rd.izh.repository.UserRepository;
-import com.epam.rd.izh.service.Converter;
-import com.epam.rd.izh.service.ConverterService;
-import com.epam.rd.izh.service.UserPriority;
-import com.epam.rd.izh.service.UserPriorityService;
+import com.epam.rd.izh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,5 +60,9 @@ public class WebConfig {
     @Bean
     public Converter converter(){
         return new ConverterService();
+    }
+    @Bean
+    public FieldChecker fieldChecker(){
+        return new FieldCheckerImpl();
     }
 }

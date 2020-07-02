@@ -13,6 +13,7 @@ import com.epam.rd.izh.repository.UserRepository;
 import javax.validation.Valid;
 
 import com.epam.rd.izh.service.Converter;
+import com.epam.rd.izh.service.FieldChecker;
 import com.epam.rd.izh.service.UserPriority;
 import com.epam.rd.izh.service.UserPriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,8 @@ public class AuthenticationController {
     CartDao cartDao;
     @Autowired
     Converter converter;
-
+    @Autowired
+    FieldChecker fieldChecker;
     /**
      * Метод, отвечающий за логику авторизации пользователя.
      * /login - определяет URL, по которому пользователь должен перейти, чтобы запустить данный метод-обработчик.
@@ -67,7 +69,7 @@ public class AuthenticationController {
              *
              * В класс Model можно передавать любые объекты, необходимые для генерации View.
              */
-            model.addAttribute("error_login_placeholder", "invalid login or password!");
+            model.addAttribute("errorMessage", "invalid login or password!");
         }
         /**
          * Контроллер возвращает String название JSP страницы.
@@ -83,10 +85,21 @@ public class AuthenticationController {
      * Метод, отвечающий за логику регистрации пользователя.
      */
     @GetMapping("/registration")
-    public String viewRegistration(Model model) {
+    public String viewRegistration(Model model, @RequestParam(required = false) String error) {
         if (!model.containsAttribute("registrationForm")) {
             model.addAttribute("registrationForm", new AuthorizedUser());
         }
+        if (error!=null){
+            if (error.equals("userRegistered")){
+                model.addAttribute("errorMessage","Логин занят другим пользователем");
+            }else if(error.equals("emptyFields")){
+                System.out.println("EMPTY");
+                model.addAttribute("errorMessage","Заполните все необходимые поля");
+            }else{
+                model.addAttribute("errorMessage","Неизвестная ошибка");
+            }
+        }
+
         return "registration";
     }
 
@@ -100,16 +113,13 @@ public class AuthenticationController {
 
     @GetMapping("/cart")
     public String viewCart(Model model, String login) {
-        if (!model.containsAttribute("registrationForm")) {//TODO:Check, is that necessary or not
-            model.addAttribute("registrationForm", new AuthorizedUser());
-        }
         model.addAttribute("name",login);
         List<BookDTO> booksInTheCart =  cartDao.getCartByLogin(login).stream().map(bookInCart ->converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
         model.addAttribute("booksInTheCart",booksInTheCart);
         System.out.println(booksInTheCart);
         return "cart";
 
-    }
+    }//TODO: MAKE HEADER COMPONENT
 
     @GetMapping("/createBook")
     public String viewCreateBook(Model model) {
@@ -140,9 +150,7 @@ public class AuthenticationController {
         //registeredUser.validate(registeredUserDto, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            //логика отображения ошибки, не является обязательной
-            //...
-            //...
+            System.out.println("EEEEEEEEEERROOOOORRRR");
             return "redirect:/registration";
         }
         /**
@@ -152,9 +160,10 @@ public class AuthenticationController {
          * registeredUser может быть DTO объектом, преобразуемым в AuthorizedUser сущность в сервисе-маппере
          * (эот сервис нужно написать самим), вместе с присвоением роли и шифрованием пароля.
          */
-        if (userRepository.getAuthorizedUserByLogin(registeredUser.getName()) != null) {
-//            return null;
-            //TODO:SHOW ERROR MESSAGE
+        if (userRepository.getAuthorizedUserByLogin(registeredUser.getName()) != null ) {
+            return "redirect:/registration?error=userRegistered";
+        }else if( fieldChecker.isNull(registeredUser)){
+            return "redirect:/registration?error=emptyFields";
         }
         AuthorizedUser authorizedUser = authorizedUserMapper.mapFromDto(registeredUser);
         authorizedUser.setPassword(passwordEncoder.encode(registeredUser.getPassword()));
@@ -164,7 +173,6 @@ public class AuthenticationController {
          * Рекомендуется вынести эту логику на сервисный слой.
          */
         userRepository.addAuthorizedUser(authorizedUser);
-        System.out.println("REGIST");
         /**
          * В случае успешной регистрации редирект можно настроить на другой энд пойнт.
          */

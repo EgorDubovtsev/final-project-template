@@ -54,11 +54,11 @@ input::-webkit-inner-spin-button {
 }
 @font-face {
   font-family: 'icomoon';
-  src:  url('../icon/icomoon.eot?y7fg4i');
-  src:  url('../icon/icomoon.eot?y7fg4i#iefix') format('embedded-opentype'),
-    url('../icon/icomoon.ttf?y7fg4i') format('truetype'),
-    url('../icon/icomoon.woff?y7fg4i') format('woff'),
-    url('../icon/icomoon.svg?y7fg4i#icomoon') format('svg');
+  src:  url('../resources/icon/icomoon.eot?y7fg4i');
+  src:  url('../resources/icon/icomoon.eot?y7fg4i#iefix') format('embedded-opentype'),
+    url('../resources/icon/icomoon.ttf?y7fg4i') format('truetype'),
+    url('../resources/icon/icomoon.woff?y7fg4i') format('woff'),
+    url('../resources/icon/icomoon.svg?y7fg4i#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -311,4 +311,15 @@ input::-webkit-inner-spin-button {
 }
 link:focus {
     outline: 0 !important;
+}
+.errorMessage{
+	color:red;
+	font-style: italic;
+	margin-top: -5px;
+	margin-bottom: -5px;
+	
+
+}
+.sml{
+	font-size: 20px;
 }

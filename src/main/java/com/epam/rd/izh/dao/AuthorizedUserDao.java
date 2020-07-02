@@ -34,8 +34,11 @@ public class AuthorizedUserDao implements Dao {
                 + authorizedUser.getBirthdate() + "','"
                 + authorizedUser.getRole() + "');";
         String sqlInsertIntoAuthorizedData = "INSERT INTO authorized_data values('"
-                +authorizedUser.getLogin()+"','"+authorizedUser.getPassword()+"');";
+                + authorizedUser.getLogin() + "','" + authorizedUser.getPassword() + "');";
+        String roleTable = authorizedUser.getRole().equals("MANAGER") ? "managers" : "customers";
+        String addToRoleGroup = "INSERT INTO " + roleTable + " VALUES ('" + authorizedUser.getLogin() + "')";
         jdbcTemplate.update(sqlInsertIntoUsers);
+        jdbcTemplate.update(addToRoleGroup);
         return jdbcTemplate.update(sqlInsertIntoAuthorizedData);
     }
 

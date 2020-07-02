@@ -4,17 +4,18 @@
 <html>
 <head>
 	<title>Book Shop</title>
-
+    <c:set var="staticRoot" value="${pageContext.request.contextPath}/resources"/>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../../js/script.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/script.js"></script>
 	<style>
-               <%@include file='../../css/main.css' %>
-                 <%@include file='../../css/cart.css' %>
-            </style>
+         <%@include file='../../resources/css/main.css' %>
+         <%@include file='../../resources/css/cart.css' %>
+    </style>
+
 </head>
 <body>
-<div class="wallpaper"></div>
+<div class="wallpaper" style="background:url('${staticRoot}/img/fom1.jpg')"></div>
 		<div class="userMenu">
 		<span class="name">
 		<c:if test="${admin != null}">
@@ -42,7 +43,7 @@
 				<button class="link bookInCart" name="open" value="${book.getName()}">
 				
 						<div class="picBookInCart">
-							<img class="bookPicture" src="img/book.jpg"/>
+							<img class="bookPicture" src="${staticRoot}/img/book.jpg"/>
 						</div>
 						<div class="bookNameInCart">${book.getName()}</div>
 						<a class="delFromCart" href="#">X</a>

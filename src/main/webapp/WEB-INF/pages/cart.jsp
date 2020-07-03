@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE html>
+
 <html>
 <head>
 	<title>Book Shop</title>
@@ -16,18 +17,15 @@
 </head>
 <body>
 <div class="wallpaper" style="background:url('${staticRoot}/img/fom1.jpg')"></div>
-		<div class="userMenu">
+	<div class="userMenu">
 		<span class="name">
-		<c:if test="${admin != null}">
-            <form action="/createBook" method="get">
-                <button>Создать книгу</button>
-            </form>
-		</c:if>
-      ${name}
+			 ${name}
 		</span>
-		<form action="/logout" method="post" class="exit">
-			<button>Log Out</button>
-		</form>
+		<div class="menuButtonWrapper">
+			<form action="/logout" method="post" class="menuButton">
+				<button>Log Out</button>
+			</form>
+		</div>		
 	</div>
 	<form action="/" method="get">
 		<button class="link toShop">
@@ -35,13 +33,32 @@
 		</button>
 	</form>
 	<div class="cartName">Корзина</div>
-	<%-- TODO: here popup(disabled add to cart button)--%>
 	<div class="cartListOuter">
+			<c:if test="${open!=null}">
+		<div id="windowBack" class="windowBack"></div>
+		<form  method="get" id="window" class="window"><%--action="/?addToCart=true"--%>
+			<div id="closeWindow" class="closeWindow">
+				<button class="link bigFont" value="/">X</button> 
+			</div>
+			<img class="bookPictureInWindow" src="${staticRoot}/img/book.jpg">
+			<div class="bookDescription">
+				<h3 class="bookName">${openedBook.getName()}</h3>
+				<p class="descElement">Автор: <span>${openedBook.getAuthor()}</span></p>
+				<p class="descElement">Год издания: <span>${openedBook.getPublishYear()}</span></p>
+				<p class="descElement sml">
+					${openedBook.getDescription()}
+				</p>
+				<div class="price">
+					<span>${openedBook.getPrice()}</span>руб.
+				</div>
+				<button name="outOfCart" value='${openedBook.getName()}' class="btn addButton">Удалить из корзины</button>
+			</div>
+		</form>
+	</c:if>
 		<div class="cartListInner">
 		<c:forEach items="${booksInTheCart}" var="book">
 			<form>
 				<button class="link bookInCart" name="open" value="${book.getName()}">
-				
 						<div class="picBookInCart">
 							<img class="bookPicture" src="${staticRoot}/img/book.jpg"/>
 						</div>

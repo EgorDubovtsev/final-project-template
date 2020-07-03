@@ -34,10 +34,16 @@ input:focus, select:focus{
 	background-color: #DEDEDE;
 }
 .name{
-	padding-top: 25px;
+	padding-top: 30px;
 }
-.exit{
+.menuButton{
 	padding-top: 25px;
+	margin-right: 10px;
+}
+.menuButtonWrapper{
+	display: flex;
+	justify-content: center;
+	width: 250px;
 }
 .allBooks{
 	margin-top: 100px;

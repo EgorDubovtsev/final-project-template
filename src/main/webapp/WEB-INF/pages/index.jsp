@@ -19,20 +19,22 @@
 <div class="wallpaper" style="background:url('${staticRoot}/img/fom1.jpg')"></div>
 	<div class="userMenu">
 		<span class="name">
-		<c:if test="${admin != null}">
-            <form action="/createBook" method="get">
-                <button>Создать книгу</button>
-            </form>
-		</c:if>
-      ${name}
+			 ${name}
 		</span>
-		<form action="/logout" method="post" class="exit">
-			<button>Log Out</button>
-		</form>
+		<div class="menuButtonWrapper">
+			<c:if test="${admin != null}">
+	            <form action="/createBook" method="get" class="menuButton">
+	                <button>Создать книгу</button>
+	            </form>
+			</c:if>
+			<form action="/logout" method="post" class="menuButton">
+				<button>Log Out</button>
+			</form>
+		</div>
 	</div>
 	<span>
 		<form action="/cart" class="cart">
-            <button class="link" name="login" value="${name}">
+            <button class="link">
                 <span class="itemCouter">0</span>
                 <span class="icon-cart"></span>
             </button>
@@ -68,7 +70,7 @@
 			<div id="closeWindow" class="closeWindow">
 				<button class="link bigFont" value="/">X</button> 
 			</div>
-			<img class="bookPictureInWindow" src="${staticRoot}/resources/img/book.jpg">
+			<img class="bookPictureInWindow" src="${staticRoot}/img/book.jpg">
 			<div class="bookDescription">
 				<h3 class="bookName">${openedBook.getName()}</h3>
 				<p class="descElement">Автор: <span>${openedBook.getAuthor()}</span></p>

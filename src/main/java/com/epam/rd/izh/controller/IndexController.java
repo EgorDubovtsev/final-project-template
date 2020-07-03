@@ -16,6 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+
 @Controller
 public class IndexController {
     @Autowired
@@ -30,14 +35,18 @@ public class IndexController {
     @GetMapping("/")
     public String login(Authentication authentication, Model model,
                         @RequestParam(required = false) String open,
-                        @RequestParam(required =false) String toCart) {
+                        @RequestParam(required =false) String toCart,
+                        HttpServletResponse response,
+                        HttpServletRequest request) {
         Message greetingMessage = new Message();
 //        greetingMessage.setMessage(ENG_GREETING + authentication.getName());
         model.addAttribute("name", authentication.getName());
         model.addAttribute("booksList", books.getBooksList());
+        response.addCookie(new Cookie("login",authentication.getName()));
         if (userPriority.checkPriority().equals("MANAGER")) {
             model.addAttribute("admin", "MANAGER");
         }
+        System.out.println(Arrays.toString(request.getCookies()));
         if (toCart!=null){
             System.out.println("TO CART: "+toCart);
             System.out.println("LOGIN "+authentication.getName());

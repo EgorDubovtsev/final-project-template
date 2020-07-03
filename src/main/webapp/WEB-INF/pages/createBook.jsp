@@ -17,11 +17,13 @@
 <body>
 <div class="wallpaper" style="background:url('${staticRoot}/resources/img/fom1.jpg')"></div>
 	<div class="userMenu">
-		<div class="name">
-			<a href="#">User 1</a>
-		</div>
-		<div class="exit">
-			<a href="#">Log Out</a>
+		<span class="name">
+			 ${name}
+		</span>
+		<div class="menuButtonWrapper">
+			<form action="/logout" method="post" class="menuButton">
+				<button>Log Out</button>
+			</form>
 		</div>
 	</div>
 	<form action="/" method="get">

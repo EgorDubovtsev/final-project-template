@@ -10,6 +10,9 @@ import com.epam.rd.izh.mappers.AuthorizedUserMapper;
 import com.epam.rd.izh.mappers.BookMapper;
 import com.epam.rd.izh.repository.UserRepository;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.epam.rd.izh.service.Converter;
@@ -27,6 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +59,7 @@ public class AuthenticationController {
     Converter converter;
     @Autowired
     FieldChecker fieldChecker;
+
     /**
      * Метод, отвечающий за логику авторизации пользователя.
      * /login - определяет URL, по которому пользователь должен перейти, чтобы запустить данный метод-обработчик.
@@ -89,14 +94,14 @@ public class AuthenticationController {
         if (!model.containsAttribute("registrationForm")) {
             model.addAttribute("registrationForm", new AuthorizedUser());
         }
-        if (error!=null){
-            if (error.equals("userRegistered")){
-                model.addAttribute("errorMessage","Логин занят другим пользователем");
-            }else if(error.equals("emptyFields")){
+        if (error != null) {
+            if (error.equals("userRegistered")) {
+                model.addAttribute("errorMessage", "Логин занят другим пользователем");
+            } else if (error.equals("emptyFields")) {
                 System.out.println("EMPTY");
-                model.addAttribute("errorMessage","Заполните все необходимые поля");
-            }else{
-                model.addAttribute("errorMessage","Неизвестная ошибка");
+                model.addAttribute("errorMessage", "Заполните все необходимые поля");
+            } else {
+                model.addAttribute("errorMessage", "Неизвестная ошибка");
             }
         }
 
@@ -112,20 +117,34 @@ public class AuthenticationController {
     }
 
     @GetMapping("/cart")
-    public String viewCart(Model model, String login) {
-        model.addAttribute("name",login);
-        List<BookDTO> booksInTheCart =  cartDao.getCartByLogin(login).stream().map(bookInCart ->converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
-        model.addAttribute("booksInTheCart",booksInTheCart);
-        System.out.println(booksInTheCart);
+    public String viewCart(Model model,
+                           @RequestParam(required = false)String openedBookName,
+                           HttpServletResponse response,
+                           HttpServletRequest request) {
+        String login = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName()
+                .equals("login")).findFirst()
+                .orElse(new Cookie("status","forbidden")).getValue();
+        model.addAttribute("name", login);
+        List<BookDTO> booksInTheCart = cartDao.getCartByLogin(login).stream().map(bookInCart -> converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
+        model.addAttribute("booksInTheCart", booksInTheCart);
+        if(openedBookName!=null){
+            model.addAttribute("open",openedBookName);
+        }
         return "cart";
 
     }//TODO: MAKE HEADER COMPONENT
 
     @GetMapping("/createBook")
-    public String viewCreateBook(Model model) {
+    public String viewCreateBook(Model model,
+                                 HttpServletResponse response,
+                                 HttpServletRequest request) {
         if (!model.containsAttribute("createBookForm")) {
             model.addAttribute("createBookForm", new CreatedBookImpl());
         }
+        String login = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName()
+                .equals("login")).findFirst()
+                .orElse(new Cookie("status","forbidden")).getValue();
+        model.addAttribute("name", login);
         String role = userPriority.checkPriority();
         return role.equals("MANAGER") ? "createBook" : "/";
 
@@ -153,16 +172,9 @@ public class AuthenticationController {
             System.out.println("EEEEEEEEEERROOOOORRRR");
             return "redirect:/registration";
         }
-        /**
-         * Здесь происходит присвоение роли пользователю и шифрование пароля.
-         * Роль может быть так же определена пользователем на этапе регистрации, либо иным способов, зависящим
-         * от темы финального проекта.
-         * registeredUser может быть DTO объектом, преобразуемым в AuthorizedUser сущность в сервисе-маппере
-         * (эот сервис нужно написать самим), вместе с присвоением роли и шифрованием пароля.
-         */
-        if (userRepository.getAuthorizedUserByLogin(registeredUser.getName()) != null ) {
+        if (userRepository.getAuthorizedUserByLogin(registeredUser.getName()) != null) {
             return "redirect:/registration?error=userRegistered";
-        }else if( fieldChecker.isNull(registeredUser)){
+        } else if (fieldChecker.isNull(registeredUser)) {
             return "redirect:/registration?error=emptyFields";
         }
         AuthorizedUser authorizedUser = authorizedUserMapper.mapFromDto(registeredUser);

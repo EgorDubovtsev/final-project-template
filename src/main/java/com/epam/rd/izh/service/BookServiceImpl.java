@@ -1,4 +1,4 @@
-package com.epam.rd.izh.repository;
+package com.epam.rd.izh.service;
 
 import com.epam.rd.izh.dao.BooksDao;
 import com.epam.rd.izh.dto.BookDTO;
@@ -7,26 +7,25 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nullable;
 import java.util.List;
-
 @Component
-public class BooksRepository implements IBooksRepository {
+public class BookServiceImpl implements BookService {
     @Autowired
     BooksDao booksDao;
 
+    @Override
     public List<BookDTO> getBooksList() {
         return booksDao.getList();
     }
 
-    public boolean addBook(@Nullable BookDTO book) {
-        if (book != null) {
-            booksDao.addBook(book);
-            return true;
-        }
-        return false;
+    @Override
+    public void addBook(BookDTO book) {
+        booksDao.addBook(book);
     }
 
+    @Override
     public BookDTO findByName(String name) {
-        return getBooksList().stream().filter(bookName -> bookName.getName().equals(name))
+        return getBooksList().stream().filter(bookName -> bookName.getName()
+                .trim().equals(name.trim()))
                 .findFirst().orElse(null);
     }
 }

@@ -21,10 +21,10 @@
 				<input class="filterField regImpt" placeholder="Пароль" type="password" name="password">
 				<div class="errorWrapperLogin sml">	<span class="errorMessage">${errorMessage}</span>
 				</div>
-				<input type="submit" href="#" class="btn regBtn" value="Войти" />
+				<button type="submit" href="#" class="btn regBtn">Войти</button>
 			</form>
 			<form action="registration" method="get" class="redirectButtonWrapper ">
-	        	<input type="submit" href="registration.html" class="link haveAcc" value="Еще нет аккаунта?">
+	        	<input type="submit" class="link haveAcc" value="Еще нет аккаунта?">
 	        </form>
         </div>
 	</div>

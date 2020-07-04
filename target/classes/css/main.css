@@ -8,7 +8,6 @@ body{
 	font-family: 'Nunito', sans-serif;
 }
 .wallpaper{
-	// background-image: url("../img/fom1Book.jpg") no-repeat;
 	-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -93,12 +92,14 @@ input::-webkit-inner-spin-button {
 	color: white;
 }
 .itemCouter{
+	color:white;
+	font-size: 1.2em;
 	bottom: 0px;
 	right: 0px;
 	position: absolute;
 	text-align: center;
-	height: 28px;
-	width: 28px;
+	height: 26px;
+	width: 26px;
 	border-radius: 50%;
 	background-color: #F34444;
 }
@@ -140,8 +141,11 @@ input::-webkit-inner-spin-button {
 	width: 90px;
 	height: 90px;
 	border: 1px solid white;
-	margin-left: 94%;
+	right: 4%;
 	background-color: #FFAB57;
+}
+.toCart{
+	width: 200px;
 }
 .cart:hover,.toShop:hover{
 	animation: 1.2s ease-in 0s normal none 1 running rotateAnimation;
@@ -169,7 +173,7 @@ input::-webkit-inner-spin-button {
 	color: black;
 	padding: 20px;
 	position: absolute;
-	display: flex;
+	display: none;
 	opacity: 1;
 	width: 60%;
 	min-width: 450px;
@@ -189,6 +193,7 @@ input::-webkit-inner-spin-button {
 	display: flex;
 }
 .windowBack{
+	display: none;
 	opacity: 0.7;
 	top: 0;
 	left: 0;
@@ -207,9 +212,11 @@ input::-webkit-inner-spin-button {
 	max-width: 400px;
 }
 .bookDescription{
+	font-size: 0.9em;
 	width: 60%;
 	padding-left: 25px;
 }
+
 .price{
 	font-size: 28px;
 	width: 95%;
@@ -289,6 +296,7 @@ input::-webkit-inner-spin-button {
 	text-align: center;
 }
 .btn{
+	cursor: pointer;
 	border-radius: 9px;
 	display: flex;
 	background-color: #FFAB57;
@@ -306,8 +314,14 @@ input::-webkit-inner-spin-button {
 	transition: 0.3s;
 	box-shadow: 6px 6px 10px 6px rgba(0,0.3,0,0.2);
 }
+.btn:active{
+	transition: 0.2s;
+	background-color: #FD9A30;
+	box-shadow: 3px 3px 5px 6px rgba(0,0,0,0.4);
+}
 
 .link{
+	cursor: pointer;
     text-decoration:none;
     padding:0;
     margin:0;

@@ -1,26 +1,84 @@
-// $(document).ready(function () {
-// 	$(".book").click(function () {
-// 		var win = $("#window");
-// 		var wall = $("#windowBack");
-// 		wall.css("display","block");
-// 		win.css("display","flex");
-// 		wall.animate({opacity:"0.6"},"normal");
-		
-// 		win.animate({top:"+100px", opacity:"1"},"normal");
-// 	});
-// 	$(".bookInCart").click(function () {
-// 		var win = $("#window");
-// 		var wall = $("#windowBack");
-// 		wall.css("display","block");
-// 		win.css("display","flex");
-// 		wall.animate({opacity:"0.6"},"normal");
-		
-// 		win.animate({top:"+100px", opacity:"1"},"normal");
-// 	});
-// });
+ $(document).ready(function () {
+    const userLogin = $("#login").text().trim()
+    reloadCounter(userLogin);
 
-// function closeWindow() {
-// 	 $("#windowBack").css({"display":"none","opacity":"0"});
-// 	 $("#window").css({"display":"none","opacity":"0"});
-// 	 $("#window").animate({top:"+170px", opacity:"0"},"fast");
-// }
+
+	$(".bookEntity").click(function () {
+		var win = $("#window");
+		var wall = $("#windowBack");
+		const bookName = $(this).attr('value');
+ 		console.log(bookName)
+        openPopup(bookName,wall,win);
+	});
+
+	$("#closeWindow").click(()=>{
+	    closeWindow();
+	});
+
+    $("#addToCart").click(function(){
+        const bookName = $(this).attr('value');
+        addBookToCart(bookName);
+    })
+    $("#deleteFromTheCart").click(function(){
+        const bookName = $(this).attr("value");
+        const userLogin = $("#login").text().trim()
+        console.log(bookName)
+        console.log(userLogin)
+        deleteFromTheCart(bookName,userLogin);
+    })
+ });
+
+ function addBookToCart(bookName){
+ const userLogin = $("#login").text().trim()
+    $.getJSON("/api/addToCart",{name:bookName, login:userLogin},(result)=>{
+        closeWindow();
+        reloadCounter(userLogin);
+        if(result){
+            //toast succ
+        }else{
+        //toast fail
+        }
+      })
+ }
+ function deleteFromTheCart(name,login){
+    $.getJSON("/api/deleteBook",{bookName:name,userLogin:login},(result)=>{
+        if(result) {
+             console.log("Success")
+        }else{
+            console.log("Fail")
+        }
+        closeWindow()
+    })
+ }
+
+
+ function closeWindow() {
+ 	 $("#windowBack").css({"display":"none","opacity":"0"});
+ 	 $("#window").css({"display":"none","opacity":"0"});
+ 	 $("#window").animate({top:"+170px", opacity:"0"},"fast");
+ }
+ function reloadCounter(userLogin){
+    $.getJSON("/api/getCountOfBooks",{login:userLogin},(result)=>{
+        $("#counter").text(result)
+    })
+ }
+
+
+ function openPopup(bookName, background, popup){
+   	$.getJSON("/api",{name:bookName},(result)=>{
+   	        console.log("OPEN BOOk")
+ 	        $('#window').css("display","flex");
+ 	        $('#bookNameInPopup').text(result.name);
+ 	        $('#bookAuthorInPopup').text(result.author);
+ 	        $('#bookPublishYearInPopup').text(result.publishYear);
+ 	        $('#bookGenreYearInPopup').text(result.genre);
+ 	        $('#bookDescriptionInPopup').text(result.description);
+ 	        $('#bookPriceInPopup').text(result.price);
+ 	        $('#addToCart').attr("value", bookName);
+ 	        $('#deleteFromTheCart').attr("value",bookName);
+    	})
+ 		background.css("display","block");
+ 		popup.css("display","flex");
+ 		background.animate({opacity:"0.6"},"normal");
+ 		popup.animate({top:"+100px", opacity:"1"},"normal");
+ }

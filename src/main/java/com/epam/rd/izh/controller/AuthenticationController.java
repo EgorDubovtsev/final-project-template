@@ -98,7 +98,6 @@ public class AuthenticationController {
             if (error.equals("userRegistered")) {
                 model.addAttribute("errorMessage", "Логин занят другим пользователем");
             } else if (error.equals("emptyFields")) {
-                System.out.println("EMPTY");
                 model.addAttribute("errorMessage", "Заполните все необходимые поля");
             } else {
                 model.addAttribute("errorMessage", "Неизвестная ошибка");
@@ -132,19 +131,27 @@ public class AuthenticationController {
         }
         return "cart";
 
-    }//TODO: MAKE HEADER COMPONENT
+    }
 
     @GetMapping("/createBook")
     public String viewCreateBook(Model model,
-                                 HttpServletResponse response,
-                                 HttpServletRequest request) {
+                                 HttpServletRequest request,
+                                 @RequestParam(required = false) String error) {
         if (!model.containsAttribute("createBookForm")) {
             model.addAttribute("createBookForm", new CreatedBookImpl());
+        }
+        if (error!=null){
+            if (error.equals("emptyFields")){
+                model.addAttribute("errorMessage","Заполите все необходимые поля");
+            }else if(error.equals("bookExist")){
+                model.addAttribute("errorMessage","Книга с таким названием уже существует");
+            }
         }
         String login = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName()
                 .equals("login")).findFirst()
                 .orElse(new Cookie("status","forbidden")).getValue();
         model.addAttribute("name", login);
+
         String role = userPriority.checkPriority();
         return role.equals("MANAGER") ? "createBook" : "/";
 
@@ -169,7 +176,6 @@ public class AuthenticationController {
         //registeredUser.validate(registeredUserDto, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            System.out.println("EEEEEEEEEERROOOOORRRR");
             return "redirect:/registration";
         }
         if (userRepository.getAuthorizedUserByLogin(registeredUser.getName()) != null) {
@@ -185,9 +191,6 @@ public class AuthenticationController {
          * Рекомендуется вынести эту логику на сервисный слой.
          */
         userRepository.addAuthorizedUser(authorizedUser);
-        /**
-         * В случае успешной регистрации редирект можно настроить на другой энд пойнт.
-         */
         return "redirect:/login";
     }
 

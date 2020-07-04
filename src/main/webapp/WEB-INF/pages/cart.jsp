@@ -16,9 +16,13 @@
 
 </head>
 <body>
-<div class="wallpaper" style="background:url('${staticRoot}/img/fom1.jpg')"></div>
+<div class="wallpaper" style="background:url('${staticRoot}/img/fom1.jpg') no-repeat;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;/*FIX ME*/
+    -o-background-size: cover;
+    background-size: cover;"></div>
 	<div class="userMenu">
-		<span class="name">
+		<span class="name" id="login">
 			 ${name}
 		</span>
 		<div class="menuButtonWrapper">
@@ -27,51 +31,49 @@
 			</form>
 		</div>		
 	</div>
-	<form action="/" method="get">
-		<button class="link toShop">
-			<span class="icon-home"></span>
-		</button>
-	</form>
+	<span>
+		<form action="/" method="get">
+			<button class="link toShop">
+				<span class="icon-home"></span>
+			</button>
+		</form>
+	</span>
 	<div class="cartName">Корзина</div>
-	<div class="cartListOuter">
-			<c:if test="${open!=null}">
 		<div id="windowBack" class="windowBack"></div>
-		<form  method="get" id="window" class="window"><%--action="/?addToCart=true"--%>
+		<form  method="get" id="window" class="window">
 			<div id="closeWindow" class="closeWindow">
-				<button class="link bigFont" value="/">X</button> 
+				<a class="bigFont link">X</a> 
 			</div>
 			<img class="bookPictureInWindow" src="${staticRoot}/img/book.jpg">
 			<div class="bookDescription">
-				<h3 class="bookName">${openedBook.getName()}</h3>
-				<p class="descElement">Автор: <span>${openedBook.getAuthor()}</span></p>
-				<p class="descElement">Год издания: <span>${openedBook.getPublishYear()}</span></p>
-				<p class="descElement sml">
-					${openedBook.getDescription()}
-				</p>
+				<h3 id="bookNameInPopup" class="bookName"></h3>
+				<p  class="descElement">Автор: <span id="bookAuthorInPopup"></span></p>
+				<p  class="descElement">Жанр: <span id="bookGenreInPopup"></span></p>
+				<p  class="descElement">Год издания: <span id="bookPublishYearInPopup"></span></p>
+				<p id="bookDescriptionInPopup" class="descElement sml"></p>
+
 				<div class="price">
-					<span>${openedBook.getPrice()}</span>руб.
+					<span id="bookPriceInPopup"></span>руб.
 				</div>
-				<button name="outOfCart" value='${openedBook.getName()}' class="btn addButton">Удалить из корзины</button>
+				<a id="deleteFromTheCart" class="btn addButton">Удалить из корзины</a>
 			</div>
 		</form>
-	</c:if>
+	<div class="cartListOuter">
 		<div class="cartListInner">
 		<c:forEach items="${booksInTheCart}" var="book">
-			<form>
-				<button class="link bookInCart" name="open" value="${book.getName()}">
+			<div>
+				<button class="link bookInCart bookEntity" name="open" value="${book.getName()}">
 						<div class="picBookInCart">
 							<img class="bookPicture" src="${staticRoot}/img/book.jpg"/>
 						</div>
 						<div class="bookNameInCart">${book.getName()}</div>
-						<a class="delFromCart" href="#">X</a>
 						<div class="priceWrapper">
 							<div class="priceInCart">
 								<span>${book.getPrice()}</span>руб.
 							</div>
 						</div>
-					
 				</button>
-			</form>
+			</div>
 		</c:forEach>
 			
 			

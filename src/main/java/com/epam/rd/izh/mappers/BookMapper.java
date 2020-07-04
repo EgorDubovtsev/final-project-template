@@ -18,7 +18,6 @@ public class BookMapper implements RowMapper<BookDTO>,IBookMapper {
         book.setDescription(resultSet.getString("description"));
         book.setAuthor(resultSet.getString("author"));
         book.setPrice(resultSet.getDouble("price"));
-        System.out.println("MAPPED BOOK "+book.toString());
         return book;
     }
 

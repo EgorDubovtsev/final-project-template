@@ -18,7 +18,7 @@
 <body>
 <div class="wallpaper" style="background:url('${staticRoot}/img/fom1.jpg')"></div>
 	<div class="userMenu">
-		<span class="name">
+		<span class="name" id="login">
 			 ${name}
 		</span>
 		<div class="menuButtonWrapper">
@@ -34,8 +34,8 @@
 	</div>
 	<span>
 		<form action="/cart" class="cart">
-            <button class="link">
-                <span class="itemCouter">0</span>
+            <button class="link toCart">
+                <span class="itemCouter" id="counter">0</span>
                 <span class="icon-cart"></span>
             </button>
 		</form>
@@ -64,34 +64,30 @@
 			<label>Цена до: <input type="number" name="price" class="filterField"></label>
 		</div>
 	</div>
-	<c:if test="${open!=null}">
 		<div id="windowBack" class="windowBack"></div>
-		<form  method="get" id="window" class="window"><%--action="/?addToCart=true"--%>
-			<div id="closeWindow" class="closeWindow">
-				<button class="link bigFont" value="/">X</button> 
+		<form  method="get" id="window" class="window">
+			<div id="closeWindow" class="closeWindow" coursor="pointer">
+				<a class="bigFont link">X</a> 
 			</div>
 			<img class="bookPictureInWindow" src="${staticRoot}/img/book.jpg">
 			<div class="bookDescription">
-				<h3 class="bookName">${openedBook.getName()}</h3>
-				<p class="descElement">Автор: <span>${openedBook.getAuthor()}</span></p>
-				<p class="descElement">Год издания: <span>${openedBook.getPublishYear()}</span></p>
-				<p class="descElement sml">
-					${openedBook.getDescription()}
-				</p>
+				<h3 id="bookNameInPopup" class="bookName"></h3>
+				<p  class="descElement">Автор: <span id="bookAuthorInPopup"></span></p>
+				<p  class="descElement">Жанр: <span id="bookGenreInPopup"></span></p>
+				<p  class="descElement">Год издания: <span id="bookPublishYearInPopup"></span></p>
+				<p id="bookDescriptionInPopup" class="descElement sml"></p>
+
 				<div class="price">
-					<span>${openedBook.getPrice()}</span>руб.
+					<span id="bookPriceInPopup"></span>руб.
 				</div>
-				<button name="toCart" value='${openedBook.getName()}' class="btn addButton">Добавить в корзину</button>
+				<a id="addToCart" class="btn addButton">Добавить в корзину</a>
 			</div>
 		</form>
-	</c:if>
-	
 	<div class="allBooks">
 		<div class="space"></div>
 		<div class="booksList">
 			 <c:forEach items="${booksList}" var="book">
-                <form>
-                	<button class="link" name='open' value='${book.getName()}'>
+                	<button class="link bookEntity" name='open' value='${book.getName()}'>
 	                	<div class="book">
 			                <div class="bookPictureWrapper">
 			                     <img class="bookPicture" src="${staticRoot}/img/book.jpg">
@@ -99,7 +95,6 @@
 			                 <h3 class="bookName">${book.getName()}</h3>
 		                 </div>
 	                 </button>
-                 </form>
 			 </c:forEach>
 		</div>
 	</div>

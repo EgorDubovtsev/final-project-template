@@ -30,7 +30,6 @@ public class BooksDao implements Dao {
         String sqlAddBookGenre= "INSERT INTO books_genres VALUES('"
                 +bookDTO.getName()+"','"
                 +bookDTO.getGenre()+"');";
-        System.out.println(sqlAddBook+"  "+ sqlAddBookGenre);
         jdbcTemplate.update(sqlAddBook);
         return jdbcTemplate.update(sqlAddBookGenre);
     }

@@ -9,4 +9,5 @@ public interface CartDao {
     boolean addToCart(String bookName,String login);
     List<BookInCart> getList();
     List<BookInCart> getCartByLogin(String login);
+    void deleteFromTheCart(String bookName, String login);
 }

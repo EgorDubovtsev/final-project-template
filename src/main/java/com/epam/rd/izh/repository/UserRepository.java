@@ -23,15 +23,9 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class UserRepository implements IUserRepository {//pass :1
-    //  private final AuthorizedUser ADMIN = new AuthorizedUser("admin","$2a$10$n.QaCWAS19vlVzA4ylby0ebvQEUKPVysfkU2DEKakcqaVOoVTOzZW", Role.USER);
+public class UserRepository implements IUserRepository {
     @Autowired
     private AuthorizedUserDao authorizedUserDao;
-
-    @PostConstruct
-    public void init() {
-        System.out.println("POST CONSTRUCT");
-    }
 
     public UserRepository(AuthorizedUserDao authorizedUserDao) {
         this.authorizedUserDao = authorizedUserDao;

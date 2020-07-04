@@ -34,35 +34,41 @@ public class WebConfig {
     }
 
     @Bean
-    public UserPriority userPriority(){
+    public UserPriority userPriority() {
         return new UserPriorityService();
     }
 
     @Bean
-    public BookMapper bookMapper(){
+    public BookMapper bookMapper() {
         return new BookMapper();
     }
-    public BooksDao booksDao(){
+
+    public BooksDao booksDao() {
         return new BooksDao();
     }
+
     @Bean
-    public CartDaoImpl cartDao(){
+    public CartDaoImpl cartDao() {
         return new CartDaoImpl();
     }
+
     @Bean
-    public BookInCart bookInCart(){
+    public BookInCart bookInCart() {
         return new BookInCartImpl();
     }
+
     @Bean
-    public CartMapper cartMapper(){
+    public CartMapper cartMapper() {
         return new CartMapper();
     }
+
     @Bean
-    public Converter converter(){
+    public Converter converter() {
         return new ConverterService();
     }
+
     @Bean
-    public FieldChecker fieldChecker(){
+    public FieldChecker fieldChecker() {
         return new FieldCheckerImpl();
     }
 }

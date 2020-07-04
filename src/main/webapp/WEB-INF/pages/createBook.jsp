@@ -65,7 +65,7 @@
 			</div>
 			<div class="paramBook">
 				<label>Описание: </label>
-				<form:textarea path="description" maxlength="200" class="bookDescription" ></form:textarea>
+				<form:textarea path="description" maxlength="100" class="bookDescription bigFont" ></form:textarea>
 			</div>
 			<%--<div class="paramBook">
 				<label>Изображение </label>

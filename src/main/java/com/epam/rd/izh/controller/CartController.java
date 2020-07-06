@@ -1,10 +1,14 @@
 package com.epam.rd.izh.controller;
 
 import com.epam.rd.izh.dao.CartDao;
+import com.epam.rd.izh.dto.BookDTO;
+import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.service.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class CartController {
@@ -27,6 +31,17 @@ public class CartController {
     public @ResponseBody
     boolean deleteBook(@RequestParam String bookName, @RequestParam String userLogin) {
         cartDao.deleteFromTheCart(bookName, userLogin);
+        return true;
+    }
+
+    @RequestMapping(value = "/api/buy", method = RequestMethod.GET)
+    public @ResponseBody
+    boolean buyAllBooksInCart( @RequestParam String userLogin) {
+        List<BookInCart> booksInCart = cartDao.getCartByLogin(userLogin);
+        System.out.println(userLogin+" US");
+        for(BookInCart book:booksInCart){
+            cartDao.deleteFromTheCart(book.getBookName(),userLogin);
+        }
         return true;
     }
 }

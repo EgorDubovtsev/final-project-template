@@ -81,7 +81,7 @@
 			<div class="resultPrice">
 				Стоимость составит: <span id="totalPrice"></span>руб.
 			</div>
-			<a class="btn buyBtn" href="#">Купить</a>
+			<a class="btn buyBtn" id="buyButton">Купить</a>
 		</div>
 	</div>
 </body>

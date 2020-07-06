@@ -26,6 +26,16 @@
         console.log(userLogin)
         deleteFromTheCart(bookName,userLogin);
     })
+
+    $("#buyButton").click(function (){
+        const login = $("#login").text().trim()
+        $.getJSON("/api/buy",{userLogin:login},(isSuccess)=>{
+            if(isSuccess){
+                location.reload()//TODO: SUCCESS
+            }
+        })
+
+    })
  });
 
 function getTotalPrice(){

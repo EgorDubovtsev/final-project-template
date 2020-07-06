@@ -13,8 +13,9 @@ public class BookPopupController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping(value = "/api", method= RequestMethod.GET)
-    public @ResponseBody String getBookInfo(@RequestParam String name) {
+    @RequestMapping(value = "/api", method = RequestMethod.GET)
+    public @ResponseBody
+    String getBookInfo(@RequestParam String name) {
         BookDTO bookDTO = bookService.findByName(name);
         ObjectMapper mapper = new ObjectMapper();
         try {

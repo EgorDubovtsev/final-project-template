@@ -23,7 +23,7 @@ public class JdbcConfiguration {
         return dataSourceBuilder.build();
     }
 
-    @Autowired
+//    @Autowired
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource){
         return new JdbcTemplate(dataSource);

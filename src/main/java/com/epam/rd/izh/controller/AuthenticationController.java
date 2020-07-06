@@ -39,21 +39,19 @@ import java.util.stream.Collectors;
 public class AuthenticationController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    AuthorizedUserMapper authorizedUserMapper;
+    private AuthorizedUserMapper authorizedUserMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    UserPriority userPriority;
+    private UserPriority userPriority;
     @Autowired
-    BookMapper bookMapper;
+    private CartDao cartDao;
     @Autowired
-    CartDao cartDao;
+    private Converter converter;
     @Autowired
-    Converter converter;
-    @Autowired
-    FieldChecker fieldChecker;
+    private FieldChecker fieldChecker;
 
     /**
      * Метод, отвечающий за логику авторизации пользователя.
@@ -112,17 +110,17 @@ public class AuthenticationController {
 
     @GetMapping("/cart")
     public String viewCart(Model model,
-                           @RequestParam(required = false)String openedBookName,
+                           @RequestParam(required = false) String openedBookName,
                            HttpServletResponse response,
                            HttpServletRequest request) {
         String login = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName()
                 .equals("login")).findFirst()
-                .orElse(new Cookie("status","forbidden")).getValue();
+                .orElse(new Cookie("status", "forbidden")).getValue();
         model.addAttribute("name", login);
         List<BookDTO> booksInTheCart = cartDao.getCartByLogin(login).stream().map(bookInCart -> converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
         model.addAttribute("booksInTheCart", booksInTheCart);
-        if(openedBookName!=null){
-            model.addAttribute("open",openedBookName);
+        if (openedBookName != null) {
+            model.addAttribute("open", openedBookName);
         }
         return "cart";
 
@@ -135,16 +133,16 @@ public class AuthenticationController {
         if (!model.containsAttribute("createBookForm")) {
             model.addAttribute("createBookForm", new CreatedBookImpl());
         }
-        if (error!=null){
-            if (error.equals("emptyFields")){
-                model.addAttribute("errorMessage","Заполите все необходимые поля");
-            }else if(error.equals("bookExist")){
-                model.addAttribute("errorMessage","Книга с таким названием уже существует");
+        if (error != null) {
+            if (error.equals("emptyFields")) {
+                model.addAttribute("errorMessage", "Заполите все необходимые поля");
+            } else if (error.equals("bookExist")) {
+                model.addAttribute("errorMessage", "Книга с таким названием уже существует");
             }
         }
         String login = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName()
                 .equals("login")).findFirst()
-                .orElse(new Cookie("status","forbidden")).getValue();
+                .orElse(new Cookie("status", "forbidden")).getValue();
         model.addAttribute("name", login);
 
         String role = userPriority.checkPriority();

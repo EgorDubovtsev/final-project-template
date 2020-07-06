@@ -27,23 +27,22 @@ public class IndexController {
     @GetMapping("/")
     public String login(Authentication authentication, Model model,
                         @RequestParam(required = false) String open,
-                        @RequestParam(required =false) String toCart,
-                        HttpServletResponse response,
-                        HttpServletRequest request) {
+                        @RequestParam(required = false) String toCart,
+                        HttpServletResponse response) {
         Message greetingMessage = new Message();
 //        greetingMessage.setMessage(ENG_GREETING + authentication.getName());
         model.addAttribute("name", authentication.getName());
         model.addAttribute("booksList", bookService.getBooksList());
-        response.addCookie(new Cookie("login",authentication.getName()));
+        response.addCookie(new Cookie("login", authentication.getName()));
         if (userPriority.checkPriority().equals("MANAGER")) {
             model.addAttribute("admin", "MANAGER");
         }
-        if (toCart!=null){
-            cartDao.addToCart(authentication.getName(),toCart);
+        if (toCart != null) {
+            cartDao.addToCart(authentication.getName(), toCart);
         }
         if (open != null) {
             model.addAttribute("open", open);
-            model.addAttribute("openedBook",bookService.findByName(open));
+            model.addAttribute("openedBook", bookService.findByName(open));
         }
         return "index";
     }

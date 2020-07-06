@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceMapper implements UserDetailsService {
 
   @Autowired
-  UserService userService;
+  private UserService userService;
 
   /**
    * Данный метод должен вернуть объект User, являющийся пользователем текущей сессии.

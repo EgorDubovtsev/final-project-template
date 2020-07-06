@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class CartController {
     @Autowired
-    CartDao cartDao;
+    private CartDao cartDao;
 
     @RequestMapping(value = "/api/addToCart", method = RequestMethod.GET)
     public @ResponseBody
@@ -25,10 +25,9 @@ public class CartController {
 
     @RequestMapping(value = "/api/deleteBook", method = RequestMethod.GET)
     public @ResponseBody
-    boolean deleteBook(@RequestParam String bookName,@RequestParam String userLogin) {
-        System.out.println("delete api");
-         cartDao.deleteFromTheCart(bookName,userLogin);
-         return true;
+    boolean deleteBook(@RequestParam String bookName, @RequestParam String userLogin) {
+        cartDao.deleteFromTheCart(bookName, userLogin);
+        return true;
     }
 }
 //TODO: create media for button to cart and to home

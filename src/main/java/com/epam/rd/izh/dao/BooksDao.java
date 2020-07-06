@@ -10,9 +10,9 @@ import java.util.List;
 @Component
 public class BooksDao implements Dao {
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
     @Autowired
-    BookMapper bookMapper;
+    private BookMapper bookMapper;
 
     @Override
     public List<BookDTO> getList() {

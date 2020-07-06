@@ -19,11 +19,11 @@ import javax.validation.Valid;
 @Controller
 public class BookCreateController {
     @Autowired
-    BookService bookService;
+    private BookService bookService;
     @Autowired
-    BookMapper bookMapper;
+    private BookMapper bookMapper;
     @Autowired
-    FieldChecker fieldChecker;
+    private FieldChecker fieldChecker;
 
     @PostMapping("/createBook/proceed")
     public String processBookCreating(@Valid @ModelAttribute("createBookForm") CreatedBookImpl createdBook,
@@ -36,13 +36,12 @@ public class BookCreateController {
             return "redirect:/";
         }
         if (bookService.findByName(createdBook.getName()) != null) {
-           return "redirect:/createBook?error=bookExist";
-        }else if(fieldChecker.isNull(createdBook)){
+            return "redirect:/createBook?error=bookExist";
+        } else if (fieldChecker.isNull(createdBook)) {
             return "redirect:/createBook?error=emptyFields";
         }
         BookDTO bookDTO = bookMapper.mapFromCreatedBook(createdBook);
         bookService.addBook(bookDTO);
-//TODO:MESSAGE ABOUT SUCCESS
         return "redirect:/";
     }
 }

@@ -9,14 +9,16 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
 @Component
 public class CartDaoImpl implements CartDao {
     @Autowired
-    BookService bookService;
+    private BookService bookService;
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
     @Autowired
-    CartMapper cartMapper;
+    private CartMapper cartMapper;
+
     @Override
     public boolean addToCart(String bookName, String login) {
         BookDTO bookDTO = bookService.findByName(bookName);
@@ -26,20 +28,23 @@ public class CartDaoImpl implements CartDao {
         jdbcTemplate.update(sql);
         return true;
     }
+
     @Override
     public void deleteFromTheCart(String bookName, String login) {
         String sql = "DELETE FROM usercart WHERE id IN (SELECT id " +
-                "FROM usercart WHERE user_login = '"+login+"' and book_name = '"+bookName+"'" + " LIMIT 1" + ")";
-       jdbcTemplate.update(sql);
+                "FROM usercart WHERE user_login = '" + login + "' and book_name = '" + bookName + "'" + " LIMIT 1" + ")";
+        jdbcTemplate.update(sql);
     }
+
     @Override
-    public List<BookInCart> getList() {//TODO: make method with insert login in sql
+    public List<BookInCart> getList() {
         String sqlGetAllCart = "SELECT * FROM usercart;";
-        return jdbcTemplate.query(sqlGetAllCart,cartMapper);
+        return jdbcTemplate.query(sqlGetAllCart, cartMapper);
     }
+
     @Override
-    public List<BookInCart> getCartByLogin(String login){
-        String sqlGetCartByLogin = "SELECT * FROM usercart WHERE user_login='"+login+"'";
-        return jdbcTemplate.query(sqlGetCartByLogin,cartMapper);
+    public List<BookInCart> getCartByLogin(String login) {
+        String sqlGetCartByLogin = "SELECT * FROM usercart WHERE user_login='" + login + "'";
+        return jdbcTemplate.query(sqlGetCartByLogin, cartMapper);
     }
 }

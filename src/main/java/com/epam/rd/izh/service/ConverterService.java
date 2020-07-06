@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class ConverterService implements Converter {
     @Autowired
-    BooksDao booksDao;
+    private BooksDao booksDao;
     @Override
     public BookDTO convertToBookDto(BookInCart bookInCart) {
         return booksDao.getBookByName(bookInCart.getBookName());

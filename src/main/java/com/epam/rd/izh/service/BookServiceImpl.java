@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public class BookServiceImpl implements BookService {
     @Autowired
-    BooksDao booksDao;
+    private BooksDao booksDao;
 
     @Override
     public List<BookDTO> getBooksList() {

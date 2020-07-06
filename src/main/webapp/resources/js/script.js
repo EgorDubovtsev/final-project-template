@@ -89,9 +89,22 @@ function getTotalPrice(){
  	        $('#bookPriceInPopup').text(result.price);
  	        $('#addToCart').attr("value", bookName);
  	        $('#deleteFromTheCart').attr("value",bookName);
-    	})
- 		background.css("display","block");
- 		popup.css("display","flex");
- 		background.animate({opacity:"0.6"},"normal");
- 		popup.animate({top:"+100px", opacity:"1"},"normal");
+    })
+    background.css("display","block");
+    popup.css("display","flex");
+    background.animate({opacity:"0.6"},"normal");
+    popup.animate({top:"+100px", opacity:"1"},"normal");
+ }
+
+ function showToast(isOperationSuccess){
+     if(isOperationSuccess){
+        $("#toast").addClass("success");
+        $("#toast").animate({bottom:"+40px", opacity:0.8}, "normal");
+//        window.setTimeout(()=>{
+//            $("#toast").css("bottom":"20px","opacity":"0")
+//        },2000)
+     }else{
+        $("#toast").addClass("fail")
+        $("#toast").animate({bottom:"+40px", opacity:0.8}, "normal");
+     }
  }

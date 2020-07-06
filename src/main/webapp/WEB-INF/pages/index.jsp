@@ -16,7 +16,12 @@
     </style>
 </head>
 <body>
-<div class="wallpaper" style="background:url('${staticRoot}/img/fom1.jpg')"></div>
+<div class="wallpaper" 
+	style="background:url('${staticRoot}/img/fom1.jpg') no-repeat;
+		-webkit-background-size: cover;
+    	-moz-background-size: cover;
+    	-o-background-size: cover;
+   		background-size: cover;"></div>
 	<div class="userMenu">
 		<span class="name" id="login">
 			 ${name}

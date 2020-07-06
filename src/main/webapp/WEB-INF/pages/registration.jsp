@@ -14,7 +14,12 @@
         </style>
 </head>
 <body>
-<div class="wallpaper" style="background:url('${staticRoot}/resources/img/fom1.jpg')"></div>
+<div class="wallpaper" 
+	style="background:url('${staticRoot}/resources/img/fom1.jpg') no-repeat;
+		-webkit-background-size: cover;
+    	-moz-background-size: cover;
+    	-o-background-size: cover;
+   		background-size: cover;"></div>
 <div class="regPlace">
 	<div class="regWindow">
 		<div>

@@ -2,23 +2,18 @@ package com.epam.rd.izh.controller;
 
 import com.epam.rd.izh.dao.CartDao;
 import com.epam.rd.izh.dto.BookDTO;
-import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
 import com.epam.rd.izh.mappers.BookMapper;
-import com.epam.rd.izh.repository.UserRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.epam.rd.izh.service.Converter;
-import com.epam.rd.izh.service.FieldChecker;
-import com.epam.rd.izh.service.UserPriority;
-import com.epam.rd.izh.service.UserPriorityService;
+import com.epam.rd.izh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -44,7 +39,7 @@ import java.util.stream.Collectors;
 public class AuthenticationController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
     @Autowired
     AuthorizedUserMapper authorizedUserMapper;
     @Autowired
@@ -178,7 +173,7 @@ public class AuthenticationController {
         if (bindingResult.hasErrors()) {
             return "redirect:/registration";
         }
-        if (userRepository.getAuthorizedUserByLogin(registeredUser.getName()) != null) {
+        if (userService.getAuthorizedUserByLogin(registeredUser.getName()) != null) {
             return "redirect:/registration?error=userRegistered";
         } else if (fieldChecker.isNull(registeredUser)) {
             return "redirect:/registration?error=emptyFields";
@@ -190,7 +185,7 @@ public class AuthenticationController {
          * Добавление пользователя в репозиторий или в базу данных через CRUD операции DAO.
          * Рекомендуется вынести эту логику на сервисный слой.
          */
-        userRepository.addAuthorizedUser(authorizedUser);
+        userService.addAuthorizedUser(authorizedUser);
         return "redirect:/login";
     }
 

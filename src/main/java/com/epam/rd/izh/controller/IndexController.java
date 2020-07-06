@@ -2,7 +2,6 @@ package com.epam.rd.izh.controller;
 
 import com.epam.rd.izh.dao.CartDao;
 import com.epam.rd.izh.dto.Message;
-import com.epam.rd.izh.repository.UserRepository;
 import com.epam.rd.izh.service.BookService;
 import com.epam.rd.izh.service.UserPriority;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 public class IndexController {
     @Autowired
     private BookService bookService;
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private UserPriority userPriority;
     @Autowired

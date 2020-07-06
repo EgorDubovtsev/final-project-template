@@ -1,7 +1,7 @@
 package com.epam.rd.izh.service;
 
 import com.epam.rd.izh.entity.AuthorizedUser;
-import com.epam.rd.izh.repository.UserRepository;
+
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceMapper implements UserDetailsService {
 
   @Autowired
-  UserRepository userRepository;
+  UserService userService;
 
   /**
    * Данный метод должен вернуть объект User, являющийся пользователем текущей сессии.
@@ -37,7 +37,7 @@ public class UserDetailsServiceMapper implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
     //TODO: ADD null handlers
-    AuthorizedUser authorizedUserDto = userRepository.getAuthorizedUserByLogin(login);
+    AuthorizedUser authorizedUserDto = (AuthorizedUser) userService.getAuthorizedUserByLogin(login);
     Set<GrantedAuthority> roles = new HashSet<>();
     roles.add(new SimpleGrantedAuthority((authorizedUserDto.getRole())));
 

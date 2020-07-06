@@ -29,8 +29,8 @@ public class AuthorizedUserDao implements Dao {
 
     public int registrateUser(AuthorizedUser authorizedUser) {
         String sqlInsertIntoUsers = "INSERT INTO USERS (user_name,login, birthdate, role) VALUES ('"
-                + authorizedUser.getLogin() + "','"
                 + authorizedUser.getName() + "','"
+                + authorizedUser.getLogin() + "','"
                 + authorizedUser.getBirthdate() + "','"
                 + authorizedUser.getRole() + "');";
         String sqlInsertIntoAuthorizedData = "INSERT INTO authorized_data values('"

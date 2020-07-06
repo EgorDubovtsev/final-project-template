@@ -30,7 +30,7 @@ public class CartDaoImpl implements CartDao {
     public void deleteFromTheCart(String bookName, String login) {
         String sql = "DELETE FROM usercart WHERE id IN (SELECT id " +
                 "FROM usercart WHERE user_login = '"+login+"' and book_name = '"+bookName+"'" + " LIMIT 1" + ")";
-       jdbcTemplate.update(sql); //FIXME: AFTER PRESS DELETE BOOK WILL BE ADD
+       jdbcTemplate.update(sql);
     }
     @Override
     public List<BookInCart> getList() {//TODO: make method with insert login in sql

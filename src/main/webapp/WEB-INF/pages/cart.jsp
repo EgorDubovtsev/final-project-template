@@ -69,7 +69,7 @@
 						<div class="bookNameInCart">${book.getName()}</div>
 						<div class="priceWrapper">
 							<div class="priceInCart">
-								<span>${book.getPrice()}</span>руб.
+								<span class="bookPrice">${book.getPrice()}</span>руб.
 							</div>
 						</div>
 				</button>
@@ -79,7 +79,7 @@
 			
 		<div class="resultPriceWrapper">
 			<div class="resultPrice">
-				Стоимость составит: <span>${amount}</span>руб.
+				Стоимость составит: <span id="totalPrice"></span>руб.
 			</div>
 			<a class="btn buyBtn" href="#">Купить</a>
 		</div>

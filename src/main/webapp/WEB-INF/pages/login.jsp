@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 	<c:set var="staticRoot" value="${pageContext.request.contextPath}/resources"/>
-	<script type="text/javascript" src="${staticRoot}resources/js/script.js"></script>
+	<script type="text/javascript" src="${staticRoot}resources/js/main.js"></script>
 	<style>
        <%@include file='../../resources/css/main.css' %>
        <%@include file='../../resources/css/registrationAndLogin.css' %>

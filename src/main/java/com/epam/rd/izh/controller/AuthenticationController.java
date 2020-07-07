@@ -171,7 +171,7 @@ public class AuthenticationController {
         if (bindingResult.hasErrors()) {
             return "redirect:/registration";
         }
-        if (userService.getAuthorizedUserByLogin(registeredUser.getName()) != null) {
+        if (userService.getAuthorizedUserByLogin(registeredUser.getLogin()) != null) {
             return "redirect:/registration?error=userRegistered";
         } else if (fieldChecker.isNull(registeredUser)) {
             return "redirect:/registration?error=emptyFields";

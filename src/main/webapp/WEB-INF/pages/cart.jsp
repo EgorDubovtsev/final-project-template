@@ -8,7 +8,9 @@
     <c:set var="staticRoot" value="${pageContext.request.contextPath}/resources"/>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="${staticRoot}/js/script.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/popup.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/cart.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/main.js"></script>
 	<style>
          <%@include file='../../resources/css/main.css' %>
          <%@include file='../../resources/css/cart.css' %>

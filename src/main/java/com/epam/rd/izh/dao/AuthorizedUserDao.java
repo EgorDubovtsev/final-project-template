@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
-public class AuthorizedUserDao implements Dao {
+public class AuthorizedUserDao implements UserDao {
     JdbcTemplate jdbcTemplate;
     AuthorizedUserMapper authorizedUserMapper;
 
@@ -27,6 +27,7 @@ public class AuthorizedUserDao implements Dao {
         return jdbcTemplate.query(sql, authorizedUserMapper);
     }
 
+    @Override
     public int registrateUser(AuthorizedUser authorizedUser) {
         String sqlInsertIntoUsers = "INSERT INTO USERS (user_name,login, birthdate, role) VALUES ('"
                 + authorizedUser.getName() + "','"

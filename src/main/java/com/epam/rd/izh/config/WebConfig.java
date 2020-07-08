@@ -2,6 +2,7 @@ package com.epam.rd.izh.config;
 
 import com.epam.rd.izh.dao.AuthorizedUserDao;
 import com.epam.rd.izh.dao.BooksDao;
+import com.epam.rd.izh.dao.SimpleBooksDao;
 import com.epam.rd.izh.dao.CartDaoImpl;
 import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.dto.BookInCartImpl;
@@ -9,6 +10,7 @@ import com.epam.rd.izh.mappers.AuthorizedUserMapper;
 import com.epam.rd.izh.mappers.BookMapper;
 import com.epam.rd.izh.mappers.CartMapper;
 import com.epam.rd.izh.service.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,8 +34,8 @@ public class WebConfig {
     }
 
     @Bean
-    public UserPriority userPriority() {
-        return new UserPriorityService();
+    public UserPriorityService userPriority() {
+        return new SimpleUserPriorityService();
     }
 
     @Bean
@@ -42,7 +44,7 @@ public class WebConfig {
     }
 
     public BooksDao booksDao() {
-        return new BooksDao();
+        return new SimpleBooksDao();
     }
 
     @Bean
@@ -67,6 +69,16 @@ public class WebConfig {
 
     @Bean
     public FieldChecker fieldChecker() {
-        return new FieldCheckerImpl();
+        return new FieldCheckerService();
+    }
+
+    @Bean
+    public SearchService searchService() {
+        return new SimpleSearchService();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }

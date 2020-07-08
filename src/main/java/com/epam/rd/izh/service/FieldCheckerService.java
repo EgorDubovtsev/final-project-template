@@ -3,7 +3,7 @@ package com.epam.rd.izh.service;
 import com.epam.rd.izh.dto.CreatedBookDTO;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 
-public class FieldCheckerImpl implements FieldChecker {
+public class FieldCheckerService implements FieldChecker {
     @Override
     public boolean isNull(RegistredUserDTO registredUserDTO) {
         return registredUserDTO.getName().equals("")

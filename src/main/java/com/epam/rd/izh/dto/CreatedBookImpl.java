@@ -1,12 +1,12 @@
 package com.epam.rd.izh.dto;
 
-public class CreatedBookImpl implements CreatedBookDTO{
-    String name;
-    String author;
-    String genre;
-    int publishYear;
-    double price;
-    String description;
+public class CreatedBookImpl implements CreatedBookDTO {
+    private String name;
+    private String author;
+    private String genre;
+    private int publishYear;
+    private int price;
+    private String description;
     //TODO: IMAGE
 
     public String getName() {
@@ -41,28 +41,16 @@ public class CreatedBookImpl implements CreatedBookDTO{
         this.publishYear = publishYear;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    @Override
-    public String toString() {
-        return "CreatedBookImpl{" +
-                "name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", genre='" + genre + '\'' +
-                ", publishYear=" + publishYear +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                '}';
     }
 
     public void setDescription(String description) {

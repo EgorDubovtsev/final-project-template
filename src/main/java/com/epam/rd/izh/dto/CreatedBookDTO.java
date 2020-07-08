@@ -17,9 +17,9 @@ public interface CreatedBookDTO {
 
     void setPublishYear(int publishYear);
 
-    double getPrice();
+    int getPrice();
 
-    void setPrice(double price);
+    void setPrice(int price);
 
     String getDescription();
 

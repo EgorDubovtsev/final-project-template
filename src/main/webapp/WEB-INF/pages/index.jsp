@@ -11,6 +11,7 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="${staticRoot}/js/popup.js"></script>
 	<script type="text/javascript" src="${staticRoot}/js/cart.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/searchBook.js"></script>
 	<script type="text/javascript" src="${staticRoot}/js/main.js"></script>
 	<style>
          <%@include file='../../resources/css/main.css' %>
@@ -50,25 +51,25 @@
 	<div class="mainName">Book Shop</div>
 	<form class="search">
 		<input type="text" placeholder="Название книги" name="search" id="searchLine">
-		<a href="#" id="searchButton">Найти</a>
+		<a id="searchButton">Найти</a>
 	</form>
 	<div class="filters">
 		<div class="filterColumn">
-			<label>Автор: <input type="text" name="author" class="filterField"></label>
+			<label>Автор: <input type="text" id="author" class="filterField"></label>
 		</div>
 		<div class="filterColumn">
 			<label>Жанр:
-				<select class="filterField">
-					<option selected="selected">Выберите жанр</option>
-					<option>Детектив</option>
-					<option>Роман</option>
-					<option>Драмма</option>
-					<option>Научная фантастика</option>
+				<select class="filterField" id="genre">
+					<option value="" selected="selected">Выберите жанр</option>
+					<option value="Детектив">Детектив</option>
+					<option value="Роман">Роман</option>
+					<option value="Драмма">Драмма</option>
+					<option value="Научная фантастика">Научная фантастика</option>
 				</select>
 			</label>
 		</div>
 		<div class="filterColumn">
-			<label>Цена до: <input type="number" name="price" class="filterField"></label>
+			<label>Цена до: <input type="text" id="price" class="filterField"></label>
 		</div>
 	</div>
 		<div id="windowBack" class="windowBack"></div>

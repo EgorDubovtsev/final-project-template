@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class BookPopupController {
     @Autowired
     private BookService bookService;
+    @Autowired
+    ObjectMapper mapper;
 
-    @RequestMapping(value = "/api", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/popup", method = RequestMethod.GET)
     public @ResponseBody
     String getBookInfo(@RequestParam String name) {
         BookDTO bookDTO = bookService.findByName(name);
-        ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writeValueAsString(bookDTO);
         } catch (JsonProcessingException e) {

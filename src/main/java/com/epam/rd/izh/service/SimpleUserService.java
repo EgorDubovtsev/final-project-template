@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Nullable;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class SimpleUserService implements UserService {
     @Autowired
     private AuthorizedUserDao authorizedUserDao;
 

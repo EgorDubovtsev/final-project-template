@@ -4,7 +4,7 @@ public class BookDTO {
     private String name;
     private String author;
     private int publishYear;
-    private double price;
+    private int price;
     private String description;
     private String genre;
 
@@ -32,11 +32,11 @@ public class BookDTO {
         this.publishYear = publishYear;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

@@ -127,9 +127,14 @@ input::-webkit-inner-spin-button {
 #searchButton{
 	text-align: center;
 	padding-top: 8px;
+	cursor: pointer;
 	width: 20%;
 	font-size: 20px;
 	background-color: #FFAB57;
+}
+#searchButton:active{
+	transition: 0.2s;
+	background-color: #FD9A30;
 }
 .cart{
 	display: flex;
@@ -338,8 +343,6 @@ link:focus {
 	font-style: italic;
 	margin-top: -5px;
 	margin-bottom: -5px;
-	
-
 }
 .sml{
 	font-size: 20px;

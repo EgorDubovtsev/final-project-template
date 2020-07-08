@@ -1,43 +1,16 @@
 package com.epam.rd.izh.dao;
 
 import com.epam.rd.izh.dto.BookDTO;
-import com.epam.rd.izh.mappers.BookMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import com.epam.rd.izh.dto.SearchParametersDTO;
 
 import java.util.List;
-@Component
-public class BooksDao implements Dao {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Autowired
-    private BookMapper bookMapper;
 
-    @Override
-    public List<BookDTO> getList() {
-        String sqlGetAllBooks = "SELECT * FROM books";
-        return jdbcTemplate.query(sqlGetAllBooks,bookMapper);//TODO:NULL
-    }
+public interface BooksDao {
+    List<BookDTO> getList();
 
-    public int addBook(BookDTO bookDTO){
-        String sqlAddBook = "INSERT INTO books values('"+bookDTO.getName()+"','"
-                +bookDTO.getPublishYear()+"','"
-                +bookDTO.getDescription()+"','"
-                +bookDTO.getPrice()
-                +"','"+bookDTO.getAuthor()+"');";
+    int addBook(BookDTO bookDTO);
 
-        String sqlAddBookGenre= "INSERT INTO books_genres VALUES('"
-                +bookDTO.getName()+"','"
-                +bookDTO.getGenre()+"');";
-        jdbcTemplate.update(sqlAddBook);
-        return jdbcTemplate.update(sqlAddBookGenre);
-    }
+    BookDTO getBookByName(String name);
 
-    public BookDTO getBookByName(String name){
-        String sqlGetBookByName = "SELECT * FROM books WHERE book_name='"+name+"'";
-        return jdbcTemplate.queryForObject(sqlGetBookByName,bookMapper);
-    }
-
-
+    List<BookDTO> getBooksByParameters(SearchParametersDTO searchParameters);
 }

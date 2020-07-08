@@ -5,11 +5,6 @@ import com.epam.rd.izh.dto.SearchParametersDTO;
 
 import java.util.List;
 
-public interface BookService {
-    List<BookDTO> getBooksList();
-
-    void addBook(BookDTO book);
-
-    BookDTO findByName(String name);
-
+public interface SearchService {
+    List<BookDTO> findBookBySearchParameters(SearchParametersDTO searchParameters);
 }

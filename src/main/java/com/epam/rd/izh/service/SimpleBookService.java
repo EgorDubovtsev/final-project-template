@@ -1,14 +1,15 @@
 package com.epam.rd.izh.service;
 
 import com.epam.rd.izh.dao.BooksDao;
+import com.epam.rd.izh.dao.SimpleBooksDao;
 import com.epam.rd.izh.dto.BookDTO;
+import com.epam.rd.izh.dto.SearchParametersDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Nullable;
 import java.util.List;
 @Component
-public class BookServiceImpl implements BookService {
+public class SimpleBookService implements BookService {
     @Autowired
     private BooksDao booksDao;
 
@@ -24,8 +25,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDTO findByName(String name) {
-        return getBooksList().stream().filter(bookName -> bookName.getName()
-                .trim().equals(name.trim()))
-                .findFirst().orElse(null);
+        return booksDao.getBookByName(name);
     }
+
 }

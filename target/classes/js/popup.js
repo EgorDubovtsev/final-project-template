@@ -4,7 +4,7 @@
  	 $("#window").animate({top:"+170px", opacity:"0"},"fast");
  }
   function openPopup(bookName, background, popup){
-    	$.getJSON("/api",{name:bookName},(result)=>{
+    	$.getJSON("/api/popup",{name:bookName},(result)=>{
   	        $('#window').css("display","flex");
   	        $('#bookNameInPopup').text(result.name);
   	        $('#bookAuthorInPopup').text(result.author);

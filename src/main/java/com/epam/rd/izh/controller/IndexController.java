@@ -3,7 +3,7 @@ package com.epam.rd.izh.controller;
 import com.epam.rd.izh.dao.CartDao;
 import com.epam.rd.izh.dto.Message;
 import com.epam.rd.izh.service.BookService;
-import com.epam.rd.izh.service.UserPriority;
+import com.epam.rd.izh.service.UserPriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -20,7 +19,7 @@ public class IndexController {
     @Autowired
     private BookService bookService;
     @Autowired
-    private UserPriority userPriority;
+    private UserPriorityService userPriorityService;
     @Autowired
     private CartDao cartDao;
 
@@ -34,7 +33,7 @@ public class IndexController {
         model.addAttribute("name", authentication.getName());
         model.addAttribute("booksList", bookService.getBooksList());
         response.addCookie(new Cookie("login", authentication.getName()));
-        if (userPriority.checkPriority().equals("MANAGER")) {
+        if (userPriorityService.checkPriority().equals("MANAGER")) {
             model.addAttribute("admin", "MANAGER");
         }
         if (toCart != null) {

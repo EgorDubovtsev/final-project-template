@@ -6,7 +6,6 @@ import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
-import com.epam.rd.izh.mappers.BookMapper;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +44,7 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private UserPriority userPriority;
+    private UserPriorityService userPriorityService;
     @Autowired
     private CartDao cartDao;
     @Autowired
@@ -145,7 +144,7 @@ public class AuthenticationController {
                 .orElse(new Cookie("status", "forbidden")).getValue();
         model.addAttribute("name", login);
 
-        String role = userPriority.checkPriority();
+        String role = userPriorityService.checkPriority();
         return role.equals("MANAGER") ? "createBook" : "redirect:/";
 
     }

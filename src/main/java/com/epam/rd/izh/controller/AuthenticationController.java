@@ -146,7 +146,7 @@ public class AuthenticationController {
         model.addAttribute("name", login);
 
         String role = userPriority.checkPriority();
-        return role.equals("MANAGER") ? "createBook" : "error";
+        return role.equals("MANAGER") ? "createBook" : "redirect:/";
 
     }
 

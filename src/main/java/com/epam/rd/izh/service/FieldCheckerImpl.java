@@ -19,7 +19,7 @@ public class FieldCheckerImpl implements FieldChecker {
                 || createdBookDTO.getAuthor().trim().equals("")
                 || createdBookDTO.getDescription().trim().equals("")
                 || createdBookDTO.getGenre().equals("null")
-                || createdBookDTO.getPrice()==0
-                || createdBookDTO.getPublishYear()==0;
+                || createdBookDTO.getPrice() == 0
+                || createdBookDTO.getPublishYear() == 0;
     }
 }

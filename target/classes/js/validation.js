@@ -1,24 +1,11 @@
     $(document).ready(function (){
-//        $("#publishYear-createBook").val(0)
-//        $("#price-createBook").val(0)
         $("#name-createBook").change(()=>checkValueLengthText("name-createBook",50))
         $("#author-createBook").change(()=>checkValueLengthText("author-createBook",100))
         $("#bookDescription-createBook").change(()=>checkValueLengthText("bookDescription-createBook",100))
-//        $("#author-createBook").change(checkCreateBookFields())
-//        $("#genre-createBook").change(checkCreateBookFields())
         $("#publishYear-createBook").change(()=>checkValuePublishYear("publishYear-createBook"))
         $("#price-createBook").change(()=>checkValuePrice("price-createBook"))
-//        $("#bookDescription-createBook").change(checkCreateBookFields())
     })
-// $("#price-createBook").change(checkCreateBookFields())
-//    function checkCreateBookFields(){
-//    console.log("CHAMGE")
-//        checkValueLengthText("name-createBook")
-//        checkValueLengthText("author-createBook")
-//        checkValuePublishYear("publishYear-createBook")
-////        checkValuePrice("price-createBook")
-//        checkValueLengthText("bookDescription-createBook")
-//    }
+
 
     function checkValueLengthText(id,maxLength){
      const value = $("#"+id).val()

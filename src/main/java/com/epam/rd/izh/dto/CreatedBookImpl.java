@@ -53,7 +53,20 @@ public class CreatedBookImpl implements CreatedBookDTO{
         return description;
     }
 
+    @Override
+    public String toString() {
+        return "CreatedBookImpl{" +
+                "name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", genre='" + genre + '\'' +
+                ", publishYear=" + publishYear +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 }
+

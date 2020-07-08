@@ -15,10 +15,10 @@ public class FieldCheckerImpl implements FieldChecker {
 
     @Override
     public boolean isNull(CreatedBookDTO createdBookDTO) {
-        return createdBookDTO.getName().equals("")
-                || createdBookDTO.getAuthor().equals("")
-                || createdBookDTO.getDescription().equals("")
-                || createdBookDTO.getGenre().equals("")
+        return createdBookDTO.getName().trim().equals("")
+                || createdBookDTO.getAuthor().trim().equals("")
+                || createdBookDTO.getDescription().trim().equals("")
+                || createdBookDTO.getGenre().equals("null")
                 || createdBookDTO.getPrice()==0
                 || createdBookDTO.getPublishYear()==0;
     }

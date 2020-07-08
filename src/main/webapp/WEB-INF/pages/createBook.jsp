@@ -7,7 +7,9 @@
 	<c:set var="staticRoot" value="${pageContext.request.contextPath}/resources"/>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="${staticRoot}/js/main.js"></script>
+	<script type="text/javascript" src="${staticRoot}/resources/js/cart.js"></script>
+	<script type="text/javascript" src="${staticRoot}/resources/js/main.js"></script>
+	<script type="text/javascript" src="${staticRoot}/resources/js/validation.js"></script>
 	<style>
        <%@include file='../../resources/css/main.css' %>
         <%@include file='../../resources/css/createBook.css' %>
@@ -43,15 +45,15 @@
 		<form:form class="cartListInner" action="/createBook/proceed" method="post" modelAttribute="createBookForm" >
 			<div class="paramBook">
 				<label>Название: </label>
-				<form:input type="text" maxlength="50" class="filterField" path="name"/>
+				<form:input id="name-createBook" type="text" class="filterField" path="name"/>
 			</div>
 			<div class="paramBook">
 				<label>Автор: </label>
-				<form:input type="text" maxlength="30" class="filterField" path="author"/>
+				<form:input type="text" id="author-createBook"  class="filterField" path="author"/>
 			</div>
 			<div class="paramBook">
 				<label>Жанр: </label>
-				<form:select class="select" path="genre">
+				<form:select class="select" path="genre" id="genre-createBook">
 					<option value="null" selected>Выберите жанр</option>
 					<option value="Детектив">Детектив</option>
 					<option value="Роман">Роман</option>
@@ -62,15 +64,15 @@
 				
 			<div class="paramBook">
 				<label>Год Издания: </label>
-				<form:input type="number" class="filterField" path="publishYear"/>
+				<form:input type="text" class="filterField" valuer="0" path="publishYear" id="publishYear-createBook"/>
 			</div>
 			<div class="paramBook">
 				<label>Цена: </label>
-				<form:input type="number" class="filterField" path="price"/>
+				<form:input type="text" class="filterField" value="0" path="price" id="price-createBook"/>
 			</div>
 			<div class="paramBook">
 				<label>Описание: </label>
-				<form:textarea path="description" maxlength="100" class="bookDescription bigFont" ></form:textarea>
+				<form:textarea path="description" class="bookDescription bigFont" id="bookDescription-createBook"></form:textarea>
 			</div>
 			<%--<div class="paramBook">
 				<label>Изображение </label>

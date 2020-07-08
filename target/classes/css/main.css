@@ -294,6 +294,7 @@ input::-webkit-inner-spin-button {
 }
 .bookName{
 	text-align: center;
+	font-size: 2em;
 }
 .btn{
 	cursor: pointer;

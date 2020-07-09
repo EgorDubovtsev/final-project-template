@@ -1,30 +1,33 @@
-    $(document).ready(function(){
-      $("#searchButton").click(()=>searchBook())
+$(document).ready(function () {
+    $("#searchButton").click(() => searchBook())
 
-    })
+})
 
-    function searchBook(){
-        const bookName = $("#searchLine").val()
-        const bookAuthor = $("#author").val()
-        const bookMaxPrice = $("#price").val()
-        const bookGenre = $("#genre").val()
-        console.log(bookName+" "+ bookAuthor+" "+bookMaxPrice+" "+bookGenre)
-        $.getJSON("/api/search",{name:bookName,author:bookAuthor,genre:bookGenre,maxPrice:bookMaxPrice},(response)=>{
-                console.log(response.length)
-             let validBooksNames=[];
-            for(let i=0;i<response.length;i++){
-                validBooksNames.push(response[i].name)
-            }
-            $(".bookName").filter((index,element)=>{//TODO: FIX DISPLAY none and reload
-                for(let j=0;j<validBooksNames.length;j++){
-                    console.log(j)
-                    if(validBooksNames[j]==element.textContent) {
-                        return true;
-                    }
+function searchBook() {
+    const bookName = $("#searchLine").val()
+    const bookAuthor = $("#author").val()
+    const bookMaxPrice = $("#price").val()
+    const bookGenre = $("#genre").val()
+    $.getJSON("/api/search", {
+        name: bookName,
+        author: bookAuthor,
+        genre: bookGenre,
+        maxPrice: bookMaxPrice
+    }, (response) => {
+        let validBooksNames = [];
+        for (let i = 0; i < response.length; i++) {
+            validBooksNames.push(response[i].name)
+        }
+        $(".book").filter((index, element) => {
+            for (let j = 0; j < validBooksNames.length; j++) {
+                if (validBooksNames[j].trim() === element.textContent.trim()) {
+                    return false;
                 }
-                return false;
-            }).css("display","none")
-
-        })
-
-    }
+            }
+            return true;
+        }).css("display", "none")
+        if (bookName.trim() === "" && bookAuthor.trim() === "" && bookMaxPrice.trim() === "" && bookGenre === "") {
+            $(".book").css("display", "block")
+        }
+    })
+}

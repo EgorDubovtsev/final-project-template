@@ -259,12 +259,7 @@ input::-webkit-inner-spin-button {
 	font-size: 20px;
 	width: 210px;
 }
-.searchResults{
-	display: none;
-	padding: 20px;
-	margin: auto;
-	width: 80%;
-}
+
 .book{
 	border-radius: 10px;
 	color: black;

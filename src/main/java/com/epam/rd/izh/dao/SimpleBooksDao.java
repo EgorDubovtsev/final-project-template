@@ -40,13 +40,20 @@ public class SimpleBooksDao implements BooksDao {
 
     @Override
     public BookDTO getBookByName(String name) {
+        if (name.trim().equals("")) {
+            return null;
+        }
         String sqlGetBookByName = "SELECT * FROM books WHERE book_name like '" + name + "'";
-        return jdbcTemplate.queryForObject(sqlGetBookByName, bookMapper);
+        try {
+            return jdbcTemplate.queryForObject(sqlGetBookByName, bookMapper);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<BookDTO> getBooksByParameters(SearchParametersDTO searchParameters) {
-        System.out.println("books dao");
         String bookName = searchParameters.getName().equals("") ? "%" : searchParameters.getName();
         String bookAuthor = searchParameters.getAuthor().equals("") ? "%" : searchParameters.getAuthor();
         String bookGenre = searchParameters.getGenre().equals("") ? "%" : searchParameters.getGenre();

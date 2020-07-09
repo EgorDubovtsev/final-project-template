@@ -106,30 +106,5 @@
 			 </c:forEach>
 		</div>
 	</div>
-	<div class="searchResults">
-		<h2 class="resultText">Результаты по запросу N</h2>
-		<div class="booksList">
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

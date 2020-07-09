@@ -8,6 +8,7 @@ function searchBook() {
     const bookAuthor = $("#author").val()
     const bookMaxPrice = $("#price").val()
     const bookGenre = $("#genre").val()
+     $(".book").css("display", "block")
     $.getJSON("/api/search", {
         name: bookName,
         author: bookAuthor,
@@ -26,8 +27,5 @@ function searchBook() {
             }
             return true;
         }).css("display", "none")
-        if (bookName.trim() === "" && bookAuthor.trim() === "" && bookMaxPrice.trim() === "" && bookGenre === "") {
-            $(".book").css("display", "block")
-        }
     })
 }

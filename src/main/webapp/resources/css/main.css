@@ -136,7 +136,7 @@ input::-webkit-inner-spin-button {
 	transition: 0.2s;
 	background-color: #FD9A30;
 }
-.cart{
+.redirectButtonWrapper{
 	display: flex;
 	margin-top: 10px;
 	flex-wrap: wrap;
@@ -149,10 +149,11 @@ input::-webkit-inner-spin-button {
 	right: 4%;
 	background-color: #FFAB57;
 }
-.toCart{
+.redirectButton{
 	width: 200px;
 }
-.cart:hover,.toShop:hover{
+.redirectButtonWrapper:hover{
+	background: #FF9833;
 	animation: 1.2s ease-in 0s normal none 1 running rotateAnimation;
 }
 @keyframes rotateAnimation{
@@ -364,4 +365,36 @@ link:focus {
 .fail{
 	background: #B80900;
 	color: white;
+}
+@media screen and (max-device-width: 1372px){
+	.filterField{
+		width: 225px;
+	}
+}
+
+@media screen and (max-device-width: 1000px){
+	.filterColumn{
+		height: 70px;
+		display: flex;
+	}
+	.filterField{
+		display: flex;
+		width: 400px;
+		/*height: 35px;;*/
+		font-size: 1em;
+	}
+	.filters{
+		align-items: center;
+		flex-wrap: wrap;
+		flex-direction: column;
+		padding-bottom: 10px;
+	}
+	.redirectButtonWrapper{
+		margin: auto;
+		position: relative;
+		right: 0;
+	}
+	.userMenu{
+		margin-bottom: 10px;
+	}
 }

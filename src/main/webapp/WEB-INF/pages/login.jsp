@@ -30,7 +30,7 @@
 				</div>
 				<button type="submit" href="#" class="btn regBtn">Войти</button>
 			</form>
-			<form action="registration" method="get" class="redirectButtonWrapper ">
+			<form action="registration" method="get" class="redirectButtonEnter ">
 	        	<input type="submit" class="link haveAcc" value="Еще нет аккаунта?">
 	        </form>
         </div>

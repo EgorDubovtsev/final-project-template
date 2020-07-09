@@ -33,13 +33,11 @@
 			</form>
 		</div>		
 	</div>
-	<span>
-		<form action="/" method="get">
-			<button class="link toShop">
+		<form action="/" method="get" class="redirectButtonWrapper">
+			<button class="link redirectButton">
 				<span class="icon-home"></span>
 			</button>
 		</form>
-	</span>
 	<div class="cartName">Корзина</div>
 		<div id="windowBack" class="windowBack"></div>
 		<form  method="get" id="window" class="window">

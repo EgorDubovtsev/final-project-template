@@ -19,7 +19,7 @@ public class SimpleBooksDao implements BooksDao {
 
     @Override
     public List<BookDTO> getList() {
-        String sqlGetAllBooks = "SELECT * FROM books";
+        String sqlGetAllBooks = "SELECT * FROM books join books_genres on books.book_name = books_genres.book_name";
         return jdbcTemplate.query(sqlGetAllBooks, bookMapper);//TODO:NULL
     }
 
@@ -43,7 +43,7 @@ public class SimpleBooksDao implements BooksDao {
         if (name.trim().equals("")) {
             return null;
         }
-        String sqlGetBookByName = "SELECT * FROM books WHERE book_name like '" + name + "'";
+        String sqlGetBookByName = "SELECT * FROM books join books_genres on books.book_name = books_genres.book_name where books.book_name ='" + name + "'";
         try {
             return jdbcTemplate.queryForObject(sqlGetBookByName, bookMapper);
         } catch (Exception ex) {

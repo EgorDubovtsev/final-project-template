@@ -40,14 +40,12 @@
 			</form>
 		</div>
 	</div>
-	<span>
-		<form action="/cart" class="cart">
-            <button class="link toCart">
+		<form action="/cart" class="redirectButtonWrapper">
+            <button class="link redirectButton">
                 <span class="itemCouter" id="counter">0</span>
                 <span class="icon-cart"></span>
             </button>
 		</form>
-	</span>
 	<div class="mainName">Book Shop</div>
 	<form class="search">
 		<input type="text" placeholder="Название книги" name="search" id="searchLine">

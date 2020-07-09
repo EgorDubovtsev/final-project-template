@@ -33,12 +33,10 @@
 			</form>
 		</div>
 	</div>
-	<form action="/" method="get">
-
-            <button class="link toShop">
-                <span class="icon-home"></span>
-            </button>
-
+	<form action="/" method="get" class="redirectButtonWrapper">
+        <button class="link redirectButton">
+            <span class="icon-home"></span>
+        </button>
 	</form>
 	<div class="cartName">Добавить новую книгу</div>
 	<div class="cartListOuter">

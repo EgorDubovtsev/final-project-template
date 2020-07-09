@@ -10,7 +10,7 @@ function openPopup(bookName, background, popup) {
         $('#bookNameInPopup').text(result.name);
         $('#bookAuthorInPopup').text(result.author);
         $('#bookPublishYearInPopup').text(result.publishYear);
-        $('#bookGenreYearInPopup').text(result.genre);
+        $('#bookGenreInPopup').text(result.genre);
         $('#bookDescriptionInPopup').text(result.description);
         $('#bookPriceInPopup').text(result.price);
         $('#addToCart').attr("value", bookName);

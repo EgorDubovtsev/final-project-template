@@ -39,7 +39,7 @@
 				<button class="btn regBtn">Зарегестрироваться</button>
 
 			</form:form>
-			<form:form action="/login" method="get" class="redirectButtonWrapper">
+			<form:form action="/login" method="get" class="redirectButtonEnter">
 	        	<button class="link"> Уже есть аккаунт?</button>
 	        </form:form>
         </div>

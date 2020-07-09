@@ -398,3 +398,13 @@ link:focus {
 		margin-bottom: 10px;
 	}
 }
+@media screen and (max-device-width:1136px){
+	.window{
+		margin-left: 0px;
+		width: 100%;
+		min-width: 726px;
+	}
+	.closeWindow{
+		right: 50px;
+	}
+}

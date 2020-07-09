@@ -36,12 +36,10 @@ public class BookCreateController {
             return "redirect:/";
         }
         if (fieldChecker.isNull(createdBook)) {
-            System.out.println("NULL");
             return "redirect:/createBook?error=emptyFields";
         } else if (bookService.findByName(createdBook.getName()) != null) {
             return "redirect:/createBook?error=bookExist";
         }
-        System.out.println("NOT NULL");
         BookDTO bookDTO = bookMapper.mapFromCreatedBook(createdBook);
         bookService.addBook(bookDTO);
         return "redirect:/";

@@ -19,7 +19,6 @@ public class BookPopupController {
     public @ResponseBody
     String getBookInfo(@RequestParam String name) {
         BookDTO bookDTO = bookService.findByName(name);
-        System.out.println(bookDTO.getGenre()+"FDF");
         try {
             return mapper.writeValueAsString(bookDTO);
         } catch (JsonProcessingException e) {

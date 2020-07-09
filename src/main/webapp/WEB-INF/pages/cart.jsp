@@ -75,8 +75,6 @@
 				</button>
 			</div>
 		</c:forEach>
-			
-			
 		<div class="resultPriceWrapper">
 			<div class="resultPrice">
 				Стоимость составит: <span id="totalPrice"></span>руб.

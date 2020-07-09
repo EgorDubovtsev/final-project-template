@@ -1,12 +1,13 @@
 package com.epam.rd.izh.controller;
 
 import com.epam.rd.izh.dao.CartDao;
-import com.epam.rd.izh.dto.BookDTO;
 import com.epam.rd.izh.dto.BookInCart;
-import com.epam.rd.izh.service.Converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CartController {
 
     @RequestMapping(value = "/api/buy", method = RequestMethod.GET)
     public @ResponseBody
-    boolean buyAllBooksInCart( @RequestParam String userLogin) {
+    boolean buyAllBooksInCart(@RequestParam String userLogin) {
         List<BookInCart> booksInCart = cartDao.getCartByLogin(userLogin);
         for(BookInCart book:booksInCart){
             cartDao.deleteFromTheCart(book.getBookName(),userLogin);
@@ -44,4 +45,3 @@ public class CartController {
         return true;
     }
 }
-//TODO: create media for button to cart and to home

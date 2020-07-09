@@ -3,7 +3,6 @@ package com.epam.rd.izh.controller;
 import com.epam.rd.izh.dto.SearchParametersDTO;
 import com.epam.rd.izh.dto.SimpleSearchParameters;
 import com.epam.rd.izh.service.SearchService;
-import com.epam.rd.izh.service.SimpleSearchService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +17,13 @@ public class SearchBookController {
     SearchService searchService;
     @Autowired
     ObjectMapper objectMapper;
+
     @RequestMapping("/api/search")
     public @ResponseBody
     String getBookByParameters(@RequestParam String name,
-                                @RequestParam String author,
-                                @RequestParam String genre,
-                                @RequestParam String maxPrice) {
+                               @RequestParam String author,
+                               @RequestParam String genre,
+                               @RequestParam String maxPrice) {
         SearchParametersDTO searchParameters = new SimpleSearchParameters();
         searchParameters.setName(name);
         searchParameters.setAuthor(author);

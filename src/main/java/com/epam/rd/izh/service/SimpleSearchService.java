@@ -10,10 +10,9 @@ import java.util.List;
 public class SimpleSearchService implements SearchService {
     @Autowired
     BooksDao booksDao;
+
     @Override
     public List<BookDTO> findBookBySearchParameters(SearchParametersDTO searchParameters) {
-        System.out.println("find");
-        return  booksDao.getBooksByParameters(searchParameters);
-
+        return booksDao.getBooksByParameters(searchParameters);
     }
 }

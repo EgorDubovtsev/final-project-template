@@ -91,7 +91,6 @@
 			</div>
 		</form>
 	<div class="allBooks">
-		<div class="space"></div>
 		<div class="booksList">
 			 <c:forEach items="${booksList}" var="book">
                 	<button class="link bookEntity" name='open' value='${book.getName()}'>
@@ -105,12 +104,7 @@
 			 </c:forEach>
 		</div>
 		<div class="pagination">
-				<div class="paginationElement">prev</div>
-				<div class="paginationElement">1</div>
-				<div class="paginationElement">2</div>
-				<div class="paginationElement">3</div>
-				<div class="paginationElement">4</div>
-				<div class="paginationElement">next</div>
+			<div class="paginationButtonsWrapper"></div>
 		</div>	
 	</div>
 </body>

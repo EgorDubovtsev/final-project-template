@@ -8,7 +8,7 @@ function searchBook() {
     const bookAuthor = $("#author").val()
     const bookMaxPrice = $("#price").val()
     const bookGenre = $("#genre").val()
-     $(".book").css("display", "block")
+    $(".book").css("display", "block")
     $.getJSON("/api/search", {
         name: bookName,
         author: bookAuthor,

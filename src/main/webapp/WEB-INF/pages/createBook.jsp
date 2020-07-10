@@ -72,11 +72,6 @@
 				<label>Описание: </label>
 				<form:textarea path="description" class="bookDescription bigFont" id="bookDescription-createBook"></form:textarea>
 			</div>
-			<%--<div class="paramBook">
-				<label>Изображение </label>
-				<input type="file" class=" fileInput" title="bookImage">
-			</div>--%>
-
 			<div class="saveWrapper">
 				<div class="errorWrapperLogin">
 					<span class="errorMessage">${errorMessage}</span>

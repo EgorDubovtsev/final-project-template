@@ -66,15 +66,11 @@ public class SimpleBooksDao implements BooksDao {
                 "WHERE books_genres.genre LIKE '" + bookGenre + "'" +
                 ") AS result_table" +
                 " WHERE result_table.author LIKE '" + bookAuthor + "'";
-        System.out.println("sql");
         if (!bookMaxPrice.equals("")) {
-            System.out.println("not null");
             return jdbcTemplate.query(sqlGetBooksByParameters, bookMapper).stream()
                     .filter(bookDTO -> bookDTO.getPrice() < Integer.parseInt(bookMaxPrice))
                     .collect(Collectors.toList());
         }
-        System.out.println(sqlGetBooksByParameters);
-        System.out.println(jdbcTemplate.query(sqlGetBooksByParameters, bookMapper));
         return jdbcTemplate.query(sqlGetBooksByParameters, bookMapper);
     }
 }

@@ -7,7 +7,6 @@ public class CreatedBookImpl implements CreatedBookDTO {
     private int publishYear;
     private int price;
     private String description;
-    //TODO: IMAGE
 
     public String getName() {
         return name;

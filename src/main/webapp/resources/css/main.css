@@ -211,10 +211,11 @@ input::-webkit-inner-spin-button {
 }
 .bookPictureInWindow{
 	margin-left: 2%;
+	margin-top: 50px;
 	margin-right: 2%;
 	min-width: 	300px;
-	height: 400px;
-	width: 30%;
+	height: 200px;
+	/*width: 30%;*/
 	max-width: 400px;
 }
 .bookDescription{
@@ -267,7 +268,7 @@ input::-webkit-inner-spin-button {
 	margin: 30px;
 	border: 1px solid black;
  	width: 500px;
- 	height: 500px;
+ 	height: 400px;
  	min-width: 400px;
  	background: #EEFEEC;
 }
@@ -279,7 +280,7 @@ input::-webkit-inner-spin-button {
 	border-radius: 10px 10px 0px 0px;
 	display: flex;
 	justify-content: center;
-	height: 400px;
+	height: 300px;
 	width: 100%;
 	background: linear-gradient(10deg, #EEFEEC,#467E3E);
 	border-bottom: 1px solid black;
@@ -365,6 +366,28 @@ link:focus {
 .fail{
 	background: #B80900;
 	color: white;
+}
+.pagination{
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	width: 400px;
+	margin: auto;
+}
+.paginationElement{
+	border-radius: 4px;
+	border: 1px solid #FFAB57;
+	background: #467E3E;
+	padding: 7px 14px;
+	text-align: center;
+	color: white;
+	font-size: 30px;
+}
+.paginationElement:hover{
+	transform:scale(1.2);
+}
+.activePage{
+	background: #FFAB57;
 }
 @media screen and (max-device-width: 1372px){
 	.filterField{

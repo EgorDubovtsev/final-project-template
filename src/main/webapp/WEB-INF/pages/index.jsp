@@ -10,6 +10,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript" src="${staticRoot}/js/popup.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/pagination.js"></script>
 	<script type="text/javascript" src="${staticRoot}/js/cart.js"></script>
 	<script type="text/javascript" src="${staticRoot}/js/searchBook.js"></script>
 	<script type="text/javascript" src="${staticRoot}/js/main.js"></script>
@@ -75,7 +76,7 @@
 			<div id="closeWindow" class="closeWindow" coursor="pointer">
 				<a class="bigFont link">X</a> 
 			</div>
-			<img class="bookPictureInWindow" src="${staticRoot}/img/book.jpg">
+			<img class="bookPictureInWindow" src="${staticRoot}/img/book.png">
 			<div class="bookDescription">
 				<h3 id="bookNameInPopup" class="bookName"></h3>
 				<p  class="descElement">Автор: <span id="bookAuthorInPopup"></span></p>
@@ -96,13 +97,21 @@
                 	<button class="link bookEntity" name='open' value='${book.getName()}'>
 	                	<div class="book">
 			                <div class="bookPictureWrapper">
-			                     <img class="bookPicture" src="${staticRoot}/img/book.jpg">
+			                     <img class="bookPicture" src="${staticRoot}/img/book.png">
 			                 </div>
 			                 <h3 class="bookName">${book.getName()}</h3>
 		                 </div>
 	                 </button>
 			 </c:forEach>
 		</div>
+		<div class="pagination">
+				<div class="paginationElement">prev</div>
+				<div class="paginationElement">1</div>
+				<div class="paginationElement">2</div>
+				<div class="paginationElement">3</div>
+				<div class="paginationElement">4</div>
+				<div class="paginationElement">next</div>
+		</div>	
 	</div>
 </body>
 </html>

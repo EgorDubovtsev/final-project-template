@@ -44,7 +44,7 @@
 			<div id="closeWindow" class="closeWindow">
 				<a class="bigFont link">X</a> 
 			</div>
-			<img class="bookPictureInWindow" src="${staticRoot}/img/book.jpg">
+			<img class="bookPictureInWindow" src="${staticRoot}/img/book.png">
 			<div class="bookDescription">
 				<h3 id="bookNameInPopup" class="bookName"></h3>
 				<p  class="descElement">Автор: <span id="bookAuthorInPopup"></span></p>
@@ -64,7 +64,7 @@
 			<div>
 				<button class="link bookInCart bookEntity" name="open" value="${book.getName()}">
 						<div class="picBookInCart">
-							<img class="bookPicture" src="${staticRoot}/img/book.jpg"/>
+							<img class="bookPicture" src="${staticRoot}/img/book.png"/>
 						</div>
 						<div class="bookNameInCart">${book.getName()}</div>
 						<div class="priceWrapper">

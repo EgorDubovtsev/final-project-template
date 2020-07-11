@@ -82,5 +82,6 @@
 			<a class="btn buyBtn" id="buyButton">Купить</a>
 		</div>
 	</div>
+	<div class="toast" id="toast"></div>
 </body>
 </html>

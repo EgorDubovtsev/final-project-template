@@ -35,9 +35,6 @@
 	        </form>
         </div>
 	</div>
-	<div class="toast success" id="toast">
-		Регистрация прошла успешно
-	</div>
 </div>
 </body>
 </html>

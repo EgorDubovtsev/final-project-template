@@ -42,6 +42,6 @@ public class CartController {
         for(BookInCart book:booksInCart){
             cartDao.deleteFromTheCart(book.getBookName(),userLogin);
         }
-        return true;
+        return booksInCart.size()>0;
     }
 }

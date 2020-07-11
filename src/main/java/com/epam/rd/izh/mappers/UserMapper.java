@@ -4,5 +4,5 @@ import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.User;
 
 public interface UserMapper{
-    User mapFromDto(RegistredUserDTO registredUserDTO);//TODO: CHANGE DTO TO INTERFACE
+    User mapFromDto(RegistredUserDTO registredUserDTO);
 }

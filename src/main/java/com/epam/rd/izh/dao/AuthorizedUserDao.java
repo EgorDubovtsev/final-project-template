@@ -16,11 +16,6 @@ public class AuthorizedUserDao implements UserDao {
         this.authorizedUserMapper = authorizedUserMapper;
     }
 
-    /**
-     * TODO: add more methods
-     */
-
-
     @Override
     public List<AuthorizedUser> getList() {
         String sql = "SELECT * FROM users full join authorized_data on users.login=authorized_data.login";

@@ -20,7 +20,7 @@ public class SimpleBooksDao implements BooksDao {
     @Override
     public List<BookDTO> getList() {
         String sqlGetAllBooks = "SELECT * FROM books join books_genres on books.book_name = books_genres.book_name";
-        return jdbcTemplate.query(sqlGetAllBooks, bookMapper);//TODO:NULL
+        return jdbcTemplate.query(sqlGetAllBooks, bookMapper);
     }
 
     @Override

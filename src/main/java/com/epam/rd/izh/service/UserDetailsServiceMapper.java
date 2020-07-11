@@ -4,6 +4,8 @@ import com.epam.rd.izh.entity.AuthorizedUser;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.epam.rd.izh.exceptions.UserCantBeAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,31 +23,39 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceMapper implements UserDetailsService {
 
-  @Autowired
-  private UserService userService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private FieldChecker fieldChecker;
 
-  /**
-   * Данный метод должен вернуть объект User, являющийся пользователем текущей сессии.
-   * Реализация данного метода включает маппинг, т.е. преобразование бизнес-объекта AuthorizedUser в
-   * системный объект Spring приложения User.
-   *
-   * Рекомендуется внедрить логику, реагирующую на возможные нуллы в методах-геттерах.
-   * Пример хорошего кода - логирование или выброс исключения, если наполнение поля объекта критично
-   * (например отсутствует роль пользователя).
-   */
+    /**
+     * Данный метод должен вернуть объект User, являющийся пользователем текущей сессии.
+     * Реализация данного метода включает маппинг, т.е. преобразование бизнес-объекта AuthorizedUser в
+     * системный объект Spring приложения User.
+     * <p>
+     * Рекомендуется внедрить логику, реагирующую на возможные нуллы в методах-геттерах.
+     * Пример хорошего кода - логирование или выброс исключения, если наполнение поля объекта критично
+     * (например отсутствует роль пользователя).
+     */
 
-  @Override
-  public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-    //TODO: ADD null handlers
-    AuthorizedUser authorizedUserDto = (AuthorizedUser) userService.getAuthorizedUserByLogin(login);
-    Set<GrantedAuthority> roles = new HashSet<>();
-    roles.add(new SimpleGrantedAuthority((authorizedUserDto.getRole())));
+    @Override
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        AuthorizedUser authorizedUserDto = (AuthorizedUser) userService.getAuthorizedUserByLogin(login);
+        try {
+            if (fieldChecker.isNull(authorizedUserDto)) {
+                throw new UserCantBeAuthorizedException("Load user By Username was failed");
+            }
+        }catch (UserCantBeAuthorizedException ex){
+            ex.printStackTrace();
+        }
+        Set<GrantedAuthority> roles = new HashSet<>();
+        roles.add(new SimpleGrantedAuthority((authorizedUserDto.getRole())));
 
-    return new User(
-        authorizedUserDto.getLogin(),
-        authorizedUserDto.getPassword(),
-        roles
-    );
-  }
+        return new User(
+                authorizedUserDto.getLogin(),
+                authorizedUserDto.getPassword(),
+                roles
+        );
+    }
 
 }

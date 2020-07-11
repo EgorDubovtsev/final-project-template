@@ -87,12 +87,22 @@ public class AuthenticationController {
             model.addAttribute("registrationForm", new AuthorizedUser());
         }
         if (error != null) {
-            if (error.equals("userRegistered")) {
-                model.addAttribute("errorMessage", "Логин занят другим пользователем");
-            } else if (error.equals("emptyFields")) {
-                model.addAttribute("errorMessage", "Заполните все необходимые поля");
-            } else {
-                model.addAttribute("errorMessage", "Неизвестная ошибка");
+            switch (error) {
+                case "userRegistered":
+                    model.addAttribute("errorMessage", "Логин занят другим пользователем");
+                    break;
+                case "emptyFields":
+                    model.addAttribute("errorMessage", "Заполните все необходимые поля");
+                    break;
+                case "loginTooShort":
+                    model.addAttribute("errorMessage", "Логин должен содержать минимум 6 символов");
+                    break;
+                case "passwordTooShort":
+                    model.addAttribute("errorMessage", "Пароль должен содержать минимум 6 символов");
+                    break;
+                default:
+                    model.addAttribute("errorMessage", "Неизвестная ошибка");
+                    break;
             }
         }
 
@@ -141,10 +151,10 @@ public class AuthenticationController {
 
     }
 
-//    @GetMapping("/error")
-//    public String viewError(Model model) {
-//        return "error";
-//    }
+    @GetMapping("/error")
+    public String viewError(Model model) {
+        return "error";
+    }
 
 
     /**
@@ -153,12 +163,6 @@ public class AuthenticationController {
     @PostMapping("/registration/proceed")
     public String processRegistration(@Valid @ModelAttribute("registrationForm") RegistredUserDTO registeredUser,
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        /**
-         * Здесь по желанию можно добавить валидацию введенных данных на back-end слое.
-         * Для этого необходимо написать реализацию Validator.
-         */
-        //registeredUser.validate(registeredUserDto, bindingResult);
-
         if (bindingResult.hasErrors()) {
             return "redirect:/registration";
         }
@@ -166,6 +170,10 @@ public class AuthenticationController {
             return "redirect:/registration?error=userRegistered";
         } else if (fieldChecker.isNull(registeredUser)) {
             return "redirect:/registration?error=emptyFields";
+        } else if (registeredUser.getLogin().trim().length() < 6) {
+            return "redirect:/registration?error=loginTooShort";
+        } else if (registeredUser.getPassword().trim().length() < 6) {
+            return "redirect:/registration?error=passwordTooShort";
         }
         AuthorizedUser authorizedUser = authorizedUserMapper.mapFromDto(registeredUser);
         authorizedUser.setPassword(passwordEncoder.encode(registeredUser.getPassword()));

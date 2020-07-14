@@ -1,11 +1,9 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dao.CartDao;
 import com.epam.rd.izh.dto.BookDTO;
 import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.mappers.BookMapper;
 import com.epam.rd.izh.service.BookService;
-import com.epam.rd.izh.service.Converter;
 import com.epam.rd.izh.service.FieldChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

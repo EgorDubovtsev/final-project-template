@@ -5,9 +5,9 @@ public class RegistredUserDTO {
     private String login;
     private String password;
     private String role;
-    private String  birthdate;
+    private String birthdate;
 
-    public RegistredUserDTO( String name, String login, String password, String role, String birthdate) {
+    public RegistredUserDTO(String name, String login, String password, String role, String birthdate) {
         this.name = name;
         this.login = login;
         this.password = password;

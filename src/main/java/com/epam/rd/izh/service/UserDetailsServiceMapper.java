@@ -1,10 +1,6 @@
 package com.epam.rd.izh.service;
 
 import com.epam.rd.izh.entity.AuthorizedUser;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import com.epam.rd.izh.exceptions.UserCantBeAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Для авторизации через Spring security требуется реализация интерфейса UserDetailsService и его метода
@@ -45,7 +44,7 @@ public class UserDetailsServiceMapper implements UserDetailsService {
             if (fieldChecker.isNull(authorizedUserDto)) {
                 throw new UserCantBeAuthorizedException("Load user By Username was failed");
             }
-        }catch (UserCantBeAuthorizedException ex){
+        } catch (UserCantBeAuthorizedException ex) {
             ex.printStackTrace();
         }
         Set<GrantedAuthority> roles = new HashSet<>();

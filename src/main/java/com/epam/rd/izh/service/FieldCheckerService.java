@@ -7,7 +7,8 @@ import com.epam.rd.izh.entity.User;
 public class FieldCheckerService implements FieldChecker {
     @Override
     public boolean isNull(RegistredUserDTO registredUserDTO) {
-        return registredUserDTO.getName().trim().equals("")
+        return registredUserDTO == null
+                || registredUserDTO.getName().trim().equals("")
                 || registredUserDTO.getPassword().trim().equals("")
                 || registredUserDTO.getBirthdate().trim().equals("")
                 || registredUserDTO.getLogin().trim().equals("")
@@ -16,7 +17,8 @@ public class FieldCheckerService implements FieldChecker {
 
     @Override
     public boolean isNull(CreatedBookDTO createdBookDTO) {
-        return createdBookDTO.getName().trim().equals("")
+        return createdBookDTO == null
+                ||createdBookDTO.getName().trim().equals("")
                 || createdBookDTO.getAuthor().trim().equals("")
                 || createdBookDTO.getDescription().trim().equals("")
                 || createdBookDTO.getGenre().equals("null")
@@ -26,9 +28,10 @@ public class FieldCheckerService implements FieldChecker {
 
     @Override
     public boolean isNull(User user) {
-        return user.getName().equals("")
+        return user == null
+                || user.getName().equals("")
                 || user.getRole().equals("")
-                || user.getBirthdate()==null
+                || user.getBirthdate() == null
                 || user.getPassword().equals("")
                 || user.getLogin().equals("");
     }

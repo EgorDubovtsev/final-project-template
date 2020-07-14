@@ -1,7 +1,6 @@
 package com.epam.rd.izh.controller;
 
 import com.epam.rd.izh.dao.CartDao;
-import com.epam.rd.izh.dto.Message;
 import com.epam.rd.izh.service.BookService;
 import com.epam.rd.izh.service.UserPriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,6 @@ public class IndexController {
                         @RequestParam(required = false) String open,
                         @RequestParam(required = false) String toCart,
                         HttpServletResponse response) {
-        Message greetingMessage = new Message();
-//        greetingMessage.setMessage(ENG_GREETING + authentication.getName());
         model.addAttribute("name", authentication.getName());
         model.addAttribute("booksList", bookService.getBooksList());
         response.addCookie(new Cookie("login", authentication.getName()));

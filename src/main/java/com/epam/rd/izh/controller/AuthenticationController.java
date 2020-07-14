@@ -121,10 +121,13 @@ public class AuthenticationController {
                 .equals("login")).findFirst()
                 .orElse(new Cookie("status", "forbidden")).getValue();
         model.addAttribute("name", login);
-        List<BookDTO> booksInTheCart = cartDao.getCartByLogin(login).stream().map(bookInCart -> converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
-        model.addAttribute("booksInTheCart", booksInTheCart);
+        try {
+            List<BookDTO> booksInTheCart = cartDao.getCartByLogin(login).stream().map(bookInCart -> converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
+            model.addAttribute("booksInTheCart", booksInTheCart);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return "cart";
-
     }
 
     @GetMapping("/createBook")

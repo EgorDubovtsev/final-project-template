@@ -1,6 +1,6 @@
 package com.epam.rd.izh.exceptions;
 
-public class UserCantBeAuthorizedException extends Exception{
+public class UserCantBeAuthorizedException extends Exception {
     public UserCantBeAuthorizedException() {
     }
 

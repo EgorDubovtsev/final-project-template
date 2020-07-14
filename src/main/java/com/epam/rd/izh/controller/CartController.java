@@ -39,9 +39,9 @@ public class CartController {
     public @ResponseBody
     boolean buyAllBooksInCart(@RequestParam String userLogin) {
         List<BookInCart> booksInCart = cartDao.getCartByLogin(userLogin);
-        for(BookInCart book:booksInCart){
-            cartDao.deleteFromTheCart(book.getBookName(),userLogin);
+        for (BookInCart book : booksInCart) {
+            cartDao.deleteFromTheCart(book.getBookName(), userLogin);
         }
-        return booksInCart.size()>0;
+        return booksInCart.size() > 0;
     }
 }

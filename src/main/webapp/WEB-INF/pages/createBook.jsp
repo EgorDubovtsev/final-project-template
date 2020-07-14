@@ -29,7 +29,7 @@
 		</span>
 		<div class="menuButtonWrapper">
 			<form action="/logout" method="post" class="menuButton">
-				<button>Log Out</button>
+				<button>Выйти</button>
 			</form>
 		</div>
 	</div>

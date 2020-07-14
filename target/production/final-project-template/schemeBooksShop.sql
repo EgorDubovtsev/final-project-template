@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS books (
   author VARCHAR(255) NULL
   );
 
-CREATE TABLE IF NOT EXISTS userCart (
+CREATE TABLE IF NOT EXISTS cart (
   id SERIAL PRIMARY KEY ,
   user_login VARCHAR(255) NOT NULL REFERENCES users(login),
   book_name VARCHAR(255) NOT NULL REFERENCES books(book_name)

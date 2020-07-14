@@ -1,14 +1,13 @@
 package com.epam.rd.izh.mappers;
 
 import com.epam.rd.izh.dto.BookDTO;
-import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.dto.CreatedBookDTO;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BookMapper implements RowMapper<BookDTO>,IBookMapper {
+public class BookMapper implements RowMapper<BookDTO>, IBookMapper {
 
     @Override
     public BookDTO mapRow(ResultSet resultSet, int i) throws SQLException {

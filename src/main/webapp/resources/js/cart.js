@@ -52,7 +52,7 @@ function showToast(isOperationSuccess) {
         toast.text("Операция прошла успешно")
     } else {
         toast.addClass("fail")
-        toast.text("Произошла Ошибка")
+        toast.text("Произошла ошибка")
     }
    toast.animate({bottom: "+40px", opacity: 0.8}, "normal");
     window.setTimeout(() =>{

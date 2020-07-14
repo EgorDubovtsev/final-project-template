@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/registration/**").permitAll()
-//                .antMatchers("/createBook").hasRole("MANAGER")
                 /**
                  * Открытие доступа к ресурсным пакетам:
                  * /webapp/css

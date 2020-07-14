@@ -2,8 +2,8 @@ package com.epam.rd.izh.config;
 
 import com.epam.rd.izh.dao.AuthorizedUserDao;
 import com.epam.rd.izh.dao.BooksDao;
-import com.epam.rd.izh.dao.SimpleBooksDao;
 import com.epam.rd.izh.dao.CartDaoImpl;
+import com.epam.rd.izh.dao.SimpleBooksDao;
 import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.dto.BookInCartImpl;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;

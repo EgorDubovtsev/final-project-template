@@ -1,7 +1,6 @@
 package com.epam.rd.izh.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Сущность пользователя, содержит данные(credentials), необходимые для авторизации в Spring Web приложении; Может

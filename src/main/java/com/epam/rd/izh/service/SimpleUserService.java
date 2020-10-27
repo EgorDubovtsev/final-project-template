@@ -30,9 +30,4 @@ public class SimpleUserService implements UserService {
         return false;
     }
 
-    @Override
-    public boolean isManager(String login) {
-        String role = getAuthorizedUserByLogin(login).getRole();
-        return role.equals("MANAGER");
-    }
 }

@@ -55,7 +55,7 @@
 					<option value="null" selected>Выберите жанр</option>
 					<option value="Детектив">Детектив</option>
 					<option value="Роман">Роман</option>
-					<option value="Драмма">Драмма</option>
+					<option value="Драма">Драма</option>
 					<option value="Научная фантастика">Научная фантастика</option>
 				</form:select>
 			</div>			

@@ -16,7 +16,7 @@ public class BookPopupController {
     @Autowired
     private BookService bookService;
     @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     @RequestMapping(value = "/api/popup", method = RequestMethod.GET)
     public @ResponseBody

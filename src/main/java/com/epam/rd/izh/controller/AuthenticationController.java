@@ -28,11 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * В аргументы контроллеров, которые обрабатывают запросы, можно указать дополнительные входные параметры: Например:
- * HttpServletRequest и HttpServletResponse. Данные объекты автоматически заполняться данными о реквесте и респонсе. Эти
- * данные можно использовать, например достать куки, сессию, хедеры итд.
- */
 
 @Controller
 public class AuthenticationController {
@@ -52,35 +47,16 @@ public class AuthenticationController {
     @Autowired
     private FieldChecker fieldChecker;
 
-    /**
-     * Метод, отвечающий за логику авторизации пользователя.
-     * /login - определяет URL, по которому пользователь должен перейти, чтобы запустить данный метод-обработчик.
-     */
+
     @GetMapping("/login")
     public String login(Model model, @RequestParam(required = false) String error) {
         if (error != null) {
-            /**
-             * Model представляет из себя Map коллекцию ключ-значения, распознаваемую View элементами MVC.
-             * Добавляется String "invalid login or password!", с ключем "error_login_placeholder".
-             * При создании View шаблона плейсхолдер ${error_login_placeholder} будет заменен на переданное значение.
-             *
-             * В класс Model можно передавать любые объекты, необходимые для генерации View.
-             */
             model.addAttribute("errorMessage", "invalid login or password!");
         }
-        /**
-         * Контроллер возвращает String название JSP страницы.
-         * В application.properties есть следующие строки:
-         * spring.mvc.view.prefix=/WEB-INF/pages/
-         * spring.mvc.view.suffix=.jsp
-         * Spring MVC, используя суффикс и префикс, создаст итоговый путь к JSP: /WEB-INF/pages/login.jsp
-         */
+
         return "login";
     }
 
-    /**
-     * Метод, отвечающий за логику регистрации пользователя.
-     */
     @GetMapping("/registration")
     public String viewRegistration(Model model, @RequestParam(required = false) String error) {
         if (!model.containsAttribute("registrationForm")) {
@@ -159,10 +135,6 @@ public class AuthenticationController {
         return "error";
     }
 
-
-    /**
-     * Метод, отвечающий за подтверждение регистрации пользователя и сохранение данных в репозиторий или DAO.
-     */
     @PostMapping("/registration/proceed")
     public String processRegistration(@Valid @ModelAttribute("registrationForm") RegistredUserDTO registeredUser,
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -181,10 +153,6 @@ public class AuthenticationController {
         AuthorizedUser authorizedUser = authorizedUserMapper.mapFromDto(registeredUser);
         authorizedUser.setPassword(passwordEncoder.encode(registeredUser.getPassword()));
 
-        /**
-         * Добавление пользователя в репозиторий или в базу данных через CRUD операции DAO.
-         * Рекомендуется вынести эту логику на сервисный слой.
-         */
         userService.addAuthorizedUser(authorizedUser);
         return "redirect:/login";
     }

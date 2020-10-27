@@ -18,10 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class WebConfig {
-    /**
-     * Данный класс можно использовать для создание бинов приложения, например бин ObjectMapper для десериализации.
-     * Этот класс не является обязательным, но является стандартным там, где используется настройка бинов.
-     */
+
     @Bean
     public AuthorizedUserMapper authorizedUserMapper() {
         return new AuthorizedUserMapper();

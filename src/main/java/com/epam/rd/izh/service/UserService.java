@@ -8,5 +8,4 @@ public interface UserService {
 
     boolean addAuthorizedUser(AuthorizedUser user);
 
-    boolean isManager(String login);
 }

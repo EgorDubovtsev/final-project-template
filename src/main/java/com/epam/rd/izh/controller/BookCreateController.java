@@ -28,9 +28,7 @@ public class BookCreateController {
                                       BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            //логика отображения ошибки, не является обязательной
-            //...
-            //...
+
             return "redirect:/";
         }
         if (fieldChecker.isNull(createdBook)) {

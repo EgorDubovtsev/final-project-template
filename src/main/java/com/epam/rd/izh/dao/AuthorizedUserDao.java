@@ -2,13 +2,16 @@ package com.epam.rd.izh.dao;
 
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 
 public class AuthorizedUserDao implements UserDao {
-    JdbcTemplate jdbcTemplate;
-    AuthorizedUserMapper authorizedUserMapper;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private AuthorizedUserMapper authorizedUserMapper;
 
 
     public AuthorizedUserDao(JdbcTemplate jdbcTemplate, AuthorizedUserMapper authorizedUserMapper) {

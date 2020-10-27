@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SimpleSearchService implements SearchService {
     @Autowired
-    BooksDao booksDao;
+    private BooksDao booksDao;
 
     @Override
     public List<BookDTO> findBookBySearchParameters(SearchParametersDTO searchParameters) {

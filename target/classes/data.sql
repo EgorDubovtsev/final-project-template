@@ -1,2 +1,11 @@
-insert into users (NAME,BIRTHDATE,LOGIN,PASSWORD,ROLE) values ('Bobby','2002-01-22','bobby','$2a$10$n.QaCWAS19vlVzA4ylby0ebvQEUKPVysfkU2DEKakcqaVOoVTOzZW','USER');
-insert into users (NAME,BIRTHDATE,LOGIN,PASSWORD, ROLE) values ('Administator','2002-01-22','adm','$2a$10$n.QaCWAS19vlVzA4ylby0ebvQEUKPVysfkU2DEKakcqaVOoVTOzZW','ADMIN');
+INSERT INTO books VALUES('book 1',1999,'Short description.',1299,'Author R.T.');
+INSERT INTO books_genres VALUES('book 1','Роман');
+
+INSERT INTO books VALUES('book 2',2000,'Short description.',1499,'Second Author');
+INSERT INTO books_genres VALUES('book 2','Драма');
+
+INSERT INTO books VALUES('book 3',1999,'Short description.',1600,'Author R.T.');
+INSERT INTO books_genres VALUES('book 3','Детектив');
+
+INSERT INTO books VALUES('book 4',1999,'Short description.',1100,'Author');
+INSERT INTO books_genres VALUES('book 4','Роман');

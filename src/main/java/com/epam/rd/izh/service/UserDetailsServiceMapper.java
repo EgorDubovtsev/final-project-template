@@ -14,10 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Для авторизации через Spring security требуется реализация интерфейса UserDetailsService и его метода
- * .loadUserByUsername(String login).
- */
 
 @Service
 public class UserDetailsServiceMapper implements UserDetailsService {
@@ -26,16 +22,6 @@ public class UserDetailsServiceMapper implements UserDetailsService {
     private UserService userService;
     @Autowired
     private FieldChecker fieldChecker;
-
-    /**
-     * Данный метод должен вернуть объект User, являющийся пользователем текущей сессии.
-     * Реализация данного метода включает маппинг, т.е. преобразование бизнес-объекта AuthorizedUser в
-     * системный объект Spring приложения User.
-     * <p>
-     * Рекомендуется внедрить логику, реагирующую на возможные нуллы в методах-геттерах.
-     * Пример хорошего кода - логирование или выброс исключения, если наполнение поля объекта критично
-     * (например отсутствует роль пользователя).
-     */
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {

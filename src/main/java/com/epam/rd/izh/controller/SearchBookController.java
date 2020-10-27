@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SearchBookController {
     @Autowired
-    SearchService searchService;
+    private SearchService searchService;
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @RequestMapping("/api/search")
     public @ResponseBody

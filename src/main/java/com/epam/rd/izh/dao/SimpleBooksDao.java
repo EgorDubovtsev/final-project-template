@@ -25,17 +25,13 @@ public class SimpleBooksDao implements BooksDao {
 
     @Override
     public int addBook(BookDTO bookDTO) {
-        String sqlAddBook = "INSERT INTO books values('" + bookDTO.getName() + "','"
-                + bookDTO.getPublishYear() + "','"
-                + bookDTO.getDescription() + "','"
-                + bookDTO.getPrice()
-                + "','" + bookDTO.getAuthor() + "');";
+        String sqlAddBook = "INSERT INTO books values(?, ?, ?, ?, ?);";
 
-        String sqlAddBookGenre = "INSERT INTO books_genres VALUES('"
-                + bookDTO.getName() + "','"
-                + bookDTO.getGenre() + "');";
-        jdbcTemplate.update(sqlAddBook);
-        return jdbcTemplate.update(sqlAddBookGenre);
+        String sqlAddBookGenre = "INSERT INTO books_genres VALUES(?, ?);";
+        jdbcTemplate.update(sqlAddBook, bookDTO.getName(),
+                bookDTO.getPublishYear(), bookDTO.getDescription(),
+                bookDTO.getPrice(), bookDTO.getAuthor());
+        return jdbcTemplate.update(sqlAddBookGenre, bookDTO.getName(), bookDTO.getGenre());
     }
 
     @Override
@@ -43,9 +39,9 @@ public class SimpleBooksDao implements BooksDao {
         if (name.trim().equals("")) {
             return null;
         }
-        String sqlGetBookByName = "SELECT * FROM books join books_genres on books.book_name = books_genres.book_name where books.book_name ='" + name + "'";
+        String sqlGetBookByName = "SELECT * FROM books join books_genres on books.book_name = books_genres.book_name where books.book_name = ?";
         try {
-            return jdbcTemplate.queryForObject(sqlGetBookByName, bookMapper);
+            return jdbcTemplate.queryForObject(sqlGetBookByName, bookMapper, name);
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -60,17 +56,15 @@ public class SimpleBooksDao implements BooksDao {
         String bookMaxPrice = searchParameters.getMaxPrice();
         String sqlGetBooksByParameters = "SELECT * FROM (" +
                 "SELECT * FROM (" +
-                "SELECT * FROM books WHERE book_name LIKE '" + bookName + "'" +
-                ") AS books" +
+                "SELECT * FROM books WHERE book_name LIKE ?) AS books" +
                 " JOIN books_genres ON books.book_name = books_genres.book_name " +
-                "WHERE books_genres.genre LIKE '" + bookGenre + "'" +
-                ") AS result_table" +
-                " WHERE result_table.author LIKE '" + bookAuthor + "'";
+                "WHERE books_genres.genre LIKE ?" +
+                ") AS result_table WHERE result_table.author LIKE ?";
         if (!bookMaxPrice.equals("")) {
-            return jdbcTemplate.query(sqlGetBooksByParameters, bookMapper).stream()
+            return jdbcTemplate.query(sqlGetBooksByParameters, bookMapper, bookName, bookGenre, bookAuthor).stream()
                     .filter(bookDTO -> bookDTO.getPrice() < Integer.parseInt(bookMaxPrice))
                     .collect(Collectors.toList());
         }
-        return jdbcTemplate.query(sqlGetBooksByParameters, bookMapper);
+        return jdbcTemplate.query(sqlGetBooksByParameters, bookMapper, bookName, bookGenre, bookAuthor);
     }
 }

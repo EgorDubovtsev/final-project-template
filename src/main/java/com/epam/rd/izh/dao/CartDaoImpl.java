@@ -22,19 +22,17 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public boolean addToCart(String bookName, String login) {
-        BookDTO bookDTO = bookService.findByName(bookName);
-        String sql = "INSERT INTO cart (user_login,book_name) values ('"
-                + login + "','"
-                + bookName + "')";
-        jdbcTemplate.update(sql);
+//        BookDTO bookDTO = bookService.findByName(bookName);
+        String sql = "INSERT INTO cart (user_login,book_name) values (?, ?)";
+        jdbcTemplate.update(sql, login, bookName);
         return true;
     }
 
     @Override
     public void deleteFromTheCart(String bookName, String login) {
         String sql = "DELETE FROM cart WHERE id IN (SELECT id " +
-                "FROM cart WHERE user_login = '" + login + "' and book_name = '" + bookName + "'" + " LIMIT 1" + ")";
-        jdbcTemplate.update(sql);
+                "FROM cart WHERE user_login = ? and book_name =? LIMIT 1)";
+        jdbcTemplate.update(sql, login, bookName);
     }
 
     @Override
@@ -45,12 +43,12 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public List<BookInCart> getCartByLogin(String login) {
-        String sqlGetCartByLogin = "SELECT * FROM cart WHERE user_login='" + login + "'";
+        String sqlGetCartByLogin = "SELECT * FROM cart WHERE user_login = ?";
         try {
-            return jdbcTemplate.query(sqlGetCartByLogin, cartMapper);
+            return jdbcTemplate.query(sqlGetCartByLogin, cartMapper, login);
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new ArrayList<BookInCart>();
+            return new ArrayList<>();
         }
     }
 }

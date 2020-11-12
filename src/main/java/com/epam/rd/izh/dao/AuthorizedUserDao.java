@@ -21,23 +21,21 @@ public class AuthorizedUserDao implements UserDao {
 
     @Override
     public List<AuthorizedUser> getList() {
-        String sql = "SELECT * FROM users full join authorized_data on users.login=authorized_data.login";
+        String sql = "SELECT * FROM users full join authorized_data on users.login = authorized_data.login";
         return jdbcTemplate.query(sql, authorizedUserMapper);
     }
 
     @Override
     public int registrateUser(AuthorizedUser authorizedUser) {
-        String sqlInsertIntoUsers = "INSERT INTO USERS (user_name,login, birthdate, role) VALUES ('"
-                + authorizedUser.getName() + "','"
-                + authorizedUser.getLogin() + "','"
-                + authorizedUser.getBirthdate() + "','"
-                + authorizedUser.getRole() + "');";
+        String sqlInsertIntoUsers = "INSERT INTO USERS (user_name,login, birthdate, role) VALUES (?, ?, ?, ?)";
         String sqlInsertIntoAuthorizedData = "INSERT INTO authorized_data values('"
                 + authorizedUser.getLogin() + "','" + authorizedUser.getPassword() + "');";
         String roleTable = authorizedUser.getRole().equals("MANAGER") ? "managers" : "customers";
-        String addToRoleGroup = "INSERT INTO " + roleTable + " VALUES ('" + authorizedUser.getLogin() + "')";
-        jdbcTemplate.update(sqlInsertIntoUsers);
-        jdbcTemplate.update(addToRoleGroup);
+        String addToRoleGroup = "INSERT INTO " + roleTable + " VALUES (?)";
+        jdbcTemplate.update(sqlInsertIntoUsers, authorizedUser.getName(),
+                authorizedUser.getLogin(), authorizedUser.getBirthdate(), authorizedUser.getRole());
+        jdbcTemplate.update(addToRoleGroup, authorizedUser.getLogin());
+
         return jdbcTemplate.update(sqlInsertIntoAuthorizedData);
     }
 

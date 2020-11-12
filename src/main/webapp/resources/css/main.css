@@ -99,10 +99,11 @@ input:focus, select:focus {
     color: white;
     font-size: 1.2em;
     bottom: 0px;
+    padding-top:5px;
     right: 0px;
     position: absolute;
     text-align: center;
-    height: 26px;
+    height: 21px;
     width: 26px;
     border-radius: 50%;
     background-color: #F34444;

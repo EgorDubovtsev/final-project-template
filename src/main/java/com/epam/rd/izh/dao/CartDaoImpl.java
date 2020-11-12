@@ -1,6 +1,5 @@
 package com.epam.rd.izh.dao;
 
-import com.epam.rd.izh.dto.BookDTO;
 import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.mappers.CartMapper;
 import com.epam.rd.izh.service.BookService;
@@ -22,7 +21,6 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public boolean addToCart(String bookName, String login) {
-//        BookDTO bookDTO = bookService.findByName(bookName);
         String sql = "INSERT INTO cart (user_login,book_name) values (?, ?)";
         jdbcTemplate.update(sql, login, bookName);
         return true;

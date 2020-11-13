@@ -48,10 +48,10 @@
             </button>
 		</form>
 	<div class="mainName">Book Shop</div>
-	<form class="search">
+	<div class="search">
 		<input type="text" placeholder="Название книги" name="search" id="searchLine">
 		<a id="searchButton">Найти</a>
-	</form>
+	</div>
 	<div class="filters">
 		<div class="filterColumn">
 			<label>Автор: <input type="text" id="author" class="filterField"></label>

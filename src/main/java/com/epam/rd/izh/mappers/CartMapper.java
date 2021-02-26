@@ -2,6 +2,7 @@ package com.epam.rd.izh.mappers;
 
 import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.dto.BookInCartImpl;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

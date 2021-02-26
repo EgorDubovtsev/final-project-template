@@ -141,6 +141,7 @@ public class AuthenticationController {
         if (bindingResult.hasErrors()) {
             return "redirect:/registration";
         }
+        System.out.println("ATATATTA");
         if (userService.getAuthorizedUserByLogin(registeredUser.getLogin()) != null) {
             return "redirect:/registration?error=userRegistered";
         } else if (fieldChecker.isNull(registeredUser)) {

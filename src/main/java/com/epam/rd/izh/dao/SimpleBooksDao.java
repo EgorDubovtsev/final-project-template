@@ -4,6 +4,7 @@ import com.epam.rd.izh.dto.BookDTO;
 import com.epam.rd.izh.dto.SearchParametersDTO;
 import com.epam.rd.izh.mappers.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,7 @@ public class SimpleBooksDao implements BooksDao {
                 bookDTO.getPrice(), bookDTO.getAuthor());
         return jdbcTemplate.update(sqlAddBookGenre, bookDTO.getName(), bookDTO.getGenre());
     }
-
+    @Cacheable(cacheNames = "books")
     @Override
     public BookDTO getBookByName(String name) {
         if (name.trim().equals("")) {
@@ -48,6 +49,7 @@ public class SimpleBooksDao implements BooksDao {
         }
     }
 
+    @Cacheable(cacheNames = "search", key = "#searchParameters.name")
     @Override
     public List<BookDTO> getBooksByParameters(SearchParametersDTO searchParameters) {
         String bookName = searchParameters.getName().equals("") ? "%" : searchParameters.getName();

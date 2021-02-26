@@ -2,6 +2,7 @@ package com.epam.rd.izh.mappers;
 
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

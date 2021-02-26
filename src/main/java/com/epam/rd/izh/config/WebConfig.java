@@ -12,12 +12,21 @@ import com.epam.rd.izh.mappers.CartMapper;
 import com.epam.rd.izh.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 
+import java.util.Arrays;
+
+@EnableCaching
 @Configuration
-public class WebConfig {
+public class WebConfig extends WsConfigurerAdapter {
 
     @Bean
     public AuthorizedUserMapper authorizedUserMapper() {
@@ -78,4 +87,15 @@ public class WebConfig {
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
+
+    @Bean
+    public CacheManager cacheManager() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(Arrays.asList(
+                new ConcurrentMapCache("search"),
+                new ConcurrentMapCache("books")
+        ));
+        return cacheManager;
+    }
+
 }

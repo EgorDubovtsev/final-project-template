@@ -4,6 +4,7 @@ import com.epam.rd.izh.dto.BookDTO;
 import com.epam.rd.izh.dto.SearchParametersDTO;
 import com.epam.rd.izh.mappers.BookMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class SimpleBooksDao implements BooksDao {
         String sqlGetAllBooks = "SELECT * FROM books join books_genres on books.book_name = books_genres.book_name";
         return jdbcTemplate.query(sqlGetAllBooks, bookMapper);
     }
-
+    @CacheEvict(cacheNames = "books", allEntries = true)
     @Override
     public int addBook(BookDTO bookDTO) {
         String sqlAddBook = "INSERT INTO books values(?, ?, ?, ?, ?);";

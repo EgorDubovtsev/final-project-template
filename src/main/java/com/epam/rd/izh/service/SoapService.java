@@ -5,17 +5,15 @@ import com.epam.rd.izh.soap.com.dataaccess.webservicesserver.InvertStringCase;
 import com.epam.rd.izh.soap.com.dataaccess.webservicesserver.InvertStringCaseResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.ws.client.core.WebServiceTemplate;
 
-@Service
+@Component
 public class SoapService {
     private static final RestTemplate REST_TEMPLATE = new RestTemplate();
-    @Autowired
-    private ObjectMapper objectMapper;
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     public static void main(String[] args) {
 
@@ -45,10 +43,7 @@ public class SoapService {
     }
 
     public Todo getTodo() throws JsonProcessingException {
-
         String result = REST_TEMPLATE.getForObject("https://jsonplaceholder.typicode.com/todos/{todo}", String.class, "1");
-
-
-        return objectMapper.readValue(result, Todo.class);
+        return OBJECT_MAPPER.readValue(result, Todo.class);
     }
 }

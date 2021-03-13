@@ -1,8 +1,12 @@
 package com.epam.rd.izh.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class AuthorizedUser implements User {
+    @Id
     private String login;
     private String password;
     private String name;

@@ -1,5 +1,6 @@
 package com.epam.rd.izh.controller;
 
+import com.epam.rd.izh.dto.BookDto;
 import com.epam.rd.izh.dto.SearchParametersDTO;
 import com.epam.rd.izh.dto.SimpleSearchParameters;
 import com.epam.rd.izh.service.SearchService;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 public class SearchBookController {
@@ -29,10 +32,9 @@ public class SearchBookController {
         searchParameters.setAuthor(author);
         searchParameters.setGenre(genre);
         searchParameters.setMaxPrice(maxPrice);
-
-        searchService.findBookBySearchParameters(searchParameters);
+        List<BookDto> bookResponse = searchService.findBookBySearchParameters(searchParameters);
         try {
-            return objectMapper.writeValueAsString(searchService.findBookBySearchParameters(searchParameters));
+            return objectMapper.writeValueAsString(bookResponse);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

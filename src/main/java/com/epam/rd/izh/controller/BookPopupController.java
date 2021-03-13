@@ -1,6 +1,6 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dto.BookDTO;
+import com.epam.rd.izh.dto.BookDto;
 import com.epam.rd.izh.service.BookService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +21,7 @@ public class BookPopupController {
     @RequestMapping(value = "/api/popup", method = RequestMethod.GET)
     public @ResponseBody
     String getBookInfo(@RequestParam String name) {
-        BookDTO bookDTO = bookService.findByName(name);
+        BookDto bookDTO = bookService.findByName(name);
         try {
             return mapper.writeValueAsString(bookDTO);
         } catch (JsonProcessingException e) {

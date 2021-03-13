@@ -1,6 +1,8 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dao.CartDao;
+import com.epam.rd.izh.dto.BookDto;
+import com.epam.rd.izh.dto.BookInCart;
+import com.epam.rd.izh.repository.BookInCartRepository;
 import com.epam.rd.izh.service.BookService;
 import com.epam.rd.izh.service.UserPriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class IndexController {
     @Autowired
     private UserPriorityService userPriorityService;
     @Autowired
-    private CartDao cartDao;
+    private BookInCartRepository bookInCartRepository;
 
     @GetMapping("/")
     public String login(Authentication authentication, Model model,
@@ -30,11 +32,19 @@ public class IndexController {
         model.addAttribute("name", authentication.getName());
         model.addAttribute("booksList", bookService.getBooksList());
         response.addCookie(new Cookie("login", authentication.getName()));
+        BookDto bookDto = new BookDto();
+        bookDto.setAuthor("sdfs");
+        bookDto.setName("anme name");
+        bookDto.setGenre("Роман");
+        bookDto.setDescription("оман");
+        bookDto.setPrice(100);
+        bookDto.setPublishYear(2002);
+        bookService.addBook(bookDto);
         if (userPriorityService.checkPriority().equals("MANAGER")) {
             model.addAttribute("admin", "MANAGER");
         }
         if (toCart != null) {
-            cartDao.addToCart(authentication.getName(), toCart);
+            bookInCartRepository.save(new BookInCart(authentication.getName(), toCart));
         }
         if (open != null) {
             model.addAttribute("open", open);

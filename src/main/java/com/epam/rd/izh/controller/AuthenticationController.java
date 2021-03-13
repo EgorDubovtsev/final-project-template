@@ -1,11 +1,11 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dao.CartDao;
-import com.epam.rd.izh.dto.BookDTO;
+import com.epam.rd.izh.dto.BookDto;
 import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
+import com.epam.rd.izh.repository.BookInCartRepository;
 import com.epam.rd.izh.service.Converter;
 import com.epam.rd.izh.service.FieldChecker;
 import com.epam.rd.izh.service.UserPriorityService;
@@ -41,7 +41,7 @@ public class AuthenticationController {
     @Autowired
     private UserPriorityService userPriorityService;
     @Autowired
-    private CartDao cartDao;
+    private BookInCartRepository bookInCartRepository;
     @Autowired
     private Converter converter;
     @Autowired
@@ -98,7 +98,7 @@ public class AuthenticationController {
                 .orElse(new Cookie("status", "forbidden")).getValue();
         model.addAttribute("name", login);
         try {
-            List<BookDTO> booksInTheCart = cartDao.getCartByLogin(login).stream().map(bookInCart -> converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
+            List<BookDto> booksInTheCart = bookInCartRepository.findByUserLogin(login).stream().map(bookInCart -> converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
             model.addAttribute("booksInTheCart", booksInTheCart);
         } catch (Exception ex) {
             ex.printStackTrace();

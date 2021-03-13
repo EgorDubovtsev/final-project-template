@@ -1,6 +1,6 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dto.BookDTO;
+import com.epam.rd.izh.dto.BookDto;
 import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.mappers.BookMapper;
 import com.epam.rd.izh.service.BookService;
@@ -36,7 +36,7 @@ public class BookCreateController {
         } else if (bookService.findByName(createdBook.getName()) != null) {
             return "redirect:/createBook?error=bookExist";
         }
-        BookDTO bookDTO = bookMapper.mapFromCreatedBook(createdBook);
+        BookDto bookDTO = bookMapper.mapFromCreatedBook(createdBook);
         bookService.addBook(bookDTO);
         return "redirect:/";
     }

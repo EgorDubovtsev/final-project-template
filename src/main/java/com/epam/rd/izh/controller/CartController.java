@@ -1,7 +1,7 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dao.CartDao;
 import com.epam.rd.izh.dto.BookInCart;
+import com.epam.rd.izh.repository.BookInCartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,34 +14,39 @@ import java.util.List;
 @Controller
 public class CartController {
     @Autowired
-    private CartDao cartDao;
+    private BookInCartRepository bookInCartRepository;
 
     @RequestMapping(value = "/api/addToCart", method = RequestMethod.GET)
     public @ResponseBody
     boolean addToCart(@RequestParam String name, @RequestParam String login) {
-        return cartDao.addToCart(name, login);
+        bookInCartRepository.save(new BookInCart(login, name));
+        return true;
     }
 
     @RequestMapping(value = "/api/getCountOfBooks", method = RequestMethod.GET)
     public @ResponseBody
     int getCount(@RequestParam String login) {
-        return cartDao.getCartByLogin(login).size();
+        return bookInCartRepository.findByUserLogin(login).size();
     }
 
     @RequestMapping(value = "/api/deleteBook", method = RequestMethod.GET)
     public @ResponseBody
     boolean deleteBook(@RequestParam String bookName, @RequestParam String userLogin) {
-        cartDao.deleteFromTheCart(bookName, userLogin);
+        BookInCart bookInCart = new BookInCart();
+        bookInCart.setUserLogin(userLogin);
+        bookInCart.setBookName(bookName);
+        bookInCartRepository.delete(bookInCart);
         return true;
     }
 
     @RequestMapping(value = "/api/buy", method = RequestMethod.GET)
     public @ResponseBody
     boolean buyAllBooksInCart(@RequestParam String userLogin) {
-        List<BookInCart> booksInCart = cartDao.getCartByLogin(userLogin);
+        List<BookInCart> booksInCart = bookInCartRepository.findByUserLogin(userLogin);
         for (BookInCart book : booksInCart) {
-            cartDao.deleteFromTheCart(book.getBookName(), userLogin);
+            book.setUserLogin(userLogin);
+            bookInCartRepository.delete(book);
         }
-        return booksInCart.size() > 0;
+        return !booksInCart.isEmpty();
     }
 }

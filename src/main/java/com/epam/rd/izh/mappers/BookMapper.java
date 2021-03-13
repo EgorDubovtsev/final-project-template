@@ -1,17 +1,18 @@
 package com.epam.rd.izh.mappers;
 
-import com.epam.rd.izh.dto.BookDTO;
+
+import com.epam.rd.izh.dto.BookDto;
 import com.epam.rd.izh.dto.CreatedBookDTO;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BookMapper implements RowMapper<BookDTO>, IBookMapper {
+public class BookMapper implements RowMapper<BookDto>, IBookMapper {
 
     @Override
-    public BookDTO mapRow(ResultSet resultSet, int i) throws SQLException {
-        BookDTO book = new BookDTO();
+    public BookDto mapRow(ResultSet resultSet, int i) throws SQLException {
+        BookDto book = new BookDto();
         book.setName(resultSet.getString("book_name"));
         book.setPublishYear(resultSet.getInt("publishYear"));
         book.setDescription(resultSet.getString("description"));
@@ -22,8 +23,8 @@ public class BookMapper implements RowMapper<BookDTO>, IBookMapper {
     }
 
     @Override
-    public BookDTO mapFromCreatedBook(CreatedBookDTO createdBookDTO) {
-        BookDTO bookDTO = new BookDTO();
+    public BookDto mapFromCreatedBook(CreatedBookDTO createdBookDTO) {
+        BookDto bookDTO = new BookDto();
         bookDTO.setAuthor(createdBookDTO.getAuthor());
         bookDTO.setDescription(createdBookDTO.getDescription());
         bookDTO.setName(createdBookDTO.getName());

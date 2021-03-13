@@ -18,7 +18,7 @@ public class FieldCheckerService implements FieldChecker {
     @Override
     public boolean isNull(CreatedBookDTO createdBookDTO) {
         return createdBookDTO == null
-                ||createdBookDTO.getName().trim().equals("")
+                || createdBookDTO.getName().trim().equals("")
                 || createdBookDTO.getAuthor().trim().equals("")
                 || createdBookDTO.getDescription().trim().equals("")
                 || createdBookDTO.getGenre().equals("null")

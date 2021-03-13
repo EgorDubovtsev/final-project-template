@@ -1,6 +1,6 @@
 package com.epam.rd.izh.dto;
 
-public class UserPersonalDataImpl implements UserPersonalData{
+public class UserPersonalDataImpl implements UserPersonalData {
     private String name;
 
     public String getName() {

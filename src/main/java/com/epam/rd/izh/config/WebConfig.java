@@ -3,7 +3,6 @@ package com.epam.rd.izh.config;
 import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
 import com.epam.rd.izh.mappers.BookMapper;
-import com.epam.rd.izh.mappers.CartMapper;
 import com.epam.rd.izh.service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -29,15 +28,9 @@ public class WebConfig {
         return new BookMapper();
     }
 
-
     @Bean
     public BookInCart bookInCart() {
         return new BookInCart();
-    }
-
-    @Bean
-    public CartMapper cartMapper() {
-        return new CartMapper();
     }
 
     @Bean

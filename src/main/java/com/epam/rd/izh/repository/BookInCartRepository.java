@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface BookInCartRepository extends CrudRepository<BookInCart,Long> {
+public interface BookInCartRepository extends CrudRepository<BookInCart, Long> {
     List<BookInCart> findByUserLogin(String userLogin);
 }

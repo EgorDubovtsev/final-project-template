@@ -1,7 +1,6 @@
 package com.epam.rd.izh.dto;
 
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

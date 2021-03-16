@@ -9,4 +9,5 @@ public interface BookDtoRepository extends CrudRepository<BookDto, Long> {
     BookDto findByName(String name);
 
     List<BookDto> findByNameLikeAndAuthorLikeAndGenreLikeAndPriceLessThanEqual(String name, String author, String genre, int price);
+
 }

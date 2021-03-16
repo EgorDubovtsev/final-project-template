@@ -1,6 +1,5 @@
 package com.epam.rd.izh.config;
 
-import com.epam.rd.izh.dto.BookInCart;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
 import com.epam.rd.izh.mappers.BookMapper;
 import com.epam.rd.izh.service.*;
@@ -28,15 +27,6 @@ public class WebConfig {
         return new BookMapper();
     }
 
-    @Bean
-    public BookInCart bookInCart() {
-        return new BookInCart();
-    }
-
-    @Bean
-    public Converter converter() {
-        return new ConverterService();
-    }
 
     @Bean
     public FieldChecker fieldChecker() {

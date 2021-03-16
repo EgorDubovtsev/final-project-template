@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface AuthorizedUserRepository extends CrudRepository<AuthorizedUser, Long> {
     List<AuthorizedUser> findAll();
+
+    AuthorizedUser findByLogin(String login);
 }

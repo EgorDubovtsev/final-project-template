@@ -15,6 +15,7 @@ public class BookMapper implements IBookMapper {
         bookDTO.setPrice(createdBookDTO.getPrice());
         bookDTO.setPublishYear(createdBookDTO.getPublishYear());
         bookDTO.setGenre(createdBookDTO.getGenre());
+
         return bookDTO;
     }
 }

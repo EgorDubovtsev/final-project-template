@@ -5,8 +5,7 @@ import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.mappers.AuthorizedUserMapper;
-import com.epam.rd.izh.repository.BookInCartRepository;
-import com.epam.rd.izh.service.Converter;
+import com.epam.rd.izh.repository.AuthorizedUserRepository;
 import com.epam.rd.izh.service.FieldChecker;
 import com.epam.rd.izh.service.UserPriorityService;
 import com.epam.rd.izh.service.UserService;
@@ -26,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Controller
@@ -41,9 +39,7 @@ public class AuthenticationController {
     @Autowired
     private UserPriorityService userPriorityService;
     @Autowired
-    private BookInCartRepository bookInCartRepository;
-    @Autowired
-    private Converter converter;
+    private AuthorizedUserRepository authorizedUserRepository;
     @Autowired
     private FieldChecker fieldChecker;
 
@@ -98,7 +94,7 @@ public class AuthenticationController {
                 .orElse(new Cookie("status", "forbidden")).getValue();
         model.addAttribute("name", login);
         try {
-            List<BookDto> booksInTheCart = bookInCartRepository.findByUserLogin(login).stream().map(bookInCart -> converter.convertToBookDto(bookInCart)).collect(Collectors.toList());
+            List<BookDto> booksInTheCart = authorizedUserRepository.findByLogin(login).getBooks();
             model.addAttribute("booksInTheCart", booksInTheCart);
         } catch (Exception ex) {
             ex.printStackTrace();

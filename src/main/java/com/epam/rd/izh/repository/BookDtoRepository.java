@@ -1,13 +1,13 @@
 package com.epam.rd.izh.repository;
 
-import com.epam.rd.izh.dto.BookDto;
+import com.epam.rd.izh.entity.Book;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface BookDtoRepository extends CrudRepository<BookDto, Long> {
-    BookDto findByName(String name);
+public interface BookDtoRepository extends CrudRepository<Book, Long> {
+    Book findByName(String name);
 
-    List<BookDto> findByNameLikeAndAuthorLikeAndGenreLikeAndPriceLessThanEqual(String name, String author, String genre, int price);
+    List<Book> findByNameLikeAndAuthorLikeAndGenreLikeAndPriceLessThanEqual(String name, String author, String genre, int price);
 
 }

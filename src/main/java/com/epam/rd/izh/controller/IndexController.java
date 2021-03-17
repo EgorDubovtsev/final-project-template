@@ -1,6 +1,5 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dto.BookDto;
 import com.epam.rd.izh.repository.AuthorizedUserRepository;
 import com.epam.rd.izh.repository.BookDtoRepository;
 import com.epam.rd.izh.service.BookService;

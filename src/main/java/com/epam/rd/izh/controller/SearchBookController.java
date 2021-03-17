@@ -1,6 +1,6 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dto.BookDto;
+import com.epam.rd.izh.entity.Book;
 import com.epam.rd.izh.dto.SearchParametersDTO;
 import com.epam.rd.izh.dto.SimpleSearchParameters;
 import com.epam.rd.izh.service.SearchService;
@@ -32,7 +32,7 @@ public class SearchBookController {
         searchParameters.setAuthor(author);
         searchParameters.setGenre(genre);
         searchParameters.setMaxPrice(maxPrice);
-        List<BookDto> bookResponse = searchService.findBookBySearchParameters(searchParameters);
+        List<Book> bookResponse = searchService.findBookBySearchParameters(searchParameters);
         try {
             return objectMapper.writeValueAsString(bookResponse);
         } catch (JsonProcessingException e) {

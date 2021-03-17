@@ -1,21 +1,21 @@
 package com.epam.rd.izh.mappers;
 
 
-import com.epam.rd.izh.dto.BookDto;
+import com.epam.rd.izh.entity.Book;
 import com.epam.rd.izh.dto.CreatedBookDTO;
 
 public class BookMapper implements IBookMapper {
 
     @Override
-    public BookDto mapFromCreatedBook(CreatedBookDTO createdBookDTO) {
-        BookDto bookDTO = new BookDto();
-        bookDTO.setAuthor(createdBookDTO.getAuthor());
-        bookDTO.setDescription(createdBookDTO.getDescription());
-        bookDTO.setName(createdBookDTO.getName());
-        bookDTO.setPrice(createdBookDTO.getPrice());
-        bookDTO.setPublishYear(createdBookDTO.getPublishYear());
-        bookDTO.setGenre(createdBookDTO.getGenre());
+    public Book mapFromCreatedBook(CreatedBookDTO createdBookDTO) {
+        Book book = new Book();
+//        bookDTO.setAuthor(createdBookDTO.getAuthor());
+        book.setDescription(createdBookDTO.getDescription());
+        book.setName(createdBookDTO.getName());
+        book.setPrice(createdBookDTO.getPrice());
+        book.setPublishYear(createdBookDTO.getPublishYear());
+        book.setGenre(createdBookDTO.getGenre());
 
-        return bookDTO;
+        return book;
     }
 }

@@ -1,6 +1,6 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dto.BookDto;
+import com.epam.rd.izh.entity.Book;
 import com.epam.rd.izh.dto.CreatedBookImpl;
 import com.epam.rd.izh.dto.RegistredUserDTO;
 import com.epam.rd.izh.entity.AuthorizedUser;
@@ -94,7 +94,7 @@ public class AuthenticationController {
                 .orElse(new Cookie("status", "forbidden")).getValue();
         model.addAttribute("name", login);
         try {
-            List<BookDto> booksInTheCart = authorizedUserRepository.findByLogin(login).getBooks();
+            List<Book> booksInTheCart = authorizedUserRepository.findByLogin(login).getBooks();
             model.addAttribute("booksInTheCart", booksInTheCart);
         } catch (Exception ex) {
             ex.printStackTrace();

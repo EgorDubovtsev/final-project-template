@@ -1,14 +1,16 @@
 package com.epam.rd.izh.service;
 
 import com.epam.rd.izh.dto.BookDto;
+import com.epam.rd.izh.entity.Book;
 
 import java.util.List;
 
 public interface BookService {
-    List<BookDto> getBooksList();
+    List<Book> getBooksList();
 
-    void addBook(BookDto book);
+    void addBook(Book book);
 
-    BookDto findByName(String name);
+    Book findByName(String name);
 
+    BookDto convertToDto(Book book);
 }

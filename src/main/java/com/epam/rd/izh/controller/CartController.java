@@ -1,6 +1,6 @@
 package com.epam.rd.izh.controller;
 
-import com.epam.rd.izh.dto.BookDto;
+import com.epam.rd.izh.entity.Book;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.repository.AuthorizedUserRepository;
 import com.epam.rd.izh.repository.BookDtoRepository;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.List;
 
 @Controller
 public class CartController {
@@ -28,18 +27,18 @@ public class CartController {
     public @ResponseBody
     boolean addToCart(@RequestParam String name, @RequestParam String login) {
         AuthorizedUser buyer = authorizedUserRepository.findByLogin(login);
-        BookDto bookDto = bookDtoRepository.findByName(name);
-        buyer.addBook(bookDto);
-        bookDto.addBuyer(buyer);//todo: check work when this is removed
-        bookDtoRepository.save(bookDto);
+        Book book = bookDtoRepository.findByName(name);
+        buyer.addBook(book);
+        book.addBuyer(buyer);
+        bookDtoRepository.save(book);
         authorizedUserRepository.save(buyer);
+
         return true;
     }
 
     @RequestMapping(value = "/api/getCountOfBooks", method = RequestMethod.GET)
     public @ResponseBody
     int getCount(@RequestParam String login) {
-        System.out.println(authorizedUserRepository.findByLogin(login).getBooks());
         return authorizedUserRepository.findByLogin(login).getBooks().size();
     }
 
@@ -47,11 +46,13 @@ public class CartController {
     public @ResponseBody
     boolean deleteBook(@RequestParam String bookName, @RequestParam String userLogin) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        BookDto bookDto = entityManager.find(BookDto.class, bookName);
+        Book book = entityManager.find(Book.class, bookName);
         AuthorizedUser authorizedUser = entityManager.find(AuthorizedUser.class, userLogin);
 
-        authorizedUser.getBooks().remove(bookDto);
-        authorizedUserRepository.save(authorizedUser);
+        entityManager.getTransaction().begin();
+        authorizedUser.getBooks().remove(book);
+        entityManager.getTransaction().commit();
+
         return true;
     }
 

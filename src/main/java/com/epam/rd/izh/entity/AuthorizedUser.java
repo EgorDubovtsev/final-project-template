@@ -1,7 +1,5 @@
 package com.epam.rd.izh.entity;
 
-import com.epam.rd.izh.dto.BookDto;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ public class AuthorizedUser implements User {
     private String role;
     private LocalDate birthdate;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<BookDto> books = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
 
     @Override
     public String getLogin() {
@@ -69,16 +67,13 @@ public class AuthorizedUser implements User {
         this.birthdate = birthdate;
     }
 
-    public List<BookDto> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
 
-    public void addBook(BookDto bookDto){
-        System.out.println("ADD BOOK BEF"+books);
-        books.add(bookDto);
-        System.out.println("ADD BOOK af"+books);
-
+    public void addBook(Book book) {
+        books.add(book);
     }
 
     @Override

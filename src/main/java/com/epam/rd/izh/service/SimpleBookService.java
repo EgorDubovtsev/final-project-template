@@ -4,7 +4,7 @@ import com.epam.rd.izh.dto.BookDto;
 import com.epam.rd.izh.entity.Book;
 import com.epam.rd.izh.entity.Author;
 import com.epam.rd.izh.repository.AuthorRepository;
-import com.epam.rd.izh.repository.BookDtoRepository;
+import com.epam.rd.izh.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,34 +13,36 @@ import java.util.List;
 @Component
 public class SimpleBookService implements BookService {
     @Autowired
-    private BookDtoRepository bookDtoRepository;
+    private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+
     @Override
     public List<Book> getBooksList() {
-        Author author1 = new Author();
-        author1.setName("First Author");
-        Book book = new Book();
-        book.setName("Book 1");
-        book.setPublishYear(123);
-        book.setPrice(123);
-        book.setGenre("Роман");
-        book.setDescription("desc");
-        book.setAuthor(author1);
-        author1.addBook(book);
-        authorRepository.save(author1);
-        bookDtoRepository.save(book);
-        return (List<Book>) bookDtoRepository.findAll();
+//        Author author1 = new Author();
+//        author1.setName("First Author");
+//        Book book = new Book();
+//        book.setName("Book 1");
+//        book.setPublishYear(123);
+//        book.setPrice(123);
+//        book.setGenre("Роман");
+//        book.setDescription("desc");
+//        book.setAuthor(author1);
+//        author1.addBook(book);
+//        authorRepository.save(author1);
+//        bookRepository.save(book);
+
+        return bookRepository.findAll();
     }
 
     @Override
     public void addBook(Book book) {
-        bookDtoRepository.save(book);
+        bookRepository.save(book);
     }
 
     @Override
     public Book findByName(String name) {
-        return bookDtoRepository.findByName(name);
+        return bookRepository.findByName(name);
     }
 
     @Override
@@ -52,6 +54,7 @@ public class SimpleBookService implements BookService {
         bookDto.setPrice(book.getPrice());
         bookDto.setPublishYear(book.getPublishYear());
         bookDto.setAuthor(book.getAuthor().getName());
+
         return bookDto;
     }
 

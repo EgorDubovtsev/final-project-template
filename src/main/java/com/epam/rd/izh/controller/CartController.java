@@ -3,7 +3,7 @@ package com.epam.rd.izh.controller;
 import com.epam.rd.izh.entity.Book;
 import com.epam.rd.izh.entity.AuthorizedUser;
 import com.epam.rd.izh.repository.AuthorizedUserRepository;
-import com.epam.rd.izh.repository.BookDtoRepository;
+import com.epam.rd.izh.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ public class CartController {
     @Autowired
     private AuthorizedUserRepository authorizedUserRepository;
     @Autowired
-    private BookDtoRepository bookDtoRepository;
+    private BookRepository bookRepository;
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
@@ -27,10 +27,10 @@ public class CartController {
     public @ResponseBody
     boolean addToCart(@RequestParam String name, @RequestParam String login) {
         AuthorizedUser buyer = authorizedUserRepository.findByLogin(login);
-        Book book = bookDtoRepository.findByName(name);
+        Book book = bookRepository.findByName(name);
         buyer.addBook(book);
         book.addBuyer(buyer);
-        bookDtoRepository.save(book);
+        bookRepository.save(book);
         authorizedUserRepository.save(buyer);
 
         return true;

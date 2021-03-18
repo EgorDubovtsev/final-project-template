@@ -2,7 +2,7 @@ package com.epam.rd.izh.service;
 
 import com.epam.rd.izh.entity.Book;
 import com.epam.rd.izh.dto.SearchParametersDTO;
-import com.epam.rd.izh.repository.BookDtoRepository;
+import com.epam.rd.izh.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class SimpleSearchService implements SearchService {
 
     @Autowired
-    private BookDtoRepository bookDtoRepository;
+    private BookRepository bookRepository;
 
     @Override
     public List<Book> findBookBySearchParameters(SearchParametersDTO searchParameters) {
@@ -20,6 +20,6 @@ public class SimpleSearchService implements SearchService {
         String bookPriceString = searchParameters.getMaxPrice();
         int bookMaxPrice = bookPriceString.equals("") ? Integer.MAX_VALUE : Integer.parseInt(bookPriceString);
 
-        return bookDtoRepository.findByNameLikeAndAuthorLikeAndGenreLikeAndPriceLessThanEqual(bookName, bookAuthor, bookGenre, bookMaxPrice);
+        return bookRepository.findByNameLikeAndAuthorNameLikeAndGenreLikeAndPriceLessThanEqual(bookName, bookAuthor, bookGenre, bookMaxPrice);
     }
 }

@@ -9,7 +9,6 @@ public class BookMapper implements IBookMapper {
     @Override
     public Book mapFromCreatedBook(CreatedBookDTO createdBookDTO) {
         Book book = new Book();
-//        bookDTO.setAuthor(createdBookDTO.getAuthor());
         book.setDescription(createdBookDTO.getDescription());
         book.setName(createdBookDTO.getName());
         book.setPrice(createdBookDTO.getPrice());

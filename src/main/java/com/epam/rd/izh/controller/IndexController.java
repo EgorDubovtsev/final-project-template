@@ -1,7 +1,7 @@
 package com.epam.rd.izh.controller;
 
 import com.epam.rd.izh.repository.AuthorizedUserRepository;
-import com.epam.rd.izh.repository.BookDtoRepository;
+import com.epam.rd.izh.repository.BookRepository;
 import com.epam.rd.izh.service.BookService;
 import com.epam.rd.izh.service.UserPriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class IndexController {
     @Autowired
     private AuthorizedUserRepository authorizedUserRepository;
     @Autowired
-    private BookDtoRepository bookDtoRepository;
+    private BookRepository bookRepository;
 
     @GetMapping("/")
     public String login(Authentication authentication, Model model,
@@ -37,10 +37,6 @@ public class IndexController {
         if (userPriorityService.checkPriority().equals("MANAGER")) {
             model.addAttribute("admin", "MANAGER");
         }
-//        if (toCart != null) {
-//            BookDto bookDto1
-//            authorizedUserRepository.findByLogin(authentication.getName()).addBook();
-//        }
         if (open != null) {
             model.addAttribute("open", open);
             model.addAttribute("openedBook", bookService.findByName(open));

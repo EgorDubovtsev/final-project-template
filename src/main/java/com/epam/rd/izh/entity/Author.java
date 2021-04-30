@@ -9,7 +9,7 @@ import java.util.List;
 public class Author {
     @Id
     private String name;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<Book> books = new ArrayList<>();
 
     public String getName() {

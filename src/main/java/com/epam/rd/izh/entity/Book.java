@@ -13,7 +13,8 @@ public class Book {
     @Id
     private String name;
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Author author;
 
     private int publishYear;
@@ -97,7 +98,8 @@ public class Book {
     public List<AuthorizedUser> getBuyers() {
         return buyers;
     }
-    public void addBuyer(AuthorizedUser authorizedUser){
+
+    public void addBuyer(AuthorizedUser authorizedUser) {
         buyers.add(authorizedUser);
     }
 

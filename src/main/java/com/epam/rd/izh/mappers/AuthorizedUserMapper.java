@@ -16,7 +16,6 @@ public class AuthorizedUserMapper implements RowMapper<AuthorizedUser>, UserMapp
     public AuthorizedUser mapRow(ResultSet resultSet, int i) throws SQLException {
         AuthorizedUser authorizedUser = new AuthorizedUser();
         authorizedUser.setName(resultSet.getString("user_name"));
-        authorizedUser.setBirthdate(resultSet.getDate("birthdate").toLocalDate());
         authorizedUser.setLogin(resultSet.getString("login"));
         authorizedUser.setPassword(resultSet.getString("password"));
         authorizedUser.setRole(resultSet.getString("role"));

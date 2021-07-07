@@ -6,115 +6,106 @@
 <html dir="ltr">
 <head>
 	<title>Book Shop</title>
-
+    <c:set var="staticRoot" value="${pageContext.request.contextPath}/resources"/>
 	<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../../js/script.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/popup.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/pagination.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/cart.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/searchBook.js"></script>
+	<script type="text/javascript" src="${staticRoot}/js/main.js"></script>
 	<style>
-         <%@include file='../../css/main.css' %>
-         <%@include file='../../css/registrationAndLogin.css' %>
+         <%@include file='../../resources/css/main.css' %>
+         <%@include file='../../resources/css/registrationAndLogin.css' %>
     </style>
 </head>
 <body>
-	<div class="wallpaper"></div>
+<div class="wallpaper" 
+	style="background:url('${staticRoot}/img/fom1.jpg') no-repeat;
+		-webkit-background-size: cover;
+    	-moz-background-size: cover;
+    	-o-background-size: cover;
+   		background-size: cover;"></div>
 	<div class="userMenu">
-		<span class="name">
-		<c:if test="${admin}">
-            <span>admin</span>
-		  </c:if>
-      ${message}
+		<span class="name" id="login">
+			 ${name}
 		</span>
-		<form action="/logout" method="post" class="exit">
-			<button>Log Out</button>
-		</form>
-	</div>
-	<a href="cart.html">
-		<div class="cart">
-			<span class="itemCouter">0</span>
-			<span class="icon-cart"></span>
+		<div class="menuButtonWrapper">
+			<c:if test="${admin != null}">
+	            <form action="/createBook" method="get" class="menuButton">
+	                <button>Создать книгу</button>
+	            </form>
+			</c:if>
+			<form action="/logout" method="post" class="menuButton">
+				<button>Выйти</button>
+			</form>
 		</div>
-	</a>
+	</div>
+		<form action="/cart" class="redirectButtonWrapper">
+            <button class="link redirectButton">
+                <span class="itemCouter" id="counter">0</span>
+                <span class="icon-cart"></span>
+            </button>
+		</form>
 	<div class="mainName">Book Shop</div>
-	<form class="search">
+	<div class="search">
 		<input type="text" placeholder="Название книги" name="search" id="searchLine">
-		<a href="#" id="searchButton">Найти</a>
-	</form>
+		<a id="searchButton">Найти</a>
+	</div>
 	<div class="filters">
 		<div class="filterColumn">
-			<label>Автор: <input type="text" name="author" class="filterField"></label>
+			<label>Автор: <input type="text" id="author" class="filterField"></label>
 		</div>
 		<div class="filterColumn">
 			<label>Жанр:
-				<select class="filterField">
-					<option selected="selected">Выберите жанр</option>
-					<option>Детектив</option>
-					<option>Роман</option>
-					<option>Драмма</option>
-					<option>Научная фантастика</option>
+				<select class="filterField" id="genre">
+					<option value="" selected="selected">Выберите жанр</option>
+					<option value="Детектив">Детектив</option>
+					<option value="Роман">Роман</option>
+					<option value="Драма">Драма</option>
+					<option value="Научная фантастика">Научная фантастика</option>
 				</select>
 			</label>
 		</div>
 		<div class="filterColumn">
-			<label>Цена до: <input type="number" name="price" class="filterField"></label>
+			<label>Цена до: <input type="text" id="price" class="filterField"></label>
 		</div>
 	</div>
-
-	<div id="windowBack" class="windowBack"></div>
-	<div id="window" class="window">
-		<div id="closeWindow" class="closeWindow">
-			<a onclick="closeWindow()" href="#">X</a>
-		</div>
-		<img class="bookPictureInWindow" src="img/book.jpg">
-		<div class="bookDescription">
-			<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			<p class="descElement">Автор: <span>Аристотель</span></p>
-			<p class="descElement">Год издания: <span>1999</span></p>
-			<p class="descElement sml">
-				Не следует, однако забывать, что начало повседневной работы по формированию позиции позволяет выполнять важные задания по разработке позиций, занимаемых участниками в отношении поставленных задач. Равным образом дальнейшее развитие различных форм деятельности играет важную роль в формировании модели развития. Не следует, однако забывать, что укрепление и развитие структуры позволяет оценить значение модели развития.
-			</p>
-			<div class="price">
-				<span>1000</span>руб.
+		<div id="windowBack" class="windowBack"></div>
+		<form  method="get" id="window" class="window">
+			<div id="closeWindow" class="closeWindow" coursor="pointer">
+				<a class="bigFont link">X</a> 
 			</div>
-			<a class="btn">Добавить в корзину</a>
-		</div>
-	</div>
+			<img class="bookPictureInWindow" src="${staticRoot}/img/book.png">
+			<div class="bookDescription">
+				<h3 id="bookNameInPopup" class="bookName"></h3>
+				<p  class="descElement">Автор: <span id="bookAuthorInPopup"></span></p>
+				<p  class="descElement">Жанр: <span id="bookGenreInPopup"></span></p>
+				<p  class="descElement">Год издания: <span id="bookPublishYearInPopup"></span></p>
+				<p id="bookDescriptionInPopup" class="descElement sml"></p>
+
+				<div class="price">
+					<span id="bookPriceInPopup"></span>руб.
+				</div>
+				<a id="addToCart" class="btn addButton">Добавить в корзину</a>
+			</div>
+		</form>
 	<div class="allBooks">
-		<div class="space"></div>
 		<div class="booksList">
 			 <c:forEach items="${booksList}" var="book">
-                <div class="book">
-                <div class="bookPictureWrapper">
-                     <img class="bookPicture" src="img/book.jpg">
-                 </div>
-                <h3 class="bookName">${book.getName()}</h3>
-                 </div>
+                	<button class="link bookEntity" name='open' value='${book.getName()}'>
+	                	<div class="book">
+			                <div class="bookPictureWrapper">
+			                     <img class="bookPicture" src="${staticRoot}/img/book.png">
+			                 </div>
+			                 <h3 class="bookName">${book.getName()}</h3>
+		                 </div>
+	                 </button>
 			 </c:forEach>
 		</div>
-	</div>
-	<div class="searchResults">
-		<h2 class="resultText">Результаты по запросу N</h2>
-		<div class="booksList">
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-			<div class="book">
-				<div class="bookPicture"></div>
-				<h3 class="bookName">Nicomachean Ethics – Aristotle</h3>
-			</div>
-		</div>
+		<div class="pagination">
+			<div class="paginationButtonsWrapper"></div>
+		</div>	
 	</div>
 </body>
 </html>

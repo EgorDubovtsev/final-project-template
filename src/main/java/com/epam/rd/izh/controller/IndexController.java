@@ -1,32 +1,44 @@
 package com.epam.rd.izh.controller;
 
-import static com.epam.rd.izh.util.StringConstants.ENG_GREETING;
-
-import com.epam.rd.izh.dto.Message;
-import com.epam.rd.izh.repository.BooksRepository;
+import com.epam.rd.izh.dao.CartDao;
+import com.epam.rd.izh.service.BookService;
+import com.epam.rd.izh.service.UserPriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class IndexController {
     @Autowired
-    private BooksRepository books;
-    public String[] array = new String[]{"Test", "test"};
+    private BookService bookService;
+    @Autowired
+    private UserPriorityService userPriorityService;
+    @Autowired
+    private CartDao cartDao;
 
     @GetMapping("/")
-    public String login(Authentication authentication, Model model) {
-        Message greetingMessage = new Message();
-        greetingMessage.setMessage(ENG_GREETING + authentication.getName());
-
-        model.addAttribute("message", greetingMessage.getMessage());
-        System.out.println(books.getBookList());
-        model.addAttribute("booksList", books.getBookList());
-
-        if (authentication.getName().equals("admin")) {/** change to role check*/
-            model.addAttribute("admin", "ADMIN");
+    public String login(Authentication authentication, Model model,
+                        @RequestParam(required = false) String open,
+                        @RequestParam(required = false) String toCart,
+                        HttpServletResponse response) {
+        model.addAttribute("name", authentication.getName());
+        model.addAttribute("booksList", bookService.getBooksList());
+        response.addCookie(new Cookie("login", authentication.getName()));
+        if (userPriorityService.checkPriority().equals("MANAGER")) {
+            model.addAttribute("admin", "MANAGER");
+        }
+        if (toCart != null) {
+            cartDao.addToCart(authentication.getName(), toCart);
+        }
+        if (open != null) {
+            model.addAttribute("open", open);
+            model.addAttribute("openedBook", bookService.findByName(open));
         }
         return "index";
     }
